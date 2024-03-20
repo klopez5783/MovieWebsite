@@ -1,0 +1,16 @@
+
+body, html {
+    height: 100%;
+  }
+
+.bgImage {
+    /* Set background image */
+    background-image: url('../../Images/Background.jpeg');
+    /* Set background size to cover the entire viewport */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

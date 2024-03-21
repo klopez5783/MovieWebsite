@@ -44,71 +44,6 @@ $movies = getMovieObjArray()
         </nav>
         </div>
 
-    
-
-        <!-- <div class="container-fluid" id="content" >
-           
-            <div class="owl-carousel ">
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title 1</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="card" >
-                <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title 2</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="card" >
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title 4</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="card" >
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title 5</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="card" >
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title 6</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="card" >
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title 7</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                <div class="card" >
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title 8</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-           
-        </div> -->
-
         <div class="container-fluid" id="content">
             <!-- Set up your HTML -->
             <div class="owl-carousel">
@@ -140,34 +75,22 @@ $movies = getMovieObjArray()
             $theatres = getTheatreObjArray()
             ?>
 
-            <!-- <div class="overflow-auto p-3 bg-light" 
-                style="max-width: 50%; max-height: 200px;"> 
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                        The current link item
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A disabled link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                </div>
-            </div>  -->
-
-
-            <div class="overflow-auto p-3 bg-light" style="max-width: 50%; max-height: 200px;"> 
-                <div class="list-group">
-                    <?php foreach ($theatres as $theatre): ?>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <?php echo $theatre->location; ?> Cinema
-                        </a>
-                    <?php endforeach; ?>
+            <div class="d-flex justify-content-evenly">
+                <div class="overflow-auto p-3 bg-light" style="max-width: 90%;"> 
+                    <div class="list-group">
+                        <?php foreach ($theatres as $theatre): ?>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <?php echo $theatre->location; ?> Cinema
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div> 
+                <div>
+                    <img src="../Images/map.jpg" alt="map" width="90%" height="90%">
                 </div>
             </div>
+
+            
 
         </div>
 
@@ -199,5 +122,129 @@ $movies = getMovieObjArray()
         </script>
 
     </body>
+
+    <!-- Footer -->
+<footer class="text-center text-lg-start bg-body-tertiary text-muted mt-4">
+  <!-- Section: Social media -->
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <!-- Left -->
+    <div class="me-5 d-none d-lg-block">
+      <span>Get connected with us on social networks:</span>
+    </div>
+    <!-- Left -->
+
+    <!-- Right -->
+    <div>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>Company name
+          </h6>
+          <p>
+            Here you can use rows and columns to organize your footer content. Lorem ipsum
+            dolor sit amet, consectetur adipisicing elit.
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Products
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">Angular</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">React</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Vue</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Laravel</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Useful links
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">Pricing</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Settings</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Orders</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Help</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            info@example.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+          <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2021 Copyright:
+    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
 </html>
 

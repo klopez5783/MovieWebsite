@@ -14,3 +14,18 @@ body, html {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+
+#content {
+    background: #ffffff;
+    border: 4px #29293d solid;
+    /* height: 35%; */
+    width: 90%;
+    margin-top: 5%
+}
+
+#navBar{
+    width: 95%;
+    margin: auto 10px auto 0px;
+}
+

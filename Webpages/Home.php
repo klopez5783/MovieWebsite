@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <?php include 'HeaderFiles/HeaderTags.php';?>
-    <!-- <link rel="stylesheet" href="/HeaderFiles/PageStyles.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="HeaderFiles/PageStyles.css"> -->
+    
 
     <style>
         .loginForm{
@@ -33,6 +34,8 @@
         
 
     </style>
+
+  <link rel="stylesheet" type="text/css" href="HeaderFiles/PageStyles.css">
 
 </head>
 
@@ -109,12 +112,12 @@ $movies = getMovieObjArray()
                             <img src="..." class="card-img-top" alt="Movie Poster"> <!-- Update the src attribute with the actual movie poster image -->
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $movie->movie_name; ?></h5> <!-- Display movie name -->
-                                <p class="card-text">Director: <?php echo $movie->Director; ?></p> <!-- Display director -->
+                                <p class="card-text Test">Director: <?php echo $movie->Director; ?></p> <!-- Display director -->
                                 <p class="card-text">Actors: <?php echo $movie->actors; ?></p> <!-- Display actors -->
                                 <p class="card-text">Release Date: <?php echo $movie->release_date; ?></p> <!-- Display release date -->
                                 <p class="card-text">Genre: <?php echo $movie->genre; ?></p> <!-- Display genre -->
                                 <p class="card-text">Rating: <?php echo $movie->rating; ?></p> <!-- Display rating -->
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <a href="#" class="btn buttonColor ">Go somewhere</a>
                             </div>
                         </div>
                     <?php

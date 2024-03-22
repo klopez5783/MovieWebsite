@@ -27,7 +27,15 @@ body, html {
     width: 95%;
     margin: auto 10px auto 0px;
 }
+
 .buttonColor{
-    color: #F05941;
+    color: white;
+    background-color: #F05941;
+}
+
+.buttonColor:hover{
+    color: #f84a2f;
     background-color: #22092C;
 }
+
+

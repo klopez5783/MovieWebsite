@@ -15,14 +15,13 @@
     
 
     <style>
-        .loginForm{
+        .loginForm , .signupForm{
             border: none;
             border-bottom: 1px solid black;
             outline: none;
         }
         /* Define bigger-input class */
         .bigger-input {
-           
             font-size: 16px; /* Adjust the font size as needed */
         }
 
@@ -73,37 +72,75 @@ $movies = getMovieObjArray()
 
 
         <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content" id="loginModalContent">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold"><i class="fa-solid fa-user "></i> Login</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <div class="m-5">
-                            <i class="fa-solid fa-envelope fa-xl"></i>
-                            <input type="text" id="LoginEmail" class="loginForm bigger-input" name="LoginEmail" placeholder="Email">
-                        </div>
-                        <div class="m-5">
-                            <i class="fa-solid fa-lock fa-xl"></i>
-                            <input type="text" id="LoginPassword" class="loginForm bigger-input" name="LoginPassword" placeholder="Password">
-                            <div class="d-flex justify-content-end">
-                                <a href="" class="mt-2">Forgot Password?</a>
-                            </div>
-                        </div>
-                        
+          <div class="modal-dialog">
+              <div class="modal-content" id="loginModalContent">
+                  <div class="modal-header text-center">
+                      <h4 class="modal-title w-100 font-weight-bold"><i class="fa-solid fa-user "></i> Login</h4>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body text-center">
+                      <form id="loginForm" action="../Processes/processLogin.php" method="POST">
+                          <div class="m-4">
+                              <i class="fa-solid fa-envelope fa-xl"></i>
+                              <input type="text" id="LoginEmail" class="loginForm bigger-input" name="LoginEmail" placeholder="Email">
+                          </div>
+                          <div class="m-4">
+                              <i class="fa-solid fa-lock fa-xl"></i>
+                              <input type="password" id="LoginPassword" class="loginForm bigger-input" name="LoginPassword" placeholder="Password">
+                              <div class="d-flex justify-content-end">
+                                  <a href="" class="mt-2">Forgot Password?</a>
+                              </div>
+                          </div>
+                  </div>
+                  <div class="modal-footer d-flex justify-content-center">
+                      <button type="submit" class="btn buttonColor">Login</button>
+                      <button data-bs-toggle="modal" data-bs-target="#signupModal" type="button" class="btn buttonColor"><i class="fa-solid fa-user-plus fa-lg"></i> Sign Up</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
 
+      <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="signupModalContent">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold"><i class="fa-solid fa-user-plus"></i> Sign Up</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <form id="signupForm" action="../Processes/processSignup.php" method="POST">
+                        <div class="m-4">
+                            <i class="fa-solid fa-envelope fa-xl"></i>
+                            <input type="text" id="SignupEmail" class="signupForm bigger-input" name="SignupEmail" placeholder="Email">
+                        </div>
+                        <div class="m-4">
+                            <i class="fa-solid fa-lock fa-xl"></i>
+                            <input type="password" id="SignupPassword" class="signupForm bigger-input" name="SignupPassword" placeholder="Password">
+                        </div>
+                        <div class="m-4">
+                            <i class="fa-solid fa-phone fa-xl"></i>
+                            <input type="text" id="SignupPhoneNumber" class="signupForm bigger-input" name="SignupPhoneNumber" placeholder="Phone Number">
+                        </div>
+                        <div class="m-4">
+                            <i class="fa-solid fa-user fa-xl"></i>
+                            <input type="text" id="SignupCustomerName" class="signupForm bigger-input" name="SignupCustomerName" placeholder="Customer Name">
+                        </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <button type="button" class="btn buttonColor">Login</button>
-                    </div>
+                        <button type="submit" class="btn buttonColor">Submit Sign Up</button>
+                        <button data-bs-toggle="modal" data-bs-target="#loginModal" type="button" class="btn btn-success"><i class="fa-solid fa-right-to-bracket fa-lg"></i> Login</button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
+
+
 
             <div class="container-fluid" id="content">
                 <!-- Set up your HTML -->
-                <div class="owl-carousel">
+                <div class="owl-carousel mt-3">
                     <?php
                     // Loop through the array of movie objects
                     foreach ($movies as $movie) {

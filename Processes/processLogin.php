@@ -29,8 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             session_start();
             $_SESSION['UserLoggedIn'] = True;
             $_SESSION['UserId'] = $row[0];
-            echo htmlspecialchars("Hi $row[4], you are now logged in.");
-            header("Location: " . BASE_PATH . "/webpages/Home.php");
+            $_SESSION['UserName'] = $row[4];
+            header("Location: /MovieWebsite/webpages/Home.php");
            exit();
         }else {
             // Incorrect password

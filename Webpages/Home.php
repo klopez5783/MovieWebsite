@@ -10,7 +10,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <?php include 'HeaderFiles/HeaderTags.php';?>
+    <?php include 'HeaderFiles/HeaderTags.php';
+    session_start();
+    if(isset($_SESSION['UserLoggedIn']) && isset($_SESSION['UserId']) ){
+      $UserName = $_SESSION['UserLoggedIn'];
+      $UserID = $_SESSION['UserId'];
+      $UserName = $_SESSION['UserName'];
+      echo 'session is active';
+    }
+    ?>
     <!-- <link rel="stylesheet" type="text/css" href="HeaderFiles/PageStyles.css"> -->
     
 
@@ -62,7 +70,17 @@ $movies = getMovieObjArray()
                             <a class="nav-link" href="#">Pricing</a>
                         </div>
                         <div class="navbar-nav ms-auto" id="loginDiv">
-                            <button data-bs-toggle="modal" data-bs-target="#loginModal" type="button" class="btn btn-success"><i class="fa-solid fa-right-to-bracket fa-lg"></i> Login</button>
+                          
+                        <?php 
+                          if(isset($_SESSION['UserLoggedIn']) && isset($_SESSION['UserId']) ){
+                            echo '<form action="../Processes/processLogout.php">
+                            <button data-bs-target="#loginModal" type="submit" class="btn btn-danger"><i class="fa-solid fa-right-from-bracket fa-lg"></i> Logout</button>
+                            </form>';
+                          }
+                          else{
+                            echo '<button data-bs-toggle="modal" data-bs-target="#loginModal" type="button" class="btn btn-success"><i class="fa-solid fa-right-to-bracket fa-lg"></i> Login</button>';
+                          }
+                          ?>
                         </div>
                     </div>
                     
@@ -146,7 +164,7 @@ $movies = getMovieObjArray()
                     foreach ($movies as $movie) {
                         ?>
                         <div class="card">
-                            <img src="..." class="card-img-top" alt="Movie Poster"> <!-- Update the src attribute with the actual movie poster image -->
+                            <img src="" class="card-img-top" alt="Movie Poster"> <!-- Update the src attribute with the actual movie poster image -->
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $movie->movie_name; ?></h5> <!-- Display movie name -->
                                 <p class="card-text Test">Director: <?php echo $movie->Director; ?></p> <!-- Display director -->

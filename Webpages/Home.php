@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <?php include 'HeaderFiles/HeaderTags.php';
+    include '../Processes/SignUpFunctions.php';
     session_start();
     if(isset($_SESSION['UserLoggedIn']) && isset($_SESSION['UserId']) ){
       $UserName = $_SESSION['UserLoggedIn'];
@@ -44,6 +45,31 @@
 
   <link rel="stylesheet" type="text/css" href="HeaderFiles/PageStyles.css">
 
+  <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function(event) {
+                const email = document.getElementById("SignupEmail");
+                const password = document.getElementById("SignupPassword");
+                const confirmPassword = document.getElementById("ConfirmSignupPassword");
+                const submitButton = document.getElementById("SubmitSignup");
+
+                email.addEventListener("input", () => {
+                    if (!email.validity.valid) {
+                        email.setCustomValidity("Please enter a valid email address");
+                    } else {
+                        email.setCustomValidity("");
+                    }
+                });
+
+                confirmPassword.addEventListener("input", () => {
+                    if (password.value !== confirmPassword.value) {
+                        confirmPassword.setCustomValidity("Passwords do not match");
+                    } else {
+                        confirmPassword.setCustomValidity("");
+                    }
+                });
+            });
+    </script>
+
 </head>
 
 <?php
@@ -73,15 +99,17 @@ $movies = getMovieObjArray()
                           
                         <?php 
                           if(isset($_SESSION['UserLoggedIn']) && isset($_SESSION['UserId']) ){
-                            echo '<form action="../Processes/processLogout.php">
+                            echo '<form action="../Processes/processLogout.php"
+                            style="display:flex;">Welcome Back '.$UserName. '
                             <button data-bs-target="#loginModal" type="submit" class="btn btn-danger"><i class="fa-solid fa-right-from-bracket fa-lg"></i> Logout</button>
                             </form>';
                           }
                           else{
-                            echo '<button data-bs-toggle="modal" data-bs-target="#loginModal" type="button" class="btn btn-success"><i class="fa-solid fa-right-to-bracket fa-lg"></i> Login</button>';
+                            echo '<div><button data-bs-toggle="modal" data-bs-target="#loginModal" type="button" class="btn btn-success"><i class="fa-solid fa-right-to-bracket fa-lg"></i> Login</button></div>';
                           }
                           ?>
                         </div>
+                        
                     </div>
                     
                 </div>
@@ -130,24 +158,28 @@ $movies = getMovieObjArray()
                     <form id="signupForm" action="../Processes/processSignup.php" method="POST">
                         <div class="m-4">
                             <i class="fa-solid fa-envelope fa-xl"></i>
-                            <input type="text" id="SignupEmail" class="signupForm bigger-input" name="SignupEmail" placeholder="Email">
+                            <input type="email" id="SignupEmail" class="signupForm bigger-input" name="SignupEmail" placeholder="Email" required>
                         </div>
                         <div class="m-4">
                             <i class="fa-solid fa-lock fa-xl"></i>
-                            <input type="password" id="SignupPassword" class="signupForm bigger-input" name="SignupPassword" placeholder="Password">
+                            <input type="password" id="SignupPassword" class="signupForm bigger-input" name="SignupPassword" placeholder="Password" required>
+                        </div>
+                        <div class="m-4">
+                            <i class="fa-solid fa-lock fa-xl"></i>
+                            <input type="password" id="ConfirmSignupPassword" class="signupForm bigger-input" name="ConfirmSignupPassword" placeholder="Confirm Password" required>
                         </div>
                         <div class="m-4">
                             <i class="fa-solid fa-phone fa-xl"></i>
-                            <input type="text" id="SignupPhoneNumber" class="signupForm bigger-input" name="SignupPhoneNumber" placeholder="Phone Number">
+                            <input type="tel" id="SignupPhoneNumber" class="signupForm bigger-input" name="SignupPhoneNumber" placeholder="Phone Number" required>
                         </div>
                         <div class="m-4">
                             <i class="fa-solid fa-user fa-xl"></i>
-                            <input type="text" id="SignupCustomerName" class="signupForm bigger-input" name="SignupCustomerName" placeholder="Customer Name">
+                            <input type="text" id="SignupCustomerName" class="signupForm bigger-input" name="SignupCustomerName" placeholder="Customer Name" required>
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <button type="submit" class="btn buttonColor">Submit Sign Up</button>
-                        <button data-bs-toggle="modal" data-bs-target="#loginModal" type="button" class="btn btn-success"><i class="fa-solid fa-right-to-bracket fa-lg"></i> Login</button>
+                        <button data-bs-toggle="modal" data-bs-target="#loginModal" type="button" id="SubmitSignup" class="btn btn-success"><i class="fa-solid fa-right-to-bracket fa-lg"></i> Login</button>
                     </form>
                 </div>
             </div>
@@ -157,7 +189,6 @@ $movies = getMovieObjArray()
 
 
             <div class="container-fluid" id="content">
-                <!-- Set up your HTML -->
                 <div class="owl-carousel mt-3">
                     <?php
                     // Loop through the array of movie objects

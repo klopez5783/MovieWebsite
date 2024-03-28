@@ -71,151 +71,17 @@
 
 </head>
 
-<?php
-include '../Objects/Movie/MovieObj.php';
-include '../Objects/Movie/MovieFunctions.php';
-$movies = getMovieObjArray()
-?>
+
 
 
 
     <body class="bgImage">
 
-        <div class="mx-auto" id="navBar">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light mx-auto" id="navBar">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Navbar</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            <a class="nav-link" href="#">Features</a>
-                            <a class="nav-link" href="#">Pricing</a>
-                        </div>
-                        <div class="navbar-nav ms-auto" id="loginDiv">
-                          
-                        <?php 
-                          if(isset($_SESSION['UserLoggedIn']) && isset($_SESSION['UserId']) ){
-                            echo '<a class="nav-link" href="Tables.php">Tables</a>
-                            <form action="../Processes/processLogout.php"
-                            style="display:flex;">Welcome Back '.$UserName. '
-                            <button data-bs-target="#loginModal" type="submit" class="btn btn-danger"><i class="fa-solid fa-right-from-bracket fa-lg"></i> Logout</button>
-                            </form>';
-                          }
-                          else{
-                            echo '<div><button data-bs-toggle="modal" data-bs-target="#loginModal" type="button" class="btn btn-success"><i class="fa-solid fa-right-to-bracket fa-lg"></i> Login</button></div>';
-                          }
-                          ?>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-            </nav>
-        </div>
+        <?php include 'Partials/NavBar.html' ?> 
 
 
-        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-              <div class="modal-content" id="loginModalContent">
-                  <div class="modal-header text-center">
-                      <h4 class="modal-title w-100 font-weight-bold"><i class="fa-solid fa-user "></i> Login</h4>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body text-center">
-                      <form id="loginForm" action="../Processes/processLogin.php" method="POST">
-                          <div class="m-4">
-                              <i class="fa-solid fa-envelope fa-xl"></i>
-                              <input type="text" id="LoginEmail" class="loginForm bigger-input" name="LoginEmail" placeholder="Email">
-                          </div>
-                          <div class="m-4">
-                              <i class="fa-solid fa-lock fa-xl"></i>
-                              <input type="password" id="LoginPassword" class="loginForm bigger-input" name="LoginPassword" placeholder="Password">
-                              <div class="d-flex justify-content-end">
-                                  <a href="" class="mt-2">Forgot Password?</a>
-                              </div>
-                          </div>
-                  </div>
-                  <div class="modal-footer d-flex justify-content-center">
-                      <button type="submit" class="btn buttonColor">Login</button>
-                      <button data-bs-toggle="modal" data-bs-target="#signupModal" type="button" class="btn buttonColor"><i class="fa-solid fa-user-plus fa-lg"></i> Sign Up</button>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" id="signupModalContent">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold"><i class="fa-solid fa-user-plus"></i> Sign Up</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <form id="signupForm" action="../Processes/processSignup.php" method="POST">
-                        <div class="m-4">
-                            <i class="fa-solid fa-envelope fa-xl"></i>
-                            <input type="email" id="SignupEmail" class="signupForm bigger-input" name="SignupEmail" placeholder="Email" required>
-                        </div>
-                        <div class="m-4">
-                            <i class="fa-solid fa-lock fa-xl"></i>
-                            <input type="password" id="SignupPassword" class="signupForm bigger-input" name="SignupPassword" placeholder="Password" required>
-                        </div>
-                        <div class="m-4">
-                            <i class="fa-solid fa-lock fa-xl"></i>
-                            <input type="password" id="ConfirmSignupPassword" class="signupForm bigger-input" name="ConfirmSignupPassword" placeholder="Confirm Password" required>
-                        </div>
-                        <div class="m-4">
-                            <i class="fa-solid fa-phone fa-xl"></i>
-                            <input type="tel" id="SignupPhoneNumber" class="signupForm bigger-input" name="SignupPhoneNumber" placeholder="Phone Number" required>
-                        </div>
-                        <div class="m-4">
-                            <i class="fa-solid fa-user fa-xl"></i>
-                            <input type="text" id="SignupCustomerName" class="signupForm bigger-input" name="SignupCustomerName" placeholder="Customer Name" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="submit" class="btn buttonColor">Submit Sign Up</button>
-                        <button data-bs-toggle="modal" data-bs-target="#loginModal" type="button" id="SubmitSignup" class="btn btn-success"><i class="fa-solid fa-right-to-bracket fa-lg"></i> Login</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-            <div class="container-fluid" id="content">
-                <div class="owl-carousel mt-3">
-                    <?php
-                    // Loop through the array of movie objects
-                    foreach ($movies as $movie) {
-                        ?>
-                        <div class="card">
-                            <img src="../Images/<?php echo $movie->movie_name; ?>.jpg" class="card-img-top" alt="Movie Poster"> <!-- Update the src attribute with the actual movie poster image -->
-                            <div class="card-body">
-                                <div class="d-flex justify-content-center">
-                                  <h5 class="card-title mx-auto"><?php echo $movie->movie_name; ?></h5> <!-- Display movie name -->
-                                </div>
-                                <div>
-                                  <div style="display:flex;">
-                                    <p class="">Genre: <?php echo $movie->genre; ?></p> <!-- Display genre -->
-                                    <p class="">Rating: <?php echo $movie->rating; ?></p> <!-- Display rating -->
-                                  </div>
-                                  <p class="">Release Date: <?php echo $movie->release_date; ?></p> <!-- Display release date -->
-                                </div>
-                                <a href="#" class="btn buttonColor ">Go somewhere</a>
-                            </div>
-                        </div>
-                    <?php
-                    }
-                    ?>
-            </div>
-
-
+        <?php include 'Partials/OwlCarousel.php' ?>
+<!--             
             <?php
             include '../Objects/Theatre/TheatreObj.php';
             include '../Objects/Theatre/TheatreFunctions.php';
@@ -235,37 +101,13 @@ $movies = getMovieObjArray()
                 <div>
                     placeholder
                 </div>
-            </div>
+            </div> -->
 
             
 
         </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-        <script>
-            $(document).ready(function(){
-                $('.owl-carousel').owlCarousel({
-                    stagePadding: 50,
-                    loop:true,
-                    margin:10,
-                    nav:true,
-                    responsive:{
-                        0:{
-                            items:1
-                        },
-                        600:{
-                            items:3
-                        },
-                        1000:{
-                            items:5
-                        }
-                    }
-                })
-            });
-        </script>
+        
 
     </body>
 

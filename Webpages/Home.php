@@ -195,14 +195,18 @@ $movies = getMovieObjArray()
                     foreach ($movies as $movie) {
                         ?>
                         <div class="card">
-                            <img src="" class="card-img-top" alt="Movie Poster"> <!-- Update the src attribute with the actual movie poster image -->
+                            <img src="../Images/<?php echo $movie->movie_name; ?>.jpg" class="card-img-top" alt="Movie Poster"> <!-- Update the src attribute with the actual movie poster image -->
                             <div class="card-body">
-                                <h5 class="card-title"><?php echo $movie->movie_name; ?></h5> <!-- Display movie name -->
-                                <p class="card-text Test">Director: <?php echo $movie->Director; ?></p> <!-- Display director -->
-                                <p class="card-text">Actors: <?php echo $movie->actors; ?></p> <!-- Display actors -->
-                                <p class="card-text">Release Date: <?php echo $movie->release_date; ?></p> <!-- Display release date -->
-                                <p class="card-text">Genre: <?php echo $movie->genre; ?></p> <!-- Display genre -->
-                                <p class="card-text">Rating: <?php echo $movie->rating; ?></p> <!-- Display rating -->
+                                <div class="d-flex justify-content-center">
+                                  <h5 class="card-title mx-auto"><?php echo $movie->movie_name; ?></h5> <!-- Display movie name -->
+                                </div>
+                                <div>
+                                  <div style="display:flex;">
+                                    <p class="">Genre: <?php echo $movie->genre; ?></p> <!-- Display genre -->
+                                    <p class="">Rating: <?php echo $movie->rating; ?></p> <!-- Display rating -->
+                                  </div>
+                                  <p class="">Release Date: <?php echo $movie->release_date; ?></p> <!-- Display release date -->
+                                </div>
                                 <a href="#" class="btn buttonColor ">Go somewhere</a>
                             </div>
                         </div>

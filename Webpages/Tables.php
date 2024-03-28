@@ -76,7 +76,7 @@
         <div class="mx-auto" id="navBar">
             <nav class="navbar navbar-expand-lg navbar-light bg-light mx-auto" id="navBar">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Navbar</a>
+                    <a class="navbar-brand" href="Home.php">Navbar</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -197,6 +197,8 @@
                 
 
                 if (!empty($movies)) {
+
+                    echo '<a href="addMovie.php" class="btn btn-primary float-end me-3">Add Movie</a>';
                     echo '<table class="table">';
                     echo '<thead>';
                     echo '<tr>';
@@ -240,6 +242,7 @@
                 
                 
                 if (!empty($theaters)) {
+                  echo '<a href="addLocation.php" class="btn btn-primary float-end me-3">Add Location</a>';
                     echo '<table class="table">';
                     echo '<thead>';
                     echo '<tr>';
@@ -281,6 +284,7 @@
                 $Customers = getCustomerObjArray();
                 
                 if (!empty($Customers)) {
+                  echo '<a href="addCustomer.php" class="btn btn-primary float-end me-3">Add Customer</a>';
                     echo '<table class="table">';
                     echo '<thead>';
                     echo '<tr>';

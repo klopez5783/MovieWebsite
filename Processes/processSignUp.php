@@ -1,28 +1,34 @@
 <?php
 define('BASE_PATH', dirname(__DIR__));
 include_once BASE_PATH . '/Configuration/DBconnect.php';
+include 'SignUpFunctions.php';
 
  // Access the global $conn variable
  global $conn;
-
-
-// // Get user input from command line
-// $email = readline("Enter email: ");
-// $password = readline("Enter password: ");
-// $phoneNumber = readline("Enter phone number (optional): ");
-// $customerName = readline("Enter customer name: ");
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if (isset($_POST['SignupCustomerName']) && 
     isset($_POST['SignupPhoneNumber']) &&
     isset($_POST['SignupPassword']) &&
-    isset($_POST['SignupEmail']) ) {
+    isset($_POST['SignupEmail']) &&
+    isset($_POST['ConfirmSignupPassword']) )
+     {
         $password = $_POST['SignupPassword'];
         $customerName = $_POST['SignupCustomerName'];
         $email = $_POST['SignupEmail'];
         $phoneNumber = $_POST['SignupPhoneNumber'];
+        $passwordConfirm = $_POST['ConfirmSignupPassword'];
+
+        //Validate User Input
+
+        if($password == $passwordConfirm ){
+            $fail = validate_username($customerName);
+            $fail .= validate_password($password);
+            $fail .= validate_email($email);
+            if($fail != "") die($fail);
+        }
+
         //Hash and salt password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         try {
@@ -37,10 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Execute the statement
             $stmt->execute();
-            printf("%d row inserted.\n", $stmt->affected_rows);
+            header("Location: /MovieWebsite/webpages/Home.php");
 
-        
-            echo "User added successfully.\n";
         } catch (mysqli_sql_exception $e) {
             echo "Error: " . $e->getMessage() . "\n";
         }

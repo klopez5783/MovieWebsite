@@ -32,14 +32,6 @@
         #loginModalContent{
             width: 350px;
         }
-        
-        /* CSS for larger screens */
-      /* @media screen and (min-width: 1440) {
-          .owl-item {
-              width: 240px; 
-              height: 565px;
-          }
-      } */
 
     </style>
 

@@ -65,6 +65,191 @@
 
 </head>
 
+
+<!-- Add Customer Modal -->
+<div class="modal fade" id="AddCustomerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-user-plus fa-xl"></i> Add Customer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <form class="row g-3" method="post" action="add_customer.php">
+                <div class="col-md-4">
+                    <label for="validationServer01" class="form-label">Customer Name</label>
+                    <input type="text" class="form-control" id="validationServer01" name="customerName" required>
+                    <div class="valid-feedback">
+                    Looks good!
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="validationServer02" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="validationServer02" name="email" required>
+                    <div class="valid-feedback">
+                    Looks good!
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="validationServer03" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="validationServer03" name="phoneNumber">
+                    <div class="valid-feedback">
+                    Looks good!
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationServer04" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="validationServer04" name="password" required>
+                    <div class="valid-feedback">
+                    Looks good!
+                    </div>
+                </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Add Location Modal -->
+<div class="modal fade" id="AddLocationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-location-dot fa-xl"></i> Add Location</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form class="row g-3 needs-validation" novalidate>
+            <div class="col-md-4">
+                <label for="validationServer01" class="form-label">Theater Name</label>
+                <input type="text" class="form-control" id="validationServer01" name="theaterName" required>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="col-md-4">
+                <label for="validationServer02" class="form-label">Location</label>
+                <input type="text" class="form-control" id="validationServer02" name="location" required>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="col-md-4">
+                <label for="validationServer03" class="form-label">State</label>
+                <select class="form-select" id="validationServer03" name="state" required>
+                    <option value="" disabled selected>Select State</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                </select>
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Movie Modal -->
+<div class="modal fade" id="AddMovieModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-film fa-xl"></i> Add Movie</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form class="row g-3 needs-validation" action="add_movie.php" method="POST" novalidate>
+            <div class="col-md-6">
+                <label for="movieName" class="form-label">Movie Name</label>
+                <input type="text" class="form-control" id="movieName" name="movieName" required>
+                <div class="invalid-feedback">
+                    Please provide a movie name.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="actors" class="form-label">Actors</label>
+                <input type="text" class="form-control" id="actors" name="actors">
+            </div>
+            <div class="col-md-6">
+                <label for="director" class="form-label">Director</label>
+                <input type="text" class="form-control" id="director" name="director">
+            </div>
+            <div class="col-md-6">
+                <label for="releaseDate" class="form-label">Release Date</label>
+                <input type="date" class="form-control" id="releaseDate" name="releaseDate">
+            </div>
+            <div class="col-md-6">
+                <label for="genre" class="form-label">Genre</label>
+                <input type="text" class="form-control" id="genre" name="genre">
+            </div>
+            <div class="col-md-6">
+                <label for="ratings" class="form-label">Ratings</label>
+                <input type="number" class="form-control" id="ratings" name="ratings" step="0.1" min="0" max="10">
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
     <body class="bgImage">
 
     <?php include 'Partials/NavBar.html' ?> 
@@ -87,7 +272,7 @@
 
                 if (!empty($movies)) {
 
-                    echo '<a href="addMovie.php" class="btn btn-primary float-end me-3">Add Movie</a>';
+                    echo '<a href="addMovie.php" class="btn btn-primary float-end me-3" data-bs-toggle="modal" data-bs-target="#AddMovieModal" >Add Movie</a>';
                     echo '<table class="table">';
                     echo '<thead>';
                     echo '<tr>';
@@ -131,7 +316,7 @@
                 
                 
                 if (!empty($theaters)) {
-                  echo '<a href="addLocation.php" class="btn btn-primary float-end me-3">Add Location</a>';
+                  echo '<a href="addLocation.php" class="btn btn-primary float-end me-3" data-bs-toggle="modal" data-bs-target="#AddLocationModal" >Add Location</a>';
                     echo '<table class="table">';
                     echo '<thead>';
                     echo '<tr>';
@@ -173,7 +358,7 @@
                 $Customers = getCustomerObjArray();
                 
                 if (!empty($Customers)) {
-                  echo '<a href="addCustomer.php" class="btn btn-primary float-end me-3">Add Customer</a>';
+                  echo '<a href="addCustomer.php" class="btn btn-primary float-end me-3" data-bs-toggle="modal" data-bs-target="#AddCustomerModal" >Add Customer</a>';
                     echo '<table class="table">';
                     echo '<thead>';
                     echo '<tr>';

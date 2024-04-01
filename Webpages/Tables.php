@@ -63,7 +63,60 @@
             });
     </script>
 
+
+<script>
+function deleteRecord(uniqueId, tableName, columnName) {
+    // Send data via AJAX to the PHP script
+    $.ajax({
+        type: "POST",
+        url: "../Processes/deleteRecord.php", // PHP script to set session
+        data: {
+            unique_id: uniqueId,
+            table_name: tableName,
+            column_name: columnName
+        },
+        success: function(response) {
+            console.log("Response from php file : " + response);
+            $('#DeleteRecordModal'+uniqueId).modal('hide');
+            $('#deleteSuccessModal').modal('show'); // Show the success modal
+        },
+        error: function(xhr, status, error) {
+            // Handle error if needed
+            console.error("Error:", error);
+            $('#deleteErrorModal .modal-body').text(response.trim()); // Set the error message in the modal
+            $('#deleteErrorModal').modal('show'); // Show the error modal
+        }
+    });
+    
+}
+
+
+function refreshPage() {
+    window.location.reload();
+}
+
+</script>
+
 </head>
+
+<!-- Delete Success Modal -->
+<div class="modal fade" id="deleteSuccessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Record deleted successfully.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="refreshPage()" >Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- Add Customer Modal -->
@@ -337,11 +390,29 @@
                         echo '<td><a href="edit_theater.php?id=' . $theater->theatre_id . '">Edit</a></td>';
                         echo '<td>';
                         echo '<form method="post" action="delete_theater.php">';
-                        echo '<input type="hidden" name="delete_id" value="' . $theater->theatre_id . '">';
-                        echo '<input type="submit" name="delete" value="Delete" class="btn btn-danger">';
+                        echo '<input type="hidden" name="deleteID" value="' . $theater->theatre_id . '">';
+                        echo '<input type="hidden" name="table_name" value="theater">';
+                        echo '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteRecordModal' . $theater->theatre_id . '" >Delete</button>';
                         echo '</form>';
                         echo '</td>';
                         echo '</tr>';
+
+                        echo '<!-- Modal -->
+                        <div class="modal fade" id="DeleteRecordModal' . $theater->theatre_id . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="text-center"><i class="fa-regular fa-circle-xmark fa-4x" style="color: #f05151;"></i></div>
+                                        <h4 class="text-center mt-3" >Are you sure you want to delete this record? This cannot be undone.</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" onClick="deleteRecord(' . $theater->theatre_id . ', &quot;theater&quot;, &quot;theater_id&quot;)">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        ';
                     }
                     echo '</tbody>';
                     

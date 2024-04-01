@@ -349,12 +349,25 @@ function refreshPage() {
                         echo '<td>' . $movie->release_date . '</td>';
                         echo '<td><a href="edit_movie.php?id=' . $movie->Movie_ID . '">Edit</a></td>';
                         echo '<td>';
-                        echo '<form method="post" action="delete_movie.php">';
-                        echo '<input type="hidden" name="delete_id" value="' . $movie->Movie_ID . '">';
-                        echo '<input type="submit" name="delete" value="Delete" class="btn btn-danger">';
-                        echo '</form>';
+                        echo '<input type="button" name="delete" value="Delete" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteRecordModal' . $movie->Movie_ID . '"  >';
                         echo '</td>';
                         echo '</tr>';
+                        echo '<!-- Modal -->
+                        <div class="modal fade" id="DeleteRecordModal' . $movie->Movie_ID . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="text-center"><i class="fa-regular fa-circle-xmark fa-4x" style="color: #f05151;"></i></div>
+                                        <h4 class="text-center mt-3" >Are you sure you want to delete this record? This cannot be undone.</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" onClick="deleteRecord(' . $movie->Movie_ID . ', &quot;Movies&quot;, &quot;Movie_ID&quot;)">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        ';
                     }
                     echo '</tbody>';
                     
@@ -389,11 +402,9 @@ function refreshPage() {
                         echo '<td>' . $theater->location . '</td>';
                         echo '<td><a href="edit_theater.php?id=' . $theater->theatre_id . '">Edit</a></td>';
                         echo '<td>';
-                        echo '<form method="post" action="delete_theater.php">';
                         echo '<input type="hidden" name="deleteID" value="' . $theater->theatre_id . '">';
                         echo '<input type="hidden" name="table_name" value="theater">';
                         echo '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteRecordModal' . $theater->theatre_id . '" >Delete</button>';
-                        echo '</form>';
                         echo '</td>';
                         echo '</tr>';
 
@@ -451,12 +462,25 @@ function refreshPage() {
                         echo '<td>' . $customer->phone_number . '</td>';
                         echo '<td><a href="edit_customer.php?id=' . $customer->Customer_ID . '">Edit</a></td>';
                         echo '<td>';
-                        echo '<form method="post" action="delete_customer.php">';
-                        echo '<input type="hidden" name="delete_id" value="' . $customer->Customer_ID . '">';
-                        echo '<input type="submit" name="delete" value="Delete" class="btn btn-danger">';
-                        echo '</form>';
+                        echo '<button type="button" name="delete" value="Delete" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteRecordModal' . $customer->Customer_ID . '"  >Delete</delete>';
                         echo '</td>';
                         echo '</tr>';
+                        echo '<!-- Modal -->
+                        <div class="modal fade" id="DeleteRecordModal' . $customer->Customer_ID . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="text-center"><i class="fa-regular fa-circle-xmark fa-4x" style="color: #f05151;"></i></div>
+                                        <h4 class="text-center mt-3" >Are you sure you want to delete this record? This cannot be undone.</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" onClick="deleteRecord(' . $customer->Customer_ID . ', &quot;Customers&quot;, &quot;Customer_ID&quot;)">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        ';
                     }
                     echo '</tbody>';
                     
@@ -468,32 +492,6 @@ function refreshPage() {
             ?>
                 </div>
             </div>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-        <script>
-            $(document).ready(function(){
-                $('.owl-carousel').owlCarousel({
-                    stagePadding: 50,
-                    loop:true,
-                    margin:10,
-                    nav:true,
-                    responsive:{
-                        0:{
-                            items:1
-                        },
-                        600:{
-                            items:3
-                        },
-                        1000:{
-                            items:5
-                        }
-                    }
-                })
-            });
-        </script>
 
     </body>
 

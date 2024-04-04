@@ -76,19 +76,63 @@ function deleteRecord(uniqueId, tableName, columnName) {
             column_name: columnName
         },
         success: function(response) {
-            console.log("Response from php file : " + response);
-            $('#DeleteRecordModal'+uniqueId).modal('hide');
-            $('#deleteSuccessModal').modal('show'); // Show the success modal
+            if(response == "Record deleted successfully."){
+                $('#DeleteRecordModal'+uniqueId).modal('hide');
+                $('#deleteSuccessModal').modal('show'); // Show the success modal
+            }
         },
         error: function(xhr, status, error) {
             // Handle error if needed
             console.error("Error:", error);
-            $('#deleteErrorModal .modal-body').text(response.trim()); // Set the error message in the modal
-            $('#deleteErrorModal').modal('show'); // Show the error modal
+            $('#errorModal .modal-body').text(response.trim()); // Set the error message in the modal
+            $('#errorModal').modal('show'); // Show the error modal
         }
     });
     
 }
+
+function AddMovie(){
+    //get form field data
+    var movieName = document.getElementById("movieName").value;
+    var actors = document.getElementById("actors").value;
+    var director = document.getElementById("director").value;
+    var releaseDate = document.getElementById("releaseDate").value;
+    var genre = document.getElementById("genre").value;
+    var ratings = document.getElementById("ratings").value;
+
+        $.ajax({
+        type: "POST",
+        url: "../Processes/processAddMovie.php", // PHP script to set session
+        data: {
+            movieName: movieName,
+                actors: actors,
+                director: director,
+                releaseDate: releaseDate,
+                genre: genre,
+                ratings: ratings
+        },
+        success: function(response) {
+            console.log("Response from php file : " + response);
+            if(response == "Movie inserted successfully."){
+                $('#AddMovieModal').modal('hide');
+                $('#AddedMovieSuccess').modal('show'); // Show the success modal
+            }else{
+                $('#AddMovieModal').modal('hide');
+                $('#errorModal.modal-body').text(response.trim()); // Set the error message in the modal
+                $('#errorModal').modal('show'); // Show the error modal
+            }
+            
+        },
+        error: function(xhr, status, error) {
+            // Handle error if needed
+            console.error("Error:", error);
+            $('#errorModal.modal-body').text(response.trim()); // Set the error message in the modal
+            $('#errorModal').modal('show'); // Show the error modal
+        }
+    });
+
+}
+
 
 
 function refreshPage() {
@@ -98,6 +142,26 @@ function refreshPage() {
 </script>
 
 </head>
+
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-triangle-exclamation fa-4x"></i></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="refreshPage()" >Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Delete Success Modal -->
 <div class="modal fade" id="deleteSuccessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -117,6 +181,24 @@ function refreshPage() {
     </div>
 </div>
 
+<!-- Add Movie Success Modal -->
+<div class="modal fade" id="AddedMovieSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Record Added successfully.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="refreshPage()" >Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- Add Customer Modal -->
@@ -128,7 +210,7 @@ function refreshPage() {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-            <form class="row g-3" method="post" action="add_customer.php">
+            <form class="row g-3" method="post" action="../Objects/Movie/MovieFunctions.php">
                 <div class="col-md-4">
                     <label for="validationServer01" class="form-label">Customer Name</label>
                     <input type="text" class="form-control" id="validationServer01" name="customerName" required>
@@ -264,40 +346,40 @@ function refreshPage() {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form class="row g-3 needs-validation" action="add_movie.php" method="POST" novalidate>
+        <form class="row g-3 needs-validation" action="add_movie.php" method="POST" novalidate>
             <div class="col-md-6">
-                <label for="movieName" class="form-label">Movie Name</label>
-                <input type="text" class="form-control" id="movieName" name="movieName" required>
-                <div class="invalid-feedback">
-                    Please provide a movie name.
+                    <label for="movieName" class="form-label">Movie Name</label>
+                        <input type="text" class="form-control" id="movieName" name="movieName" required>
+                        <div class="invalid-feedback">
+                            Please provide a movie name.
+                        </div>
+            </div>
+                <div class="col-md-6">
+                    <label for="actors" class="form-label">Actors</label>
+                    <input type="text" class="form-control" id="actors" name="actors">
+                </div>
+                <div class="col-md-6">
+                    <label for="director" class="form-label">Director</label>
+                    <input type="text" class="form-control" id="director" name="director">
+                </div>
+                <div class="col-md-6">
+                    <label for="releaseDate" class="form-label">Release Date</label>
+                    <input type="date" class="form-control" id="releaseDate" name="releaseDate">
+                </div>
+                <div class="col-md-6">
+                    <label for="genre" class="form-label">Genre</label>
+                    <input type="text" class="form-control" id="genre" name="genre">
+                </div>
+                <div class="col-md-6">
+                    <label for="ratings" class="form-label">Ratings</label>
+                    <input type="number" class="form-control" id="ratings" name="ratings" step="0.1" min="0" max="10">
                 </div>
             </div>
-            <div class="col-md-6">
-                <label for="actors" class="form-label">Actors</label>
-                <input type="text" class="form-control" id="actors" name="actors">
-            </div>
-            <div class="col-md-6">
-                <label for="director" class="form-label">Director</label>
-                <input type="text" class="form-control" id="director" name="director">
-            </div>
-            <div class="col-md-6">
-                <label for="releaseDate" class="form-label">Release Date</label>
-                <input type="date" class="form-control" id="releaseDate" name="releaseDate">
-            </div>
-            <div class="col-md-6">
-                <label for="genre" class="form-label">Genre</label>
-                <input type="text" class="form-control" id="genre" name="genre">
-            </div>
-            <div class="col-md-6">
-                <label for="ratings" class="form-label">Ratings</label>
-                <input type="number" class="form-control" id="ratings" name="ratings" step="0.1" min="0" max="10">
-            </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Submit</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" onclick="AddMovie()" class="btn btn-primary">Submit</button>
         </form>
-      </div>
+            </div>
     </div>
   </div>
 </div>
@@ -397,19 +479,19 @@ function refreshPage() {
                     echo '<tbody>';
                     foreach ($theaters as $theater) {
                         echo '<tr>';
-                        echo '<th scope="row">' . $theater->theatre_id . '</th>';
+                        echo '<th scope="row">' . $theater->theater_id . '</th>';
                         echo '<td>' . $theater->name . '</td>';
                         echo '<td>' . $theater->location . '</td>';
-                        echo '<td><a href="edit_theater.php?id=' . $theater->theatre_id . '">Edit</a></td>';
+                        echo '<td><a href="edit_theater.php?id=' . $theater->theater_id . '">Edit</a></td>';
                         echo '<td>';
-                        echo '<input type="hidden" name="deleteID" value="' . $theater->theatre_id . '">';
+                        echo '<input type="hidden" name="deleteID" value="' . $theater->theater_id . '">';
                         echo '<input type="hidden" name="table_name" value="theater">';
-                        echo '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteRecordModal' . $theater->theatre_id . '" >Delete</button>';
+                        echo '<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteRecordModal' . $theater->theater_id . '" >Delete</button>';
                         echo '</td>';
                         echo '</tr>';
 
                         echo '<!-- Modal -->
-                        <div class="modal fade" id="DeleteRecordModal' . $theater->theatre_id . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="DeleteRecordModal' . $theater->theater_id . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-body">
@@ -418,7 +500,7 @@ function refreshPage() {
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-danger" onClick="deleteRecord(' . $theater->theatre_id . ', &quot;theater&quot;, &quot;theater_id&quot;)">Delete</button>
+                                        <button type="button" class="btn btn-danger" onClick="deleteRecord(' . $theater->theater_id . ', &quot;theater&quot;, &quot;theater_id&quot;)">Delete</button>
                                     </div>
                                 </div>
                             </div>

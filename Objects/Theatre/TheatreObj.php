@@ -1,16 +1,16 @@
 <?php
-class Theatre {
-    public $theatre_id;
+class TheatreObj  {
+    public $theater_id;
     public $name;
     public $location;
 
     // Constructor to initialize the movie object
     public function __construct(
-        $theatre_id, 
+        $theater_id, 
         $name, 
         $location)
         {
-        $this->theatre_id = $theatre_id;
+        $this->theater_id = $theater_id;
         $this->name = $name;
         $this->location = $location;
     }

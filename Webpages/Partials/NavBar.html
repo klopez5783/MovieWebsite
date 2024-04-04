@@ -1,3 +1,29 @@
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        const email = document.getElementById("SignupEmail");
+        const password = document.getElementById("SignupPassword");
+        const confirmPassword = document.getElementById("ConfirmSignupPassword");
+        const submitButton = document.getElementById("SubmitSignup");
+
+        email.addEventListener("input", () => {
+            if (!email.validity.valid) {
+                email.setCustomValidity("Please enter a valid email address");
+            } else {
+                email.setCustomValidity("");
+            }
+        });
+
+        confirmPassword.addEventListener("input", () => {
+            if (password.value !== confirmPassword.value) {
+                confirmPassword.setCustomValidity("Passwords do not match");
+            } else {
+                confirmPassword.setCustomValidity("");
+            }
+        });
+    });
+</script>
+
 <div class="mx-auto" id="navBar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mx-auto" id="navBar">
         <div class="container-fluid">
@@ -102,3 +128,4 @@
       </div>
   </div>
 </div>
+

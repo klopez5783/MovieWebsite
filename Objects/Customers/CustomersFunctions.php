@@ -30,4 +30,25 @@ function getCustomerObjArray(){
     return $Customers;
 }
 
+
+function addCustomer($customerName,$email,$phoneNumber,$password){
+    global $conn;
+
+    // Prepare and bind parameters
+    $query = "INSERT INTO Customers (customer_name, email, phone_number, password) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ssss", $customerName, $email, $phoneNumber, $password);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        // Return true if the query executed successfully
+        return true;
+    } else {
+        // Return false if there was an error
+        return false;
+    }
+
+}
+
+
 ?>

@@ -18,7 +18,6 @@ $_SESSION['columnName'] = $_POST['column_name'];
 
 if(isset($_SESSION['uniqueId']) && isset($_SESSION['tableName']) && isset($_SESSION['columnName'])) {
     $id = $_SESSION['uniqueId'];
-    echo $id;
     $tableName = $_SESSION['tableName'];
     $column = $_SESSION['columnName'];
     $query = "Delete FROM $tableName WHERE $column = ?";

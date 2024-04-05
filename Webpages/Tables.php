@@ -76,6 +76,7 @@ function deleteRecord(uniqueId, tableName, columnName) {
             column_name: columnName
         },
         success: function(response) {
+            console.log(response);
             if(response == "Record deleted successfully."){
                 $('#DeleteRecordModal'+uniqueId).modal('hide');
                 $('#deleteSuccessModal').modal('show'); // Show the success modal
@@ -102,7 +103,7 @@ function AddMovie(){
 
         $.ajax({
         type: "POST",
-        url: "../Processes/processAddMovie.php", // PHP script to set session
+        url: "../Processes/AddMovie.php", // PHP script to set session
         data: {
             movieName: movieName,
                 actors: actors,
@@ -115,7 +116,7 @@ function AddMovie(){
             console.log("Response from php file : " + response);
             if(response == "Movie inserted successfully."){
                 $('#AddMovieModal').modal('hide');
-                $('#AddedMovieSuccess').modal('show'); // Show the success modal
+                $('#RecordAddedSuccess').modal('show'); // Show the success modal
             }else{
                 $('#AddMovieModal').modal('hide');
                 $('#errorModal.modal-body').text(response.trim()); // Set the error message in the modal
@@ -131,6 +132,47 @@ function AddMovie(){
         }
     });
 
+}
+
+
+function AddCustomer(){
+    console.log("Inside funciton!!")
+    // Retrieve form data
+    var customerName = document.getElementById("validationServer01").value;
+    var email = document.getElementById("validationServer02").value;
+    var phoneNumber = document.getElementById("validationServer03").value;
+    var password = document.getElementById("validationServer04").value;
+
+    // Create an object to hold the data
+    var formData = {
+        'customerName': customerName,
+        'email': email,
+        'phoneNumber': phoneNumber,
+        'password': password
+    };
+
+    // Send the data to the server using AJAX
+    $.ajax({
+        type: 'POST',
+        url: '../Processes/AddCustomer.php',
+        data: formData,
+        dataType: 'text', // Change the data type as per your requirement
+        success: function(response) {
+            // Handle the success response
+            console.log(response); // Log the response
+            if(response == "Customer Added"){
+                $("#AddCustomerModal").modal("hide");
+                console.log("If statement true");
+                $("#RecordAddedSuccess").modal('show');
+            }
+            // Add any further actions you want to perform upon successful insertion
+        },
+        error: function(xhr, status, error) {
+            // Handle errors
+            console.error("Error:", error);
+            // Add any error handling you need
+        }
+    });
 }
 
 
@@ -181,8 +223,8 @@ function refreshPage() {
     </div>
 </div>
 
-<!-- Add Movie Success Modal -->
-<div class="modal fade" id="AddedMovieSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Record Added Success Modal -->
+<div class="modal fade" id="RecordAddedSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -242,7 +284,7 @@ function refreshPage() {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" onclick="AddCustomer()">Submit</button>
         </form>
       </div>
     </div>

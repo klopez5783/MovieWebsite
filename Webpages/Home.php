@@ -18,16 +18,17 @@
     
 
     <style>
-        .loginForm , .signupForm{
-            border: none;
-            border-bottom: 1px solid black;
-            outline: none;
-        }
+        
         /* Define bigger-input class */
         .bigger-input {
             font-size: 16px; /* Adjust the font size as needed */
         }
 
+        .loginForm , .signupForm{
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+        }
 
         #loginModalContent{
             width: 350px;
@@ -35,7 +36,7 @@
 
         .cardHover:hover {
         border: 2.5px solid blue;
-}
+    }
 
 
     </style>

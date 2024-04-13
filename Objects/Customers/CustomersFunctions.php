@@ -50,5 +50,36 @@ function addCustomer($customerName,$email,$phoneNumber,$password){
 
 }
 
+function emailExists($email){
+    global $conn;
+
+    // prepare SQL
+    $stmt = $conn->prepare("Select Count(*) as count from customers where email = ?");
+
+    if (!$stmt) {
+        // Handle SQL error
+        echo "SQL error: " . $conn->error;
+        return false; // Return false to indicate failure
+    }
+
+    $stmt->bind_param("s",$email);
+
+    //Excute 
+    $stmt->execute();
+
+    //Fetch result
+    $result = $stmt->get_result();
+
+    // Fetch the row as an associative array
+    $row = $result->fetch_assoc();
+
+    // Close the statement
+    $stmt->close();
+
+    return ($row['count'] > 0);
+
+    
+}
+
 
 ?>

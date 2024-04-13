@@ -16,7 +16,9 @@
             var emailCheck = email.value.trim();
             if (validateEmail(emailCheck)) {
                 //checkEmailAvailability(email);
-                console.log("Checking Email Availability");
+                //console.log("Checking Email Availability");
+                checkEmailAvailability(emailCheck)
+                email.setCustomValidity("Account with this email already exisits, please use another email or sign in.")
             } else {
                 email.setCustomValidity("Please enter a valid email address")
                 //emailValid = false;
@@ -34,6 +36,38 @@
     });
 
     
+
+    function checkEmailAvailability(email){
+    console.log("Inside funciton!!");
+    console.log(email);
+    // Retrieve form data
+   
+    // // Create an object to hold the data
+    var formData = {
+        'email': email
+    };
+
+    // Send the data to the server using AJAX
+    $.ajax({
+        type: 'POST',
+        url: '../Processes/emailAvailability.php',
+        data: formData,
+        dataType: 'text', // Change the data type as per your requirement
+        success: function(response) {
+            // Handle the success response
+            //console.log("Response from Server : " + response); // Log the response
+            if(response == "Email exists in the database."){
+                return true;
+            }
+            // Add any further actions you want to perform upon successful insertion
+        },
+        error: function(xhr, status, error) {
+            // Handle errors
+            console.error("Error:", error);
+            // Add any error handling you need
+        }
+    });
+}
 
 
 

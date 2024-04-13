@@ -30,4 +30,56 @@ function getCustomerObjArray(){
     return $Customers;
 }
 
+
+function addCustomer($customerName,$email,$phoneNumber,$password){
+    global $conn;
+
+    // Prepare and bind parameters
+    $query = "INSERT INTO Customers (customer_name, email, phone_number, password) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ssss", $customerName, $email, $phoneNumber, $password);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        // Return true if the query executed successfully
+        return true;
+    } else {
+        // Return false if there was an error
+        return false;
+    }
+
+}
+
+function emailExists($email){
+    global $conn;
+
+    // prepare SQL
+    $stmt = $conn->prepare("Select Count(*) as count from customers where email = ?");
+
+    if (!$stmt) {
+        // Handle SQL error
+        echo "SQL error: " . $conn->error;
+        return false; // Return false to indicate failure
+    }
+
+    $stmt->bind_param("s",$email);
+
+    //Excute 
+    $stmt->execute();
+
+    //Fetch result
+    $result = $stmt->get_result();
+
+    // Fetch the row as an associative array
+    $row = $result->fetch_assoc();
+
+    // Close the statement
+    $stmt->close();
+
+    return ($row['count'] > 0);
+
+    
+}
+
+
 ?>

@@ -18,49 +18,32 @@
     
 
     <style>
-        .loginForm , .signupForm{
-            border: none;
-            border-bottom: 1px solid black;
-            outline: none;
-        }
+        
         /* Define bigger-input class */
         .bigger-input {
             font-size: 16px; /* Adjust the font size as needed */
         }
 
+        .loginForm , .signupForm{
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+        }
 
         #loginModalContent{
             width: 350px;
         }
 
+        .cardHover:hover {
+        border: 2.5px solid blue;
+    }
+
+
     </style>
 
   <!-- <link rel="stylesheet" type="text/css" href="HeaderFiles/PageStyles.css"> -->
 
-  <script type="text/javascript">
-            document.addEventListener("DOMContentLoaded", function(event) {
-                const email = document.getElementById("SignupEmail");
-                const password = document.getElementById("SignupPassword");
-                const confirmPassword = document.getElementById("ConfirmSignupPassword");
-                const submitButton = document.getElementById("SubmitSignup");
-
-                email.addEventListener("input", () => {
-                    if (!email.validity.valid) {
-                        email.setCustomValidity("Please enter a valid email address");
-                    } else {
-                        email.setCustomValidity("");
-                    }
-                });
-
-                confirmPassword.addEventListener("input", () => {
-                    if (password.value !== confirmPassword.value) {
-                        confirmPassword.setCustomValidity("Passwords do not match");
-                    } else {
-                        confirmPassword.setCustomValidity("");
-                    }
-                });
-            });
-    </script>
+  
 
 </head>
 
@@ -74,31 +57,56 @@
 
 
         <?php include 'Partials/OwlCarousel.php' ?>
-<!--             
-            <?php
-            include '../Objects/Theatre/TheatreObj.php';
-            include '../Objects/Theatre/TheatreFunctions.php';
-            $theatres = getTheatreObjArray()
-            ?>
 
-            <div class="d-flex justify-content-between">
-                <div class="overflow-auto p-3 m-3 bg-light " style="max-width: 400px;max-height:250px;"> 
-                    <div class="list-group">
-                        <?php foreach ($theatres as $theatre): ?>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <?php echo $theatre->location; ?> Cinema
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                </div> 
-                <div>
-                    placeholder
-                </div>
-            </div> -->
 
+        <?php
+        include '../Objects/Theatre/TheatreObj.php';
+        include '../Objects/Theatre/TheatreFunctions.php';
+        $theaters = getTheatreObjArray()
+        ?>
+
+        <script>
+        function SessionSet(ID) {
+            // Send data via AJAX to the PHP script
+            $.ajax({
+                type: "POST",
+                url: "set_session_variable.php", // PHP script to set session
+                data: {
+                    id: ID
+                },
+                success: function(response) {
+                    // console.log("Response from php file : " + response);
+                    if(response == "Session Variable Set") location.replace("Theater.php")
+                },
+                error: function(xhr, status, error) {
+                    // Handle error if needed
+                    console.error("Error:", error);
+                    $('#deleteErrorModal .modal-body').text(response.trim()); // Set the error message in the modal
+                    $('#deleteErrorModal').modal('show'); // Show the error modal
+                }
+            });
             
+        }
+        </script>
 
+
+        <div class="container">
+            <div class="row">
+                <?php foreach ($theaters as $theater): ?>
+                <div class="col mb-2">
+                    <button id="theater_<?php echo $theater->theater_id; ?>" onclick="SessionSet(<?php echo $theater->theater_id; ?>)" class="card cardHover" href="#" style="width: 13rem;">
+                        <div class="card-body">
+                            <!-- Use anchor tag inside card -->
+                            <h5 class="card-title"><div class="card-link"><?php echo $theater->name; ?></div></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><?php echo $theater->location; ?></h6>
+                        </div>
+                    </button>
+                </div>
+                <?php endforeach; ?>
+            </div>
         </div>
+
+
 
         
 

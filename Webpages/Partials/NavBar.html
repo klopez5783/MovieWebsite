@@ -1,3 +1,79 @@
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        const email = document.getElementById("SignupEmail");
+        const password = document.getElementById("SignupPassword");
+        const confirmPassword = document.getElementById("ConfirmSignupPassword");
+        const submitButton = document.getElementById("SubmitSignup");
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        function validateEmail(email) {
+            return emailPattern.test(email);
+        }
+
+        email.addEventListener("blur", function() {
+            var emailCheck = email.value.trim();
+            if (validateEmail(emailCheck)) {
+                //checkEmailAvailability(email);
+                //console.log("Checking Email Availability");
+                checkEmailAvailability(emailCheck)
+                email.setCustomValidity("Account with this email already exisits, please use another email or sign in.")
+            } else {
+                email.setCustomValidity("Please enter a valid email address")
+                //emailValid = false;
+            }
+        });
+
+        
+        confirmPassword.addEventListener("input", () => {
+            if (password.value !== confirmPassword.value) {
+                confirmPassword.setCustomValidity("Passwords do not match");
+            } else {
+                confirmPassword.setCustomValidity("");
+            }
+        });
+    });
+
+    
+
+    function checkEmailAvailability(email){
+    console.log("Inside funciton!!");
+    console.log(email);
+    // Retrieve form data
+   
+    // // Create an object to hold the data
+    var formData = {
+        'email': email
+    };
+
+    // Send the data to the server using AJAX
+    $.ajax({
+        type: 'POST',
+        url: '../Processes/emailAvailability.php',
+        data: formData,
+        dataType: 'text', // Change the data type as per your requirement
+        success: function(response) {
+            // Handle the success response
+            //console.log("Response from Server : " + response); // Log the response
+            if(response == "Email exists in the database."){
+                return true;
+            }
+            // Add any further actions you want to perform upon successful insertion
+        },
+        error: function(xhr, status, error) {
+            // Handle errors
+            console.error("Error:", error);
+            // Add any error handling you need
+        }
+    });
+}
+
+
+
+</script>
+
+
 <div class="mx-auto" id="navBar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mx-auto" id="navBar">
         <div class="container-fluid">
@@ -102,3 +178,4 @@
       </div>
   </div>
 </div>
+

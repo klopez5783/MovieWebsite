@@ -5,15 +5,25 @@
         const password = document.getElementById("SignupPassword");
         const confirmPassword = document.getElementById("ConfirmSignupPassword");
         const submitButton = document.getElementById("SubmitSignup");
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        email.addEventListener("input", () => {
-            if (!email.validity.valid) {
-                email.setCustomValidity("Please enter a valid email address");
+
+        function validateEmail(email) {
+            return emailPattern.test(email);
+        }
+
+        email.addEventListener("blur", function() {
+            var emailCheck = email.value.trim();
+            if (validateEmail(emailCheck)) {
+                //checkEmailAvailability(email);
+                console.log("Checking Email Availability");
             } else {
-                email.setCustomValidity("");
+                email.setCustomValidity("Please enter a valid email address")
+                //emailValid = false;
             }
         });
 
+        
         confirmPassword.addEventListener("input", () => {
             if (password.value !== confirmPassword.value) {
                 confirmPassword.setCustomValidity("Passwords do not match");
@@ -22,7 +32,13 @@
             }
         });
     });
+
+    
+
+
+
 </script>
+
 
 <div class="mx-auto" id="navBar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mx-auto" id="navBar">

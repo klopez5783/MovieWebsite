@@ -228,6 +228,29 @@ function AddCustomer(){
 }
 
 
+function populateEditMovieModal(movieID){
+    console.log(movieID)
+    $.ajax({
+            url: '../Processes/get_movie_data.php',
+            type: 'POST',
+            data: { movieID: movieID },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data)
+                // Populate form fields with retrieved data
+                // $('#editMovieForm #movieName').val(data.movie_name);
+                // $('#editMovieForm #actors').val(data.actors);
+                // $('#editMovieForm #director').val(data.director);
+                // $('#editMovieForm #releaseDate').val(data.release_date);
+                // $('#editMovieForm #genre').val(data.genre);
+                // $('#editMovieForm #ratings').val(data.ratings);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
 
 function refreshPage() {
     window.location.reload();
@@ -482,7 +505,6 @@ function refreshPage() {
   </div>
 </div>
 
-
     <body class="bgImage">
 
     <?php include 'Partials/NavBar.html' ?> 
@@ -526,7 +548,7 @@ function refreshPage() {
                         echo '<td>' . $movie->actors . '</td>';
                         echo '<td>' . $movie->Director . '</td>';
                         echo '<td>' . $movie->release_date . '</td>';
-                        echo '<td><a href="edit_movie.php?id=' . $movie->Movie_ID . '">Edit</a></td>';
+                        echo '<td><div class="btn btn-success" id=' . $movie->Movie_ID . '" data-bs-toggle="modal" data-bs-target="#EditMovieModal' . $movie->Movie_ID . '" >Edit</div></td>';
                         echo '<td>';
                         echo '<input type="button" name="delete" value="Delete" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteRecordModal' . $movie->Movie_ID . '"  >';
                         echo '</td>';
@@ -547,6 +569,67 @@ function refreshPage() {
                             </div>
                         </div>
                         ';
+                        echo '
+                        <div class="modal fade" id="EditMovieModal' . $movie->Movie_ID .  '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-film fa-xl"></i> Add Movie</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="row g-3 needs-validation" action="add_movie.php" method="POST" novalidate>
+                                        <div class="col-md-6">
+                                                <label for="movieName" class="form-label">Movie Name</label>
+                                                    <input type="text" class="form-control" id="movieName" name="movieName" required>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a movie name.
+                                                    </div>
+                                        </div>
+                                            <div class="col-md-6">
+                                                <label for="actors" class="form-label">Actors</label>
+                                                <input type="text" class="form-control" id="actors" name="actors">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="director" class="form-label">Director</label>
+                                                <input type="text" class="form-control" id="director" name="director">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="releaseDate" class="form-label">Release Date</label>
+                                                <input type="date" class="form-control" id="releaseDate" name="releaseDate">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="genre" class="form-label">Genre</label>
+                                                <input type="text" class="form-control" id="genre" name="genre">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="ratings" class="form-label">Ratings</label>
+                                                <input type="number" class="form-control" id="ratings" name="ratings" step="0.1" min="0" max="10">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formFile" class="form-label">Default file input example</label>
+                                                <input class="form-control" type="file" id="formFile">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" onclick="AddMovie()" class="btn btn-primary">Submit</button>
+                                    </form>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        ';
+
+                        echo '<script>
+                        // Event listener for modal opening
+                            $("#EditMovieModal' . $movie->Movie_ID . '").on("show.bs.modal", function(event) {
+                                console.log("Inside Model Check")
+                                var button = $(event.relatedTarget); // Button that triggered the modal
+                                var movieID = button.data("movieid"); // Extract movie ID from data attribute
+                                populateEditMovieModal('. $movie->Movie_ID .'); // Call function to populate modal with movie data
+                            });
+                        </script>';
                     }
                     echo '</tbody>';
                     

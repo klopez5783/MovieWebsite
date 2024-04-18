@@ -8,11 +8,15 @@ $movies = getMovieObjArray()
 
     <div class="owl-carousel mt-3">
         <?php
+        
         // Loop through the array of movie objects
         foreach ($movies as $movie) {
+
+            $name = $movie->movie_name;
+           
             ?>
             <div class="card">
-                <img src="../Images/<?php echo $movie->movie_name; ?>//<?php echo $movie->movie_name; ?>_poster.jpg" class="card-img-top" alt="Movie Poster"> <!-- Update the src attribute with the actual movie poster image -->
+                <img src="<?php getMoviePoster($name) ?>" class="card-img-top" alt="Movie Poster"> 
                 <div class="card-body">
                     <div class="d-flex justify-content-center">
                       <h5 class="card-title mx-auto"><?php echo $movie->movie_name; ?></h5> <!-- Display movie name -->
@@ -29,6 +33,8 @@ $movies = getMovieObjArray()
             </div>
         <?php
         }
+
+        
         ?>
 
     </div>

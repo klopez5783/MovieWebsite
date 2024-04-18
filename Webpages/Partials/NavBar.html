@@ -17,8 +17,9 @@
             if (validateEmail(emailCheck)) {
                 //checkEmailAvailability(email);
                 //console.log("Checking Email Availability");
-                checkEmailAvailability(emailCheck)
-                email.setCustomValidity("Account with this email already exisits, please use another email or sign in.")
+                if(checkEmailAvailability(emailCheck)){
+                    email.setCustomValidity("Account with this email already exisits, please use another email or sign in.")
+                }
             } else {
                 email.setCustomValidity("Please enter a valid email address")
                 //emailValid = false;
@@ -55,10 +56,12 @@
         dataType: 'text', // Change the data type as per your requirement
         success: function(response) {
             // Handle the success response
-            //console.log("Response from Server : " + response); // Log the response
+            console.log("Response from Server : " + response); // Log the response
             if(response == "Email exists in the database."){
+                console.log("inside if")
                 return true;
             }
+            return false;
             // Add any further actions you want to perform upon successful insertion
         },
         error: function(xhr, status, error) {

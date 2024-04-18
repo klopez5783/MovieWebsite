@@ -92,8 +92,50 @@ function deleteRecord(uniqueId, tableName, columnName) {
     
 }
 
-function AddMovie(){
-    //get form field data
+// function AddMovie(){
+//     //get form field data
+//     var movieName = document.getElementById("movieName").value;
+//     var actors = document.getElementById("actors").value;
+//     var director = document.getElementById("director").value;
+//     var releaseDate = document.getElementById("releaseDate").value;
+//     var genre = document.getElementById("genre").value;
+//     var ratings = document.getElementById("ratings").value;
+
+//         $.ajax({
+//         type: "POST",
+//         url: "../Processes/AddMovie.php", // PHP script to set session
+//         data: {
+//             movieName: movieName,
+//                 actors: actors,
+//                 director: director,
+//                 releaseDate: releaseDate,
+//                 genre: genre,
+//                 ratings: ratings
+//         },
+//         success: function(response) {
+//             console.log("Response from php file : " + response);
+//             if(response == "Movie inserted successfully."){
+//                 $('#AddMovieModal').modal('hide');
+//                 $('#RecordAddedSuccess').modal('show'); // Show the success modal
+//             }else{
+//                 $('#AddMovieModal').modal('hide');
+//                 $('#errorModal.modal-body').text(response.trim()); // Set the error message in the modal
+//                 $('#errorModal').modal('show'); // Show the error modal
+//             }
+            
+//         },
+//         error: function(xhr, status, error) {
+//             // Handle error if needed
+//             console.error("Error:", error);
+//             $('#errorModal.modal-body').text(response.trim()); // Set the error message in the modal
+//             $('#errorModal').modal('show'); // Show the error modal
+//         }
+//     });
+
+// }
+
+function AddMovie() {
+    // Get other form field data
     var movieName = document.getElementById("movieName").value;
     var actors = document.getElementById("actors").value;
     var director = document.getElementById("director").value;
@@ -101,38 +143,48 @@ function AddMovie(){
     var genre = document.getElementById("genre").value;
     var ratings = document.getElementById("ratings").value;
 
-        $.ajax({
+    // Get the file input element
+    var fileInput = document.getElementById("formFile");
+    var file = fileInput.files[0];
+
+    // Create a FormData object
+    var formData = new FormData();
+    // Append form data
+    formData.append("movieName", movieName);
+    formData.append("actors", actors);
+    formData.append("director", director);
+    formData.append("releaseDate", releaseDate);
+    formData.append("genre", genre);
+    formData.append("ratings", ratings);
+    // Append the file
+    formData.append("file", file);
+
+    // Send the AJAX request
+    $.ajax({
         type: "POST",
-        url: "../Processes/AddMovie.php", // PHP script to set session
-        data: {
-            movieName: movieName,
-                actors: actors,
-                director: director,
-                releaseDate: releaseDate,
-                genre: genre,
-                ratings: ratings
-        },
+        url: "../Processes/AddMovie.php",
+        data: formData,
+        contentType: false,
+        processData: false,
         success: function(response) {
-            console.log("Response from php file : " + response);
-            if(response == "Movie inserted successfully."){
+            console.log("Response from PHP file: " + response);
+            if (response.trim() === "Movie inserted successfully.") {
                 $('#AddMovieModal').modal('hide');
-                $('#RecordAddedSuccess').modal('show'); // Show the success modal
-            }else{
+                $('#RecordAddedSuccess').modal('show');
+            } else {
                 $('#AddMovieModal').modal('hide');
-                $('#errorModal.modal-body').text(response.trim()); // Set the error message in the modal
-                $('#errorModal').modal('show'); // Show the error modal
+                $('#errorModal.modal-body').text(response.trim());
+                $('#errorModal').modal('show');
             }
-            
         },
         error: function(xhr, status, error) {
-            // Handle error if needed
             console.error("Error:", error);
-            $('#errorModal.modal-body').text(response.trim()); // Set the error message in the modal
-            $('#errorModal').modal('show'); // Show the error modal
+            $('#errorModal.modal-body').text(error);
+            $('#errorModal').modal('show');
         }
     });
-
 }
+
 
 
 function AddCustomer(){
@@ -416,6 +468,10 @@ function refreshPage() {
                     <label for="ratings" class="form-label">Ratings</label>
                     <input type="number" class="form-control" id="ratings" name="ratings" step="0.1" min="0" max="10">
                 </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Default file input example</label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -446,10 +502,9 @@ function refreshPage() {
                 include '../Objects/Movie/MovieFunctions.php';
                 $movies = getMovieObjArray();
                 
+                echo '<a href="addMovie.php" class="btn btn-primary float-end me-3" data-bs-toggle="modal" data-bs-target="#AddMovieModal" >Add Movie</a>';
 
                 if (!empty($movies)) {
-
-                    echo '<a href="addMovie.php" class="btn btn-primary float-end me-3" data-bs-toggle="modal" data-bs-target="#AddMovieModal" >Add Movie</a>';
                     echo '<table class="table">';
                     echo '<thead>';
                     echo '<tr>';
@@ -496,8 +551,12 @@ function refreshPage() {
                     echo '</tbody>';
                     
                     echo '</table>';
-                } 
+                }
+                else{
+                    echo '<h1>No Movie Records, please add records using the insert records button</h1>';
+                }
             }
+            
 
             if(isset($_POST['Theatres'])){
                 include '../Objects/Theatre/TheatreObj.php';

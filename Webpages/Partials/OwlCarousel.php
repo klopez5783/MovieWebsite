@@ -12,7 +12,7 @@ $movies = getMovieObjArray()
         foreach ($movies as $movie) {
             ?>
             <div class="card">
-                <img src="../Images/MoviePoster.jpg" class="card-img-top" alt="Movie Poster"> <!-- Update the src attribute with the actual movie poster image -->
+                <img src="../Images/<?php echo $movie->movie_name; ?>//<?php echo $movie->movie_name; ?>_poster.jpg" class="card-img-top" alt="Movie Poster"> <!-- Update the src attribute with the actual movie poster image -->
                 <div class="card-body">
                     <div class="d-flex justify-content-center">
                       <h5 class="card-title mx-auto"><?php echo $movie->movie_name; ?></h5> <!-- Display movie name -->

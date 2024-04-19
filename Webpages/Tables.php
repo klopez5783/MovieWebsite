@@ -188,7 +188,6 @@ function AddMovie() {
 
 
 function AddCustomer(){
-    console.log("Inside funciton!!")
     // Retrieve form data
     var customerName = document.getElementById("validationServer01").value;
     var email = document.getElementById("validationServer02").value;
@@ -228,28 +227,114 @@ function AddCustomer(){
 }
 
 
-function populateEditMovieModal(movieID){
-    console.log(movieID)
-    $.ajax({
+function getMovie(movieID){
+    // var movie;
+    // $.ajax({
+    //         url: '../Processes/get_movie_data.php',
+    //         type: 'POST',
+    //         data: { movieID: movieID },
+    //         dataType: 'json',
+    //         success: function(data) {
+    //             // Populate form fields with retrieved data
+    //             movie = data;
+    //             console.log("DATA : " , movie);
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.error(xhr.responseText);
+    //         }
+    //     });
+
+    //     return movie;
+    return new Promise((resolve, reject) => {
+        $.ajax({
             url: '../Processes/get_movie_data.php',
             type: 'POST',
             data: { movieID: movieID },
             dataType: 'json',
             success: function(data) {
-                console.log(data)
-                // Populate form fields with retrieved data
-                // $('#editMovieForm #movieName').val(data.movie_name);
-                // $('#editMovieForm #actors').val(data.actors);
-                // $('#editMovieForm #director').val(data.director);
-                // $('#editMovieForm #releaseDate').val(data.release_date);
-                // $('#editMovieForm #genre').val(data.genre);
-                // $('#editMovieForm #ratings').val(data.ratings);
+                resolve(data); // Resolve the Promise with the movie data
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                reject(error); // Reject the Promise with the error
             }
         });
+    });
+}
+
+async function populateEditMovieModal(id){
+    
+    try{
+         var movie = await getMovie(id);
     }
+    catch (error){
+        console.error(error);
+    }
+
+    const movieID = movie.Movie_ID;
+    $('#EditMovieForm'+movieID+' #movieName').val(movie.movie_name);
+    $('#EditMovieForm'+movieID+' #actors').val(movie.actors);
+    $('#EditMovieForm'+movieID+' #director').val(movie.Director);
+    $('#EditMovieForm'+movieID+' #releaseDate').val(movie.release_date);
+    $('#EditMovieForm'+movieID+' #genre').val(movie.genre);
+    $('#EditMovieForm'+movieID+' #ratings').val(movie.rating);
+}
+
+async function UpdateMovie(movieID){
+
+    // try{
+    //      var movie = await getMovie(movieID);
+    // }
+    // catch (error){
+    //     console.error(error);
+    // }
+
+    var formID = "#EditMovieForm" + movieID;
+
+    console.log(formID + " #movieName");
+
+    var movieName = document.querySelector(formID + ' #movieName').value;
+    var actors = document.querySelector(formID + ' #actors').value;
+    var director = document.querySelector(formID + ' #director').value;
+    var releaseDate = document.querySelector(formID + ' #releaseDate').value;
+    var genre = document.querySelector(formID + ' #genre').value;
+    var ratings = document.querySelector(formID + ' #ratings').value;
+
+
+    var movie = {
+    Movie_ID: movieID, // Ensure this matches the PHP property name
+    movie_name: movieName, // Ensure this matches the PHP property name
+    actors: actors, // Ensure this matches the PHP property name
+    Director: director, // Ensure this matches the PHP property name
+    release_date: releaseDate, // Ensure this matches the PHP property name
+    genre: genre, // Ensure this matches the PHP property name
+    rating: ratings // Ensure this matches the PHP property name
+    };
+
+
+    $.ajax({
+        url: '../Processes/UpdateMovie.php',
+        type: 'POST',
+        data: { 
+            movieSend: JSON.stringify(movie) 
+        },
+        dataType: 'text',
+        success: function(response) {
+            console.log("\n\nresponse from server : " + response);
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+
+
+function delay(milliseconds) {
+    return new Promise(resolve => {
+        setTimeout(resolve, milliseconds);
+    });
+}
+
 
 
 function refreshPage() {
@@ -573,19 +658,19 @@ function refreshPage() {
                         <div class="modal fade" id="EditMovieModal' . $movie->Movie_ID .  '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-film fa-xl"></i> Add Movie</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="row g-3 needs-validation" action="add_movie.php" method="POST" novalidate>
-                                        <div class="col-md-6">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-film fa-xl"></i> Add Movie</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" id="EditMovieForm' . $movie->Movie_ID .  '">
+                                        <form class="row g-3 needs-validation" action="add_movie.php" method="POST" novalidate>
+                                            <div class="col-md-6">
                                                 <label for="movieName" class="form-label">Movie Name</label>
-                                                    <input type="text" class="form-control" id="movieName" name="movieName" required>
-                                                    <div class="invalid-feedback">
-                                                        Please provide a movie name.
-                                                    </div>
-                                        </div>
+                                                <input type="text" class="form-control" id="movieName" name="movieName" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a movie name.
+                                                </div>
+                                            </div>
                                             <div class="col-md-6">
                                                 <label for="actors" class="form-label">Actors</label>
                                                 <input type="text" class="form-control" id="actors" name="actors">
@@ -610,21 +695,22 @@ function refreshPage() {
                                                 <label for="formFile" class="form-label">Default file input example</label>
                                                 <input class="form-control" type="file" id="formFile">
                                             </div>
-                                        </div>
+                                        </div> <!-- Close modal-body div -->
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" onclick="AddMovie()" class="btn btn-primary">Submit</button>
-                                    </form>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" onclick="UpdateMovie('. $movie->Movie_ID .')" class="btn btn-primary">Submit</button>
+                                    </div>
+                                    </div> <!-- Close modal-content div -->
+                                   
+                                </form> <!-- Close form -->
+                            </div> <!-- Close modal-dialog div -->
+                        </div> <!-- Close modal fade div -->
                         ';
+
 
                         echo '<script>
                         // Event listener for modal opening
                             $("#EditMovieModal' . $movie->Movie_ID . '").on("show.bs.modal", function(event) {
-                                console.log("Inside Model Check")
                                 var button = $(event.relatedTarget); // Button that triggered the modal
                                 var movieID = button.data("movieid"); // Extract movie ID from data attribute
                                 populateEditMovieModal('. $movie->Movie_ID .'); // Call function to populate modal with movie data

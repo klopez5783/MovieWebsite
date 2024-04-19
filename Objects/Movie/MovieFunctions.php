@@ -113,6 +113,58 @@ function getMovie($id){
     }
 }
 
+function updateMovie($movie) {
+    // Access the global $conn variable
+    global $conn;
+
+    $rating = floatval($movie->rating);
+
+    // Prepare the SQL statement to update the record
+    $query = "UPDATE movies SET 
+              movie_name = ?, 
+              actors = ?, 
+              Director = ?, 
+              release_date = ?, 
+              genre = ?, 
+              ratings = ? 
+              WHERE Movie_ID = ?";
+    
+    
+    // Prepare the SQL statement to update the record
+    // $query = "UPDATE movies SET 
+    //           movie_name = '" . $conn->real_escape_string($movie->movie_name) . "', 
+    //           actors = '" . $conn->real_escape_string($movie->actors) . "', 
+    //           Director = '" . $conn->real_escape_string($movie->Director) . "', 
+    //           release_date = '" . $conn->real_escape_string($movie->release_date) . "', 
+    //           genre = '" . $conn->real_escape_string($movie->genre) . "', 
+    //           ratings = " . $rating . "
+    //         WHERE Movie_ID = " . intval($movie->Movie_ID);
+
+    // // Output the query with values (for debugging purposes)
+    // echo "Query with values: $query\n";
+    
+    // Prepare the statement
+    $stmt = $conn->prepare($query);
+    if (!$stmt) {
+        die('Error preparing statement: ' . $conn->error);
+    }
+    
+    // Bind parameters
+    $stmt->bind_param("ssssssi", $movie->movie_name, $movie->actors, $movie->Director, $movie->release_date, $movie->genre, $movie->rating, $movie->Movie_ID);
+    
+    // Execute the statement
+    if (!$stmt->execute()) {
+        die('Error updating record: ' . $stmt->error);
+        return false; // Return false if execution fails
+    }
+
+    // Close the statement
+    $stmt->close();
+    
+    return true; // Return true if execution is successful
+}
+
+
 
 
 ?>

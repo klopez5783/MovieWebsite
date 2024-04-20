@@ -129,20 +129,6 @@ function updateMovie($movie) {
               ratings = ? 
               WHERE Movie_ID = ?";
     
-    
-    // Prepare the SQL statement to update the record
-    // $query = "UPDATE movies SET 
-    //           movie_name = '" . $conn->real_escape_string($movie->movie_name) . "', 
-    //           actors = '" . $conn->real_escape_string($movie->actors) . "', 
-    //           Director = '" . $conn->real_escape_string($movie->Director) . "', 
-    //           release_date = '" . $conn->real_escape_string($movie->release_date) . "', 
-    //           genre = '" . $conn->real_escape_string($movie->genre) . "', 
-    //           ratings = " . $rating . "
-    //         WHERE Movie_ID = " . intval($movie->Movie_ID);
-
-    // // Output the query with values (for debugging purposes)
-    // echo "Query with values: $query\n";
-    
     // Prepare the statement
     $stmt = $conn->prepare($query);
     if (!$stmt) {
@@ -162,6 +148,43 @@ function updateMovie($movie) {
     $stmt->close();
     
     return true; // Return true if execution is successful
+}
+
+
+function addPoster($movieName){
+    if ( $_FILES['file']['error'] === UPLOAD_ERR_OK ) {
+        // File has been uploaded
+        $fileName = $_FILES['file']['name'];
+        $fileSize = $_FILES['file']['size'];
+        $fileTmpName = $_FILES['file']['tmp_name'];
+        $fileType = $_FILES['file']['type'];
+    
+        $directory = BASE_PATH . "\\Images\\";
+    
+        $uploadOk = 1;
+    
+        $movieDirectory = $directory . $movieName;
+        if (!is_dir($movieDirectory)) {
+            // Folder does not exist, create it
+            if (!mkdir($movieDirectory, 0755)) { // You can adjust the permissions as needed
+                echo "Error creating folder.";
+                $uploadOk = 0;
+            }
+        }
+        
+        $newFileName = $movieName . "_poster." . pathinfo($fileName, PATHINFO_EXTENSION);
+    
+        //Move the uploaded file to movie directory
+        $targetFile = $movieDirectory . '\\' . $newFileName;
+    
+        if (!move_uploaded_file($fileTmpName, $targetFile)) {
+            // File moved successfully
+            return "Error adding file to folder.";
+        } 
+    } else {
+        // File upload error occurred
+        return "Error uploading file.";
+    }
 }
 
 

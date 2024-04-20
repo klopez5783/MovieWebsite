@@ -1,6 +1,7 @@
 <?php
 
 define('BASE_PATH', dirname(__DIR__));
+echo BASE_PATH;
 include_once BASE_PATH . '/Configuration/DBconnect.php';
 
  // Access the global $conn variable

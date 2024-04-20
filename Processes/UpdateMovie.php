@@ -1,4 +1,4 @@
-<?=
+<?php
 
 define('BASE_PATH', dirname(__DIR__));
 include_once BASE_PATH . '/Configuration/DBconnect.php';
@@ -6,26 +6,23 @@ include_once BASE_PATH . '/Configuration/DBconnect.php';
 include '../Objects/Movie/MovieFunctions.php';
 include '../Objects/Movie/MovieObj.php';
 
+
 //convert json to Movie Data type
-$movieOBJ = json_decode($_POST['movieSend']);
+$movieJSON = $_POST['movie']; // Get the JSON string representing the movie object
+$movie = json_decode($movieJSON); // Decode the JSON string to get the movie object
+
+$result = updateMovie($movie);
 
 
-// $movie = new Movie($JSONmovie["Movie_ID"], 
-//             $JSONmovie["movie_name"],
-//             $JSONmovie["actors"], 
-//             $JSONmovie["Director"], 
-//             $JSONmovie["release_date"],
-//             $JSONmovie["genre"],
-//             floatval($JSONmovie["rating"]) ); // Convert rating to float
-
-//echo 'inside file !!!! ' . gettype($JSONmovie->movie_name);
-
-$result = updateMovie($movieOBJ);
-
-if ($result) {
-    //echo 'Movie Updated successfully.';
-} else {
-    //echo 'Failed to Update movie.';
+if($result){
+    echo 'Movie Updated successfully.'; 
 }
+else{
+    echo 'Failed to Update movie.';
+}
+
+$posterResult = (isset($_FILES['file'])) ? addPoster($movie->movie_name) : ""; 
+
+echo $posterResult;
 
 ?>

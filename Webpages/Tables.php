@@ -92,47 +92,6 @@ function deleteRecord(uniqueId, tableName, columnName) {
     
 }
 
-// function AddMovie(){
-//     //get form field data
-//     var movieName = document.getElementById("movieName").value;
-//     var actors = document.getElementById("actors").value;
-//     var director = document.getElementById("director").value;
-//     var releaseDate = document.getElementById("releaseDate").value;
-//     var genre = document.getElementById("genre").value;
-//     var ratings = document.getElementById("ratings").value;
-
-//         $.ajax({
-//         type: "POST",
-//         url: "../Processes/AddMovie.php", // PHP script to set session
-//         data: {
-//             movieName: movieName,
-//                 actors: actors,
-//                 director: director,
-//                 releaseDate: releaseDate,
-//                 genre: genre,
-//                 ratings: ratings
-//         },
-//         success: function(response) {
-//             console.log("Response from php file : " + response);
-//             if(response == "Movie inserted successfully."){
-//                 $('#AddMovieModal').modal('hide');
-//                 $('#RecordAddedSuccess').modal('show'); // Show the success modal
-//             }else{
-//                 $('#AddMovieModal').modal('hide');
-//                 $('#errorModal.modal-body').text(response.trim()); // Set the error message in the modal
-//                 $('#errorModal').modal('show'); // Show the error modal
-//             }
-            
-//         },
-//         error: function(xhr, status, error) {
-//             // Handle error if needed
-//             console.error("Error:", error);
-//             $('#errorModal.modal-body').text(response.trim()); // Set the error message in the modal
-//             $('#errorModal').modal('show'); // Show the error modal
-//         }
-//     });
-
-// }
 
 function AddMovie() {
     // Get other form field data
@@ -158,6 +117,7 @@ function AddMovie() {
     formData.append("ratings", ratings);
     // Append the file
     formData.append("file", file);
+
 
     // Send the AJAX request
     $.ajax({
@@ -279,14 +239,7 @@ async function populateEditMovieModal(id){
     $('#EditMovieForm'+movieID+' #ratings').val(movie.rating);
 }
 
-async function UpdateMovie(movieID){
-
-    // try{
-    //      var movie = await getMovie(movieID);
-    // }
-    // catch (error){
-    //     console.error(error);
-    // }
+ function UpdateMovie(movieID){
 
     var formID = "#EditMovieForm" + movieID;
 
@@ -299,6 +252,10 @@ async function UpdateMovie(movieID){
     var genre = document.querySelector(formID + ' #genre').value;
     var ratings = document.querySelector(formID + ' #ratings').value;
 
+    
+     // Get the file input element
+    var fileInput = document.querySelector(formID + ' #formFile');
+    var file = fileInput.files[0];
 
     var movie = {
     Movie_ID: movieID, // Ensure this matches the PHP property name
@@ -310,16 +267,28 @@ async function UpdateMovie(movieID){
     rating: ratings // Ensure this matches the PHP property name
     };
 
+    var formData = new FormData(); // Create a FormData object
+
+    // Append the movie data object to the FormData object
+    formData.append('movie', JSON.stringify(movie));
+    
+    // Append the file to the FormData object
+    formData.append('file', file);
+
+    console.log("\nForm: " , formData);
 
     $.ajax({
-        url: '../Processes/UpdateMovie.php',
-        type: 'POST',
-        data: { 
-            movieSend: JSON.stringify(movie) 
-        },
-        dataType: 'text',
+        type: "POST",
+        url: "../Processes/UpdateMovie.php",
+        data: formData,
+        processData: false, // Prevent jQuery from processing the data
+        contentType: false, // Prevent jQuery from setting contentType
         success: function(response) {
             console.log("\n\nresponse from server : " + response);
+            if(response.trim() === "Movie Updated successfully." ){
+                $('#EditMovieModal'+ movieID).modal('hide');
+                $('#RecordAddedSuccess').modal('show');
+            }
         },
         error: function(xhr, status, error) {
             console.error(xhr.responseText);
@@ -659,7 +628,7 @@ function refreshPage() {
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-film fa-xl"></i> Add Movie</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-film fa-xl"></i> Edit Movie</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body" id="EditMovieForm' . $movie->Movie_ID .  '">

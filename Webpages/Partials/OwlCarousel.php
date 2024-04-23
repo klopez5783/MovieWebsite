@@ -28,7 +28,11 @@ $movies = getMovieObjArray()
                       </div>
                       <p class="">Release Date: <?php echo $movie->release_date; ?></p> <!-- Display release date -->
                     </div>
-                    <a href="#" class="btn buttonColor ">Go somewhere</a>
+                    <form action="../Processes/start_Payment.php" method="post">
+                    <input type="hidden" name="id" value="<?php echo $movie->Movie_ID ?>"> <!-- Replace "123" with your actual ID number -->
+                        <input type="submit" name="create_session" value="Create Session" class="btn buttonColor">
+                    </form>
+
                 </div>
             </div>
         <?php

@@ -29,7 +29,7 @@ function getTheatreObjArray(){
     return $theaters;
 }
 
-Function selectWithID($id){
+Function getTheaterObj($id){
     global $conn;
 
     $query = "Select * from Theater where theater_id = ?";

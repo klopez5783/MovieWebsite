@@ -188,23 +188,6 @@ function AddCustomer(){
 
 
 function getMovie(movieID){
-    // var movie;
-    // $.ajax({
-    //         url: '../Processes/get_movie_data.php',
-    //         type: 'POST',
-    //         data: { movieID: movieID },
-    //         dataType: 'json',
-    //         success: function(data) {
-    //             // Populate form fields with retrieved data
-    //             movie = data;
-    //             console.log("DATA : " , movie);
-    //         },
-    //         error: function(xhr, status, error) {
-    //             console.error(xhr.responseText);
-    //         }
-    //     });
-
-    //     return movie;
     return new Promise((resolve, reject) => {
         $.ajax({
             url: '../Processes/get_movie_data.php',

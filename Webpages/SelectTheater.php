@@ -113,11 +113,35 @@ $movieID = $_SESSION['Movie_ID'];
     padding: 10px; /* Optional: add padding to the scrollable content */
 }
 
+/* .card-title#TheaterTitle {
+    background-color: #f7f7f7;
+} */
+
+#selectTheaterContainer{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+#TheaterTitle{
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
 
 
     </style>
 
-  
+<script>
+        // Function to handle selecting a date
+        function selectDate(date) {
+            // Set the selected date as a session variable using AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "../Processes/SetDateSession.php?date=" + encodeURIComponent(date), true);
+            xhr.send();
+
+            // Reload the page with the selected date as a query parameter
+            //window.location.href = "<?php echo $_SERVER['PHP_SELF']; ?>?date=" + encodeURIComponent(date);
+        }
+    </script>
+
 
 </head>
 
@@ -135,63 +159,64 @@ $movieID = $_SESSION['Movie_ID'];
        include '../Objects/Theatre/TheatreFunctions.php';
        include '../Objects/Movie/MovieObj.php';
        include '../Objects/Movie/MovieFunctions.php';
+       include '../Objects/Show/ShowTimeFunctions.php';
+       include '../Objects/Show/ShowObj.php';
        $movie = getMovie($movieID);
-        ?>
+       $dates = getMovieShowTimeDates($movieID);
+       
+       if (isset($_SESSION['selected_date'])) {
+        // Sanitize the input date
+        $currentDate = $_SESSION['selected_date'];
+        // Set the date as a session variable
+        }else{
+        
+            $currentDate = $dates[0];
+        }
+        echo $currentDate;
+       //$currentDate = date('2024-04-28');
+       $movieTimes = getMovieTimes($movieID,$currentDate); ?>
+       
 
-        <div id="selectTheaterContainer" class="d-flex justify-content-between">
-                <div id="TheaterList" class="overflow-auto p-3 bg-body-tertiary">
-                    <h3>Winterfell</h3>
-                    <h3>King's Landing</h3>
-                    <h3>Dragonstone</h3>
-                    <h3>The Wall</h3>
-                    <h3>Castle Black</h3>
-                    <h3>Riverrun</h3>
-                    <h3>Highgarden</h3>
-                    <h3>Pyke</h3>
-                    <h3>Dorne</h3>
-                    <h3>Meereen</h3>
-                    <h3>Storm's End</h3>
-                    <h3>Harrenhal</h3>
-                    <h3>The Eyrie</h3>
-                    <h3>Casterly Rock</h3>
-                    <h3>Braavos</h3>
-                    <h3>Volantis</h3>
-                    <h3>Qarth</h3>
-                    <h3>Astapor</h3>
-                    <h3>Yunkai</h3>
-                    <h3>Oldtown</h3>
-                    <h3>Sunspear</h3>
-                    <h3>Dragonpit</h3>
-                    <h3>White Harbor</h3>
-                    <h3>Horn Hill</h3>
-                    <h3>Moat Cailin</h3>
-                    <h3>Seagard</h3>
-                    <h3>Old Valyria</h3>
-                    <h3>Summerhall</h3>
-                    <h3>Valyria</h3>
-                    <h3>Lannisport</h3>
-                    <h3>Dragonstone</h3>
-                    <h3>Qohor</h3>
-                    <h3>Tarth</h3>
-                    <h3>Dragonstone</h3>
-                    <h3>Lys</h3>
-                    <h3>King's Landing</h3>
-                    <h3>Dragonstone</h3>
-                    <h3>The Twins</h3>
-                    <h3>The Arbor</h3>
-                    <h3>Dragonstone</h3>
-                    <h3>Dragonstone</h3>
-                    <h3>Dragonstone</h3>
-                    <h3>Dragonstone</h3>
-                    <h3>Dragonstone</h3>
-                    <h3>Dragonstone</h3>
-                    <h3>Dragonstone</h3>
-                    <h3>Dragonstone</h3>
-                    <h3>Dragonstone</h3>
+<div id="selectTheaterContainer" class="d-flex justify-content-between mt-2">
+                <div id="TheaterList" class="overflow-auto bg-body-tertiary">
+                <div class="row">
+                    <form action="" class="col-4">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle m-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-regular fa-calendar fa-lg"></i> Date 
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <?php 
+                                
+                                foreach($dates as $date){ ?>
+                                    <li><a class="dropdown-item" href="#" onclick="selectDate('<?php echo $date; ?>')" ><?php echo $date ?></a></li>
+                                    <?php } ?>
+                            </ul>
+                        </div>
+                    </form>
+                    <div class="col-8">
+                     <?php echo $movie->movie_name ?>   
+                    </div>
+                </div>
+                <?php
+        foreach ($movieTimes as $x){
+            $theaterObj = getTheaterObj($x->theater_id);
+        ?>
+                    <div id="TheaterContainer" class="p-1">
+                        <div class="card-body border-bottom" id="TheaterSection">
+                            <h5 class="card-title p-3 rounded-3" id="TheaterTitle"><?php echo $theaterObj->name; ?> 
+                                <a href=""><i class="fa-solid fa-map-location-dot fa-lg mx-2"></i></a> 
+                            </h5>
+                            <a href="#" class=" m-2 btn btn-outline-secondary"><?php echo date('g:i A', strtotime($x->start_time)); ?></a>
+                        </div>
+                    </div>
+                    <?php } ?>
                 </div>
                 <img src="<?php getMoviePoster($movie->movie_name) ?>" class="mx-auto" id="posterImage" alt="Movie Poster"> 
+                
         </div>
 
+        
 
       
 

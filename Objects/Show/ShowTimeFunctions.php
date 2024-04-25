@@ -98,8 +98,25 @@ function getMovieShowTimeDates($movieID){
         echo "no records";
     }
 
-    echo "there are " . count($dates) . "number of records in this array for the movie id : " . $movieID . "\n\n\n";
     return $dates;
+}
+
+
+function getStartTimes($showTimeArray){
+    
+    $startTimeArray = array();
+    foreach($showTimeArray as $x){
+        $theaterID = $x->theater_id;
+        $startTime = $x->start_time;
+        
+        if( isset($startTimeArray[$theaterID]) ){
+            $startTimeArray[$theaterID][] = $startTime;
+        }else{
+            $startTimeArray[$theaterID] = array($startTime);
+        }
+        
+    }
+    return $startTimeArray;
 }
 
 

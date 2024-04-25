@@ -20,7 +20,7 @@
 <?php include 'HeaderFiles/HeaderTags.php';
     include '../Processes/SignUpFunctions.php';?>
 </head>
-<?php $theater =  selectWithID($_SESSION['TheaterID']);?>
+<?php $theater =  getTheaterObj($_SESSION['TheaterID']);?>
 
 <body class="bgImage">
 

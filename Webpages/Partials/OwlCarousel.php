@@ -30,7 +30,7 @@ $movies = getMovieObjArray()
                     </div>
                     <form action="../Processes/start_Payment.php" method="post">
                     <input type="hidden" name="id" value="<?php echo $movie->Movie_ID ?>"> <!-- Replace "123" with your actual ID number -->
-                        <input type="submit" name="create_session" value="Create Session" class="btn buttonColor">
+                        <input type="submit" name="create_session" value="Get Tickets" class="btn buttonColor">
                     </form>
 
                 </div>

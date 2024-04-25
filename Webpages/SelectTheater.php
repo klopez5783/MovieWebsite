@@ -138,7 +138,7 @@ $movieID = $_SESSION['Movie_ID'];
             xhr.send();
 
             // Reload the page with the selected date as a query parameter
-            //window.location.href = "<?php echo $_SERVER['PHP_SELF']; ?>?date=" + encodeURIComponent(date);
+            window.location.href = "<?php echo $_SERVER['PHP_SELF']; ?>?date=" + encodeURIComponent(date);
         }
     </script>
 
@@ -172,9 +172,10 @@ $movieID = $_SESSION['Movie_ID'];
         
             $currentDate = $dates[0];
         }
-        echo $currentDate;
        //$currentDate = date('2024-04-28');
-       $movieTimes = getMovieTimes($movieID,$currentDate); ?>
+       $showTimeArray = getMovieTimes($movieID,$currentDate);
+       $startTimes = getStartTimes($showTimeArray);
+       ?>
        
 
 <div id="selectTheaterContainer" class="d-flex justify-content-between mt-2">
@@ -199,20 +200,20 @@ $movieID = $_SESSION['Movie_ID'];
                     </div>
                 </div>
                 <?php
-        foreach ($movieTimes as $x){
-            $theaterObj = getTheaterObj($x->theater_id);
+        foreach ($startTimes as $id=>$start){
+            $theaterObj = getTheaterObj($id);
         ?>
                     <div id="TheaterContainer" class="p-1">
                         <div class="card-body border-bottom" id="TheaterSection">
                             <h5 class="card-title p-3 rounded-3" id="TheaterTitle"><?php echo $theaterObj->name; ?> 
                                 <a href=""><i class="fa-solid fa-map-location-dot fa-lg mx-2"></i></a> 
                             </h5>
-                            <a href="#" class=" m-2 btn btn-outline-secondary"><?php echo date('g:i A', strtotime($x->start_time)); ?></a>
+                            <?php foreach( $start as $timeStart ) {  ?> <a href="#" class=" m-2 btn btn-outline-secondary"><?php echo date('g:i A', strtotime($timeStart)); } ?></a>
                         </div>
                     </div>
                     <?php } ?>
                 </div>
-                <img src="<?php getMoviePoster($movie->movie_name) ?>" class="mx-auto" id="posterImage" alt="Movie Poster"> 
+                <img src="<?php getMoviePoster($movie->movie_name) ?>" class="mx-auto" id="posterImage" alt="Movie Poster">
                 
         </div>
 

@@ -44,64 +44,15 @@ $movieID = $_SESSION['Movie_ID'];
         border: 2.5px solid blue;
     }
 
-    #posterImage {
-    display: none; /* Hide the image by default */
-    }
+    
 
     #TheaterList{
             margin: 0px auto 0px auto;
-            width: 90%;
+            width: 95%;
             height: 600px;
         }
 
-    /* Show the image for medium to larger screens */
-    @media screen and (min-width: 768px) {
-        #posterImage {
-            display: block; /* Show the image */
-            /* Set size for medium to larger screens */
-            width: 40%; /* Adjust the width as needed */
-            height: auto; /* Let the height adjust proportionally */
-        }
-        #TheaterList{
-            width: 90%;
-            height: 600px;
-        }
-    }
-
-    /* Additional styles for larger screens if needed */
-    @media screen and (min-width: 992px) {
-        #posterImage {
-            /* Set size for larger screens */
-            width: 40%; /* Adjust the width as needed */
-        }
-        #TheaterList{
-            width: 85%;
-            height: 600px;
-        }
-        #selectTheaterContainer{
-            margin: 10px auto 0px auto; 
-        }
-    }
-
-    /* Additional styles for extra-large screens if needed */
-    @media screen and (min-width: 1200px) {
-        #posterImage {
-            /* Set size for extra-large screens */
-            width: 30%; /* Adjust the width as needed */
-        }
-        #TheaterList{
-            width: 85%;
-            height: 600px;
-        }
-}
-
-/* Additional styles for extra-large screens if needed */
-@media screen and (min-width: 1600px) {
-        #posterImage {
-            /* Set size for extra-large screens */
-            width: 20%; /* Adjust the width as needed */
-        }
-}
+    
 
 .small-scroll-box {
     height: 200px; /* Adjust the height as needed */
@@ -113,17 +64,77 @@ $movieID = $_SESSION['Movie_ID'];
     padding: 10px; /* Optional: add padding to the scrollable content */
 }
 
-/* .card-title#TheaterTitle {
-    background-color: #f7f7f7;
-} */
-
-#selectTheaterContainer{
-    background-color: rgba(0, 0, 0, 0.05);
-}
 
 #TheaterTitle{
     background-color: rgba(0, 0, 0, 0.25);
 }
+
+#posterImage{
+    display: none;
+}
+
+    /* Show the image for medium to larger screens */
+    @media screen and (min-width: 768px) {
+        #posterImage {
+            display: block; /* Show the image */
+            /* Set size for medium to larger screens */
+            /* Adjust the width as needed */
+            /* Let the height adjust proportionally */
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    /* Additional styles for larger screens if needed */
+    @media screen and (min-width: 992px) {
+        #posterImage {
+            /* Set size for larger screens */
+            /* Adjust the width as needed */
+        }
+    }
+
+    /* Additional styles for extra-large screens if needed */
+    @media screen and (min-width: 1150px) {
+        #posterImage {
+            /* Set size for extra-large screens */
+            /* Adjust the width as needed */
+            width: 90%;
+        }
+    }
+
+    /* Additional styles for extra-large screens if needed */
+    @media screen and (min-width: 1300px) {
+            #posterImage {
+                /* Set size for extra-large screens */
+                /* Adjust the width as needed */
+                width: 80%;
+            }
+    }
+
+    @media screen and (min-width: 1400px) {
+            #posterImage {
+                /* Set size for extra-large screens */
+                /* Adjust the width as needed */
+                width: 80%;
+            }
+    }
+
+
+    @media screen and (min-width: 1500px) {
+            #posterImage {
+                /* Set size for extra-large screens */
+                /* Adjust the width as needed */
+                width: 70%;
+            }
+    }
+    
+    @media screen and (min-width: 1800px) {
+            #posterImage {
+                /* Set size for extra-large screens */
+                /* Adjust the width as needed */
+                width: 60%;
+            }
+    }
 
 
 
@@ -140,7 +151,8 @@ $movieID = $_SESSION['Movie_ID'];
             // Reload the page with the selected date as a query parameter
             window.location.href = "<?php echo $_SERVER['PHP_SELF']; ?>?date=" + encodeURIComponent(date);
         }
-    </script>
+
+</script>
 
 
 </head>
@@ -177,50 +189,56 @@ $movieID = $_SESSION['Movie_ID'];
        $startTimes = getStartTimes($showTimeArray);
        ?>
        
-
-<div id="selectTheaterContainer" class="d-flex justify-content-between mt-2">
-                <div id="TheaterList" class="overflow-auto bg-body-tertiary">
-                <div class="row">
-                    <form action="" class="col-4">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle m-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-regular fa-calendar fa-lg"></i> Date 
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <?php 
-                                
-                                foreach($dates as $date){ ?>
-                                    <li><a class="dropdown-item" href="#" onclick="selectDate('<?php echo $date; ?>')" ><?php echo $date ?></a></li>
+        <div id="selectTheaterContainer" class="mt-2">
+            <div class="d-flex justify-content-center">
+                <!-- Theater List Column -->
+                <div class="col-6 d-flex align-items-center">
+                    <div id="TheaterList" class="overflow-auto bg-body-tertiary">
+                        <div class="row">
+                            <!-- Date Dropdown -->
+                            <form action="" class="col-4">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle m-1" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-regular fa-calendar fa-lg"></i> Date 
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <?php foreach($dates as $date){ ?>
+                                            <li><a class="dropdown-item" href="#" onclick="selectDate('<?php echo $date; ?>')" ><?php echo $date ?></a></li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+                            </form>
+                            <!-- Movie Name -->
+                            <div class="col-8">
+                                <?php echo $movie->movie_name ?>   
+                            </div>
+                        </div>
+                        <!-- Theater Sections -->
+                        <?php foreach ($startTimes as $id=>$start){ ?>
+                            <div id="TheaterContainer" class="p-1">
+                                <div class="card-body border-bottom" id="TheaterSection">
+                                    <h5 class="card-title p-3 rounded-3" id="TheaterTitle"><?php echo getTheaterObj($id)->name; ?> 
+                                        <a href=""><i class="fa-solid fa-map-location-dot fa-lg mx-2"></i></a> 
+                                    </h5>
+                                    <!-- Theater Start Times -->
+                                    <?php foreach( $start as $timeStart ) {  ?>
+                                        <a href="#" class="m-2 btn btn-outline-secondary">
+                                            <?php echo date('g:i A', strtotime($timeStart)); ?>
+                                        </a>
                                     <?php } ?>
-                            </ul>
-                        </div>
-                    </form>
-                    <div class="col-8">
-                     <?php echo $movie->movie_name ?>   
+                                </div>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
-                <?php
-        foreach ($startTimes as $id=>$start){
-            $theaterObj = getTheaterObj($id);
-        ?>
-                    <div id="TheaterContainer" class="p-1">
-                        <div class="card-body border-bottom" id="TheaterSection">
-                            <h5 class="card-title p-3 rounded-3" id="TheaterTitle"><?php echo $theaterObj->name; ?> 
-                                <a href=""><i class="fa-solid fa-map-location-dot fa-lg mx-2"></i></a> 
-                            </h5>
-                            <?php foreach( $start as $timeStart ) {  ?> <a href="#" class=" m-2 btn btn-outline-secondary"><?php echo date('g:i A', strtotime($timeStart)); } ?></a>
-                        </div>
+                <!-- Image Column -->
+                <div class="col-5">
+                    <div class="image-container d-flex align-items-center justify-content-center">
+                        <img src="<?php getMoviePoster($movie->movie_name) ?>" class="mx-auto" id="posterImage" alt="Movie Poster">
                     </div>
-                    <?php } ?>
                 </div>
-                <img src="<?php getMoviePoster($movie->movie_name) ?>" class="mx-auto" id="posterImage" alt="Movie Poster">
-                
+            </div>
         </div>
-
-        
-
-      
-
 
 
         

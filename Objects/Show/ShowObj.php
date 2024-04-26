@@ -20,6 +20,35 @@ class ShowObj {
         $this->Movie_ID = $Movie_ID;
     }
 
+    // Setter methods
+    public function setShowtimeID($showtime_ID) {
+        $this->showtime_ID = $showtime_ID;
+    }
+
+    public function setEndTime($end_time) {
+        $this->end_time = $end_time;
+    }
+
+    public function setStartTime($start_time) {
+        $this->start_time = $start_time;
+    }
+
+    public function setLanguage($language) {
+        $this->language = $language;
+    }
+
+    public function setDate($Date) {
+        $this->Date = $Date;
+    }
+
+    public function setTheaterID($theater_id) {
+        $this->theater_id = $theater_id;
+    }
+
+    public function setMovieID($Movie_ID) {
+        $this->Movie_ID = $Movie_ID;
+    }
+
     // Static method to create a Showtime object from an associative array
     public static function createFromArray($data) {
         return new self(
@@ -33,6 +62,7 @@ class ShowObj {
         );
     }
 }
+
 
 
 

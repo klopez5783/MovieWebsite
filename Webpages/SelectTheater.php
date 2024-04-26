@@ -48,7 +48,7 @@ $movieID = $_SESSION['Movie_ID'];
 
     #TheaterList{
             margin: 0px auto 0px auto;
-            width: 95%;
+            width: 100%;
             height: 600px;
         }
 
@@ -175,17 +175,19 @@ $movieID = $_SESSION['Movie_ID'];
        include '../Objects/Show/ShowObj.php';
        $movie = getMovie($movieID);
        $dates = getMovieShowTimeDates($movieID);
+
+
+       $currentDate = $dates[0];
        
        if (isset($_SESSION['selected_date'])) {
         // Sanitize the input date
         $currentDate = $_SESSION['selected_date'];
         // Set the date as a session variable
-        }else{
-        
-            $currentDate = $dates[0];
         }
-       //$currentDate = date('2024-04-28');
+
+       
        $showTimeArray = getMovieTimes($movieID,$currentDate);
+       unset($_SESSION['selected_date']);
        $startTimes = getStartTimes($showTimeArray);
        ?>
        
@@ -214,18 +216,22 @@ $movieID = $_SESSION['Movie_ID'];
                             </div>
                         </div>
                         <!-- Theater Sections -->
-                        <?php foreach ($startTimes as $id=>$start){ ?>
+                        <?php foreach ($startTimes as $id=>$start){ $theaterOBJ = getTheaterObj($id); ?>
                             <div id="TheaterContainer" class="p-1">
                                 <div class="card-body border-bottom" id="TheaterSection">
-                                    <h5 class="card-title p-3 rounded-3" id="TheaterTitle"><?php echo getTheaterObj($id)->name; ?> 
+                                    <h5 class="card-title p-3 rounded-3" id="TheaterTitle"><?php echo $theaterOBJ->name; ?> 
                                         <a href=""><i class="fa-solid fa-map-location-dot fa-lg mx-2"></i></a> 
                                     </h5>
                                     <!-- Theater Start Times -->
-                                    <?php foreach( $start as $timeStart ) {  ?>
-                                        <a href="#" class="m-2 btn btn-outline-secondary">
-                                            <?php echo date('g:i A', strtotime($timeStart)); ?>
-                                        </a>
-                                    <?php } ?>
+                                    <div class="d-flex">
+                                        <?php foreach( $start as $timeStart ) {  ?>
+                                            <form action="../Processes/SetDateSession.php" method="POST">
+                                                <input type="hidden" name="MTD">
+                                                <input type="hidden" name="ShowTimeID" value="<?php $showTimeOBJ = getShowTimeOBJ($movieID,$date,$theaterOBJ->theater_id); echo $showTimeOBJ->showtime_ID ?>">
+                                                <input type="submit" class="m-2 btn btn-outline-secondary" value="<?php echo date('g:i A', strtotime($timeStart)); ?>">
+                                            </form>
+                                        <?php } ?>
+                                    </div>
                                 </div>
                             </div>
                         <?php } ?>

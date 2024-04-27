@@ -17,4 +17,24 @@ if ( isset( $_POST['MTD'] ) ){
     header("Location: /MovieWebsite/webpages/SelectSeating.php");
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the JSON data sent via POST
+    $json = file_get_contents('php://input');
+    // Decode JSON data to PHP array
+    $selectedSeats = json_decode($json, true);
+    
+    // Set session variable with selected seat data
+    $_SESSION['selected_seats'] = $selectedSeats;
+
+    print_r($selectedSeats);
+
+    // Send success response
+    http_response_code(200);
+    echo "Seat data processed successfully";
+} else {
+    // If request method is not POST, send a 405 Method Not Allowed response
+    http_response_code(405);
+    echo "Method Not Allowed";
+}
+
 ?>

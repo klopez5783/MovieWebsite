@@ -99,7 +99,29 @@ function handleSeatClick(row, seat) {
         // If seat is not selected, add it to the array
         selectedSeats.push({ row, seat });
     }
-    console.log(selectedSeats); // Log selected seats (you can replace this with your desired action)
+    
+}
+
+function SubmitForm(){
+    $.ajax({
+    type: "POST",
+    url: "../Processes/SetDateSession.php", // PHP script to set session and process selected seats
+    data: JSON.stringify(selectedSeats), // Convert selectedSeats array to JSON string
+    contentType: "application/json", // Set content type to JSON
+    success: function(response) {
+        console.log(response);
+        // Redirect to the next screen if response indicates success
+        if(response === "Seat data processed successfully") {
+            const form = document.getElementById("continue");
+            form.submit();
+        }
+    },
+    error: function(xhr, status, error) {
+        // Handle error if needed
+        console.error("Error:", error);
+    }
+});
+
 }
 </script>
 
@@ -158,8 +180,14 @@ function handleSeatClick(row, seat) {
                     echo '</div>';
                     echo '</div>';
                     $rowLabel++;
+
                 }
             ?>
+            <form id="continue" action="../Webpages/CustomerInfo.php" method="post">
+                <button class="btn btn-primary" onClick="SubmitForm()">
+                    Continue
+                </button>
+            </form>
         </div>
     </div>
 </div>

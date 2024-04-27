@@ -46,11 +46,61 @@ echo "ShowTime ID: " . $_SESSION['ShowTimeID'] . "<br>";
             justify-content: center;
         }
 
+        /* Additional CSS for theater seating container */
+.theater-seating-container {
+    background-color: #f8f9fa; /* Set background color */
+    padding: 20px; /* Add padding for spacing */
+    border-radius: 10px; /* Add border radius for rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
 
-    </style>
+.theater-seating-container h1 {
+    color: #343a40; /* Set title color */
+}
+
+.theater-seating-container .row {
+    margin-bottom: 20px; /* Add margin between rows */
+}
+
+.theater-seating-container .seat {
+    width: 50px; /* Set button width */
+    height: 50px; /* Set button height */
+    margin: 5px; /* Add margin between buttons */
+    font-size: 16px; /* Set button font size */
+}
+
+.theater-seating-container .seat:focus {
+    outline: none; /* Remove focus outline */
+}
+
+.theater-seating-container .seat.active {
+    background-color: #007bff; /* Set active button background color */
+    color: #fff; /* Set active button text color */
+}
+
+
+        @media screen and (min-width: 1400px) {
+
+        }
+</style>
 
 <script>
 
+
+const selectedSeats = []; // Array to store selected seats
+
+// Function to handle seat button click
+function handleSeatClick(row, seat) {
+    const seatIndex = selectedSeats.findIndex(seat => seat.row === row && seat.seat === seat);
+    if (seatIndex !== -1) {
+        // If seat is already selected, remove it from the array
+        selectedSeats.splice(seatIndex, 1);
+    } else {
+        // If seat is not selected, add it to the array
+        selectedSeats.push({ row, seat });
+    }
+    console.log(selectedSeats); // Log selected seats (you can replace this with your desired action)
+}
 </script>
 
 
@@ -60,64 +110,62 @@ echo "ShowTime ID: " . $_SESSION['ShowTimeID'] . "<br>";
 
 
 
-    <body class="bgImage">
+<body class="bgImage">
 
         <?php include 'Partials/NavBar.html' ?> 
 
-        <div class="container mt-5">
-        <h1 class="text-center mb-4">Select Seats</h1>
-        <div class="d-flex">
-            <div class="col-md-6">
-                <?php
-                    $rows = 6;
-                    $seatsPerRow = 6;
-                    $rowLabel = 'A';
-                    for ($i = 1; $i <= $rows; $i++) {
-                        echo '<div class="row">';
-                        echo '<div class="col-md-12">';
-                        echo '<div class="d-flex justify-content-center">';
-                        echo '<h3 class="d-flex align-items-center me-2">' . $rowLabel . '</h3>';
-                        echo '<div class="d-flex justify-content-center">';
-                        for ($j = 1; $j <= $seatsPerRow; $j++) {
-                            echo '<button data-bs-toggle="button"  class="seat btn btn-outline-secondary">' . $j . '</button>';
-                        }
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                        $rowLabel++;
+<div class="container mt-5 theater-seating-container">
+    <h1 class="text-center mb-4">Select Seats</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <?php
+                $rows = 6;
+                $seatsPerRow = 6;
+                $rowLabel = 'A';
+                for ($i = 1; $i <= $rows; $i++) {
+                    echo '<div class="row">';
+                    echo '<div class="col-5 col-sm-2 col-md-1">';
+                    echo '<h3 class="d-flex align-items-end justify-content-end"><div>' . $rowLabel . '</div></h3>';
+                    echo '</div>';
+                    echo '<div class="col-7 col-sm-10 col-md-11">';
+                    echo '<div class="d-flex justify-content-evenly">';
+                    for ($j = 1; $j <= $seatsPerRow; $j++) {
+                        echo '<button data-bs-toggle="button" autocomplete="off" data-row="' . $rowLabel . '" data-seat="' . $j . '" onclick="handleSeatClick(\'' . $rowLabel . '\', ' . $j . ')" class="seat btn btn-outline-secondary">' . $j . '</button>';
                     }
-                ?>
-            </div>
-            <div class="col-md-6">
-                <?php
-                    $rows = 6;
-                    $seatsPerRow = 6;
-                    $rowLabel = 'A';
-                    for ($i = 1; $i <= $rows; $i++) {
-                        echo '<div class="row">';
-                        echo '<div class="col-md-12">';
-                        echo '<div class="d-flex justify-content-center">';
-                        echo '<h3 class="d-flex align-items-center me-2">' . $rowLabel . '</h3>';
-                        echo '<div class="d-flex justify-content-center">';
-                        for ($j = 1; $j <= $seatsPerRow; $j++) {
-                            echo '<button data-bs-toggle="button"  class="seat btn btn-outline-secondary">' . $j . '</button>';
-                        }
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                        $rowLabel++;
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    $rowLabel++;
+                }
+            ?>
+        </div>
+        <div class="col-md-6">
+            <?php
+                $rows = 6;
+                $seatsPerRow = 6;
+                $rowLabel = 'G'; // Adjust row label if needed
+                for ($i = 1; $i <= $rows; $i++) {
+                    echo '<div class="row">';
+                    echo '<div class="col-3 col-sm-2 col-md-1">';
+                    echo '<h3 class="d-flex align-items-center">' . $rowLabel . '</h3>';
+                    echo '</div>';
+                    echo '<div class="col-9 col-sm-10 col-md-11">';
+                    echo '<div class="d-flex justify-content-evenly">';
+                    for ($j = 1; $j <= $seatsPerRow; $j++) {
+                        echo '<button data-bs-toggle="button" autocomplete="off" data-row="' . $rowLabel . '" data-seat="' . $j . '" onclick="handleSeatClick(\'' . $rowLabel . '\', ' . $j . ')" class="seat btn btn-outline-secondary">' . $j . '</button>';
                     }
-                ?>
-            </div>
-            
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    $rowLabel++;
+                }
+            ?>
         </div>
     </div>
-       
-        
+</div>
+  
 
-    </body>
+</body>
 
     <?php include 'Partials/Footer.html' ?>
 

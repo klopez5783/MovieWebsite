@@ -1,7 +1,6 @@
 <?php 
 include 'HeaderFiles/HeaderTags.php';
 include '../Processes/SignUpFunctions.php';
-echo "ShowTime ID: " . $_SESSION['ShowTimeID'] . "<br>";
 ?>
 
 <!DOCTYPE html>
@@ -99,10 +98,12 @@ function handleSeatClick(row, seat) {
         // If seat is not selected, add it to the array
         selectedSeats.push({ row, seat });
     }
+    console.log(selectedSeats);
     
 }
 
 function SubmitForm(){
+    event.preventDefault();
     $.ajax({
     type: "POST",
     url: "../Processes/SetDateSession.php", // PHP script to set session and process selected seats
@@ -113,7 +114,7 @@ function SubmitForm(){
         // Redirect to the next screen if response indicates success
         if(response === "Seat data processed successfully") {
             const form = document.getElementById("continue");
-            form.submit();
+            
         }
     },
     error: function(xhr, status, error) {
@@ -183,13 +184,13 @@ function SubmitForm(){
 
                 }
             ?>
-            <form id="continue" action="../Webpages/CustomerInfo.php" method="post">
-                <button class="btn btn-primary" onClick="SubmitForm()">
-                    Continue
-                </button>
-            </form>
         </div>
     </div>
+    <form id="continue" class="d-flex justify-content-end" onsubmit="SubmitForm()" action="../Webpages/CustomerInfo.php" method="post">
+                <input value="Continue" type="Submit" class="btn btn-primary" >
+                    
+                </input>
+            </form>
 </div>
   
 

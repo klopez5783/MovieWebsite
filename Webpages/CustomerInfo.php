@@ -2,6 +2,10 @@
 include 'HeaderFiles/HeaderTags.php';
 include '../Processes/SignUpFunctions.php';
 echo "ShowTime ID: " . $_SESSION['ShowTimeID'] . "<br>";
+if( isset( $_SESSION['selected_seats'] )){
+    echo 'session is set';
+}
+print_r($_SESSION['selected_seats'] );
 ?>
 
 <!DOCTYPE html>

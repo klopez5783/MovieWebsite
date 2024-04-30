@@ -90,40 +90,41 @@ const selectedSeats = []; // Array to store selected seats
 
 // Function to handle seat button click
 function handleSeatClick(row, seat) {
-    const seatIndex = selectedSeats.findIndex(seat => seat.row === row && seat.seat === seat);
-    if (seatIndex !== -1) {
+    var boolean = false;
+    var index;
+    console.log("before loop");
+    for (let i = 0; i < selectedSeats.length; i++) {
+  console.log("Inside Loop - Seat " + i + ": " + 
+              "Row: " + selectedSeats[i].row + ", " +
+              "Seat: " + selectedSeats[i].seat);
+    if( selectedSeats[i].row == row && selectedSeats[i].seat == seat ){
+        boolean = true;
+        index = i;
+    }
+}
+    if (boolean == true ) {
         // If seat is already selected, remove it from the array
-        selectedSeats.splice(seatIndex, 1);
+        selectedSeats.splice(index, 1);
     } else {
         // If seat is not selected, add it to the array
         selectedSeats.push({ row, seat });
     }
     console.log(selectedSeats);
+    // Call the function to attach selected seats when needed
+    attachSelectedSeats();
+} 
+
+// Function to attach the selected seats array to the form
+function attachSelectedSeats() {
+    // Get the form and input element
+    var form = document.getElementById("myForm");
+    var input = document.getElementById("selectedSeatsInput");
     
+    // Convert the array to JSON and set it as the input value
+    input.value = JSON.stringify(selectedSeats);
 }
 
-function SubmitForm(){
-    event.preventDefault();
-    $.ajax({
-    type: "POST",
-    url: "../Processes/SetDateSession.php", // PHP script to set session and process selected seats
-    data: JSON.stringify(selectedSeats), // Convert selectedSeats array to JSON string
-    contentType: "application/json", // Set content type to JSON
-    success: function(response) {
-        console.log(response);
-        // Redirect to the next screen if response indicates success
-        if(response === "Seat data processed successfully") {
-            const form = document.getElementById("continue");
-            
-        }
-    },
-    error: function(xhr, status, error) {
-        // Handle error if needed
-        console.error("Error:", error);
-    }
-});
 
-}
 </script>
 
 
@@ -186,11 +187,10 @@ function SubmitForm(){
             ?>
         </div>
     </div>
-    <form id="continue" class="d-flex justify-content-end" onsubmit="SubmitForm()" action="../Webpages/CustomerInfo.php" method="post">
-                <input value="Continue" type="Submit" class="btn btn-primary" >
-                    
-                </input>
-            </form>
+        <form id="continue" class="d-flex justify-content-end" onsubmit="SubmitForm()" action="../Webpages/CustomerInfo.php" method="post">
+        <input type="hidden" name="selectedSeats" id="selectedSeatsInput">    
+        <input value="Continue" type="Submit" class="btn btn-primary" >
+        </form>
 </div>
   
 

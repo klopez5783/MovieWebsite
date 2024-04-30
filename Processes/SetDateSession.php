@@ -16,6 +16,8 @@ if ( isset( $_POST['MTD'] ) ){
     header("Location: /MovieWebsite/webpages/SelectSeating.php");
 }
 
+if( isset($_POST['jsonData']) ) { echo "POST SESSION SET!!!";}
+
 if(isset($_POST['selectedSeats'])) {
     echo 'inside selected Seats Session If';
     // Get the JSON data sent via POST

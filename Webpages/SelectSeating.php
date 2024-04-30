@@ -187,9 +187,9 @@ function attachSelectedSeats() {
             ?>
         </div>
     </div>
-        <form id="continue" class="d-flex justify-content-end" onsubmit="SubmitForm()" action="../Webpages/CustomerInfo.php" method="post">
-        <input type="hidden" name="selectedSeats" id="selectedSeatsInput">    
-        <input value="Continue" type="Submit" class="btn btn-primary" >
+        <form id="continue" name="setSeatSession" class="d-flex justify-content-end" onsubmit="SubmitForm()" action="../Processes/SetDateSession.php" method="post">
+            <input type="hidden" name="selectedSeats" id="selectedSeatsInput">    
+            <input value="Continue" type="Submit" class="btn btn-primary" >
         </form>
 </div>
   

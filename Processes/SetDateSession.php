@@ -16,21 +16,14 @@ if ( isset( $_POST['MTD'] ) ){
     header("Location: /MovieWebsite/webpages/SelectSeating.php");
 }
 
-if( isset($_POST['jsonData']) ) { echo "POST SESSION SET!!!";}
 
 if(isset($_POST['selectedSeats'])) {
-    echo 'inside selected Seats Session If';
-    // Get the JSON data sent via POST
-    $json = file_get_contents('php://input');
-    // Decode JSON data to PHP array
-    $selectedSeats = json_decode($json, true);
-    
-    // Set session variable with selected seat data
-    $_SESSION['selected_seats'] = $selectedSeats;
-
-    print_r($selectedSeats);
-
-    echo "Seat data processed successfully";
+   
+    $data = $_POST['selectedSeats'];
+    $array = json_decode($data,true);
+    $_SESSION['selectedSeats'] = $array;
+    echo "inside if";
+    header("Location: /MovieWebsite/Webpages/CustomerInfo.php");
 }
 
 ?>

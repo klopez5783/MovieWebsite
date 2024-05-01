@@ -18,10 +18,12 @@ if ( isset( $_POST['MTD'] ) ){
 
 
 if(isset($_POST['selectedSeats'])) {
+    unset( $_SESSION['selectedSeats'] );
    
-    $data = $_POST['selectedSeats'];
-    $array = json_decode($data,true);
-    $_SESSION['selectedSeats'] = $array;
+    // $data = $_POST['selectedSeats'];
+    // $array = json_decode($data,true);
+    // $_SESSION['selectedSeats'] = $array;
+    $_SESSION['selectedSeats'] = $_POST['selectedSeats'];
     echo "inside if";
     header("Location: /MovieWebsite/Webpages/CustomerInfo.php");
 }

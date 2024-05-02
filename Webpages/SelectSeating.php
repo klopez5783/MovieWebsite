@@ -90,24 +90,22 @@ const selectedSeats = []; // Array to store selected seats
 
 // Function to handle seat button click
 function handleSeatClick(row, seat) {
+    const selectedSeat = row + seat.toString();
     var boolean = false;
     var index;
     console.log("before loop");
     for (let i = 0; i < selectedSeats.length; i++) {
-  console.log("Inside Loop - Seat " + i + ": " + 
-              "Row: " + selectedSeats[i].row + ", " +
-              "Seat: " + selectedSeats[i].seat);
-    if( selectedSeats[i].row == row && selectedSeats[i].seat == seat ){
-        boolean = true;
-        index = i;
-    }
+        if( selectedSeats[i] == selectedSeat){
+            boolean = true;
+            index = i;
+        }
 }
     if (boolean == true ) {
         // If seat is already selected, remove it from the array
         selectedSeats.splice(index, 1);
     } else {
         // If seat is not selected, add it to the array
-        selectedSeats.push({ row, seat });
+        selectedSeats.push( selectedSeat );
     }
     console.log(selectedSeats);
     // Call the function to attach selected seats when needed

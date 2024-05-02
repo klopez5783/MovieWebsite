@@ -2,13 +2,22 @@
 include 'HeaderFiles/HeaderTags.php';
 include '../Processes/SignUpFunctions.php';
 
+require_once '../Processes/Paypal.php';
+
+$numberOfTickets = 0;
+
 $showTimeID = $_SESSION['ShowTimeID'];
 $selectedSeats = $_SESSION['selectedSeats'];
 $movieID = $_SESSION['Movie_ID'];
 include '../Objects/Movie/MovieObj.php';
 include '../Objects/Movie/MovieFunctions.php';
 $movie = getMovie($movieID);
+foreach ( $selectedSeats as $seat ){
+    $numberOfTickets++;
+}
+$total = $numberOfTickets * $ticketPirce;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -96,10 +105,6 @@ $movie = getMovie($movieID);
 
 </style>
 
-<script>
-
-</script>
-
 
 </head>
 
@@ -123,26 +128,24 @@ $movie = getMovie($movieID);
                         <div class="card-header">
                             <h4>Payment Information</h4>
                         </div>
+
                         <div class="card-body">
-                            <form action="process_payment.php" method="POST">
-                                <div class="mb-3">
-                                    <label for="inputEmail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="inputEmail" name="email" required>
+                        <ul class="list-group m-2">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div>
+                                    <h5><?php echo $movie->movie_name; ?></h5>
+                                    <small class="text-muted">
+                                        <?php echo "Seats : " . implode(', ', $selectedSeats); ?>
+                                    </small>
                                 </div>
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Default radio
-                                        </label>
-                                        </div>
-                                        <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                        <label class="form-check-label d-flex align-items-center" for="flexRadioDefault2">
-                                            <i class="fa-brands fa-cc-paypal fa-2xl" aria-hidden="true"></i>
-                                        </label>
-                                    </div>
+                                <div>
+                                <h5><?php echo "Tickets : $" . $total; ?></h5>
                                 </div>
+                            </li>
+                        </ul>
+
+
+                                                    <form action="process_payment.php" method="POST">
                                 <button type="submit" class="btn btn-primary">Process Payment</button>
                             </form>
                         </div>

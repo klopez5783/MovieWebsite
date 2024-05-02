@@ -121,7 +121,7 @@ $total = $numberOfTickets * $itemAmount;
     </div>
 
     <div id="selectTheaterContainer" class="mt-2">
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-evenly">
                 <!-- Customer Info Column -->
                 <div class="col-md-6">
                     <div class="card">
@@ -132,19 +132,19 @@ $total = $numberOfTickets * $itemAmount;
                         <div class="card-body">
 
 
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email:</label>
-                                <input type="text" id="email" name="email" class="form-control" required>
+                            <div class="mb-3 d-flex align-items-center">
+                                <i class="fa-solid fa-envelope fa-2xl me-2"></i> <input placeholder="Email" type="text" id="email" name="email" class="form-control" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="card_number" class="form-label">Card Number:</label>
-                                <input type="password" id="card_number" name="card_number" class="form-control" required maxlength="19" pattern="\d{4} \d{4} \d{4} \d{4}" title="Please enter a valid card number (e.g., xxxx xxxx xxxx xxxx)">
+                            <div class="card-header mb-3" style="font-weight:bold;">
+                                Credit Card Info <i class="fa-regular fa-credit-card fa-xl"></i>
+                            </div>
+                            <div class="mb-3 d-flex align-items-center">
+                                <i class="fa-regular fa-credit-card fa-xl me-2"></i><input placeholder="Credit Car Number" type="password" id="card_number" name="card_number" class="form-control" required maxlength="19" pattern="\d{4} \d{4} \d{4} \d{4}" title="Please enter a valid card number (e.g., xxxx xxxx xxxx xxxx)">
                             </div>
 
-                            <div class="mb-3">
-                                <label for="card_name" class="form-label">Name on Card:</label>
-                                <input type="text" id="card_name" name="card_name" class="form-control" required>
+                            <div class="mb-3 d-flex align-items-center" >
+                            <i class="fa-solid fa-user fa-2xl me-2"></i> <input placeholder="Name on Card" type="text" id="card_name" name="card_name" class="form-control" required>
                             </div>
                             
 
@@ -175,12 +175,12 @@ $total = $numberOfTickets * $itemAmount;
                                 </li>
                                 <li class="list-group-item d-flex justify-content-end">
                                     <div>
-                                    NY Tax $<?php $OrderTotal = round($total * 0.08875, 2); echo $OrderTotal ; ?>
+                                    NY Tax : $<?php $OrderTotal = round($total * 0.08875, 2); echo $OrderTotal ; ?>
                                     </div>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between">
                                     <div>
-                                        Total (USD)
+                                        Total (USD) :
                                     </div>
                                     <div>
                                         <h5>
@@ -192,7 +192,7 @@ $total = $numberOfTickets * $itemAmount;
 
 
                             <form class="d-flex justify-content-end" action="process_payment.php" method="POST">
-                                <button type="submit" class="btn btn-primary">Process Payment</button>
+                                <button type="submit" class="btn btn-success"> Pay Now</button>
                             </form>
                         </div>
                     </div>

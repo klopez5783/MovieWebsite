@@ -15,7 +15,7 @@ $movie = getMovie($movieID);
 foreach ( $selectedSeats as $seat ){
     $numberOfTickets++;
 }
-$total = $numberOfTickets * $ticketPirce;
+$total = $numberOfTickets * $itemAmount;
 ?>
 
 
@@ -130,22 +130,68 @@ $total = $numberOfTickets * $ticketPirce;
                         </div>
 
                         <div class="card-body">
-                        <ul class="list-group m-2">
-                            <li class="list-group-item d-flex justify-content-between">
-                                <div>
-                                    <h5><?php echo $movie->movie_name; ?></h5>
-                                    <small class="text-muted">
-                                        <?php echo "Seats : " . implode(', ', $selectedSeats); ?>
-                                    </small>
-                                </div>
-                                <div>
-                                <h5><?php echo "Tickets : $" . $total; ?></h5>
-                                </div>
-                            </li>
-                        </ul>
 
 
-                                                    <form action="process_payment.php" method="POST">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="text" id="email" name="email" class="form-control" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="card_number" class="form-label">Card Number:</label>
+                                <input type="password" id="card_number" name="card_number" class="form-control" required maxlength="19" pattern="\d{4} \d{4} \d{4} \d{4}" title="Please enter a valid card number (e.g., xxxx xxxx xxxx xxxx)">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="card_name" class="form-label">Name on Card:</label>
+                                <input type="text" id="card_name" name="card_name" class="form-control" required>
+                            </div>
+                            
+
+                            <div class="row g-3 mb-3">
+                                <div class="col">
+                                    <label for="expiry_date" class="form-label">Expiration Date:</label>
+                                    <input type="month" id="expiry_date" name="expiry_date" class="form-control" placeholder="MM/YYYY" required>
+                                </div>
+                                <div class="col">
+                                    <label for="cvv" class="form-label">CVV:</label>
+                                    <input type="text" id="cvv" name="cvv" class="form-control" required>
+                                </div>
+                            </div>
+                                                        
+                        
+
+                            <ul class="list-group mb-3">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <div>
+                                        <h5><?php echo $movie->movie_name; ?></h5>
+                                        <small class="text-muted">
+                                            <?php echo "Seats : " . implode(', ', $selectedSeats); ?>
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <h5><?php echo "Tickets : $" . $total; ?></h5>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-end">
+                                    <div>
+                                    NY Tax $<?php $OrderTotal = round($total * 0.08875, 2); echo $OrderTotal ; ?>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <div>
+                                        Total (USD)
+                                    </div>
+                                    <div>
+                                        <h5>
+                                        $<?php echo $total + $OrderTotal; ?>
+                                        </h5>
+                                    </div>
+                                </li>
+                            </ul>
+
+
+                            <form class="d-flex justify-content-end" action="process_payment.php" method="POST">
                                 <button type="submit" class="btn btn-primary">Process Payment</button>
                             </form>
                         </div>

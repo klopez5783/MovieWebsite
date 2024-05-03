@@ -36,11 +36,55 @@
         });
     });
 
+    function login() {
+    // Get email and password from divs
+    const email = document.getElementById('LoginEmail').value;
+    const password = document.getElementById('LoginPassword').value;
     
 
+    // Send data in an AJAX request using jQuery
+    $.ajax({
+        type: 'POST',
+        url: '../Processes/processLogin.php',
+        data: { 
+            LoginEmail: email,
+             LoginPassword: password 
+            },
+        dataType: 'text', // Change the data type as per your requirement
+        success: function(response) {
+            // Handle the success response
+            console.log("Response from Server : " + response); // Log the response
+            var loginErrorDiv = document.getElementById('LoginError');
+            if (response === "User Logged in") {
+                location.reload();
+            } else if(response == "User not found") {
+                // If response is false, output login error
+                loginErrorDiv.innerHTML += "User Not found";
+                loginErrorDiv.style.display = 'block';
+                setTimeout(() => {
+                    loginErrorDiv.style.display = 'none';
+                    console.log("This is executed after 1 second.");
+                }, 3000);
+            }
+            else{
+                loginErrorDiv.innerHTML += response;
+                loginErrorDiv.style.display = 'block';
+                setTimeout(() => {
+                    loginErrorDiv.style.display = 'none';
+                    console.log("This is executed after 1 second.");
+                }, 3000);
+            }
+        },
+        error: function(xhr, status, error) {
+            // Handle errors
+            console.error("Error:", error);
+            // Add any error handling you need
+            alert('Error : \n' + error);
+        }
+    });
+}
+
     function checkEmailAvailability(email){
-    console.log("Inside funciton!!");
-    console.log(email);
     // Retrieve form data
    
     // // Create an object to hold the data
@@ -71,9 +115,6 @@
         }
     });
 }
-
-
-
 </script>
 
 
@@ -114,6 +155,9 @@
 
 
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div id="LoginError" class="alert alert-danger" role="alert" style="display: none;">
+        <i class="mb-2 fa-solid fa-triangle-exclamation fa-xl"></i>
+    </div>
     <div class="modal-dialog">
         <div class="modal-content" id="loginModalContent">
             <div class="modal-header text-center">
@@ -121,7 +165,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                <form id="loginForm" action="../Processes/processLogin.php" method="POST">
+                <form id="loginForm"  method="POST">
                     <div class="m-4">
                         <i class="fa-solid fa-envelope fa-xl"></i>
                         <input type="text" id="LoginEmail" class="loginForm bigger-input" name="LoginEmail" placeholder="Email">
@@ -135,9 +179,11 @@
                     </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button type="submit" class="btn buttonColor">Login</button>
+                
+                <!-- <button type="submit" class="btn buttonColor">Login</button> -->
                 <button data-bs-toggle="modal" data-bs-target="#signupModal" type="button" class="btn buttonColor"><i class="fa-solid fa-user-plus fa-lg"></i> Sign Up</button>
                 </form>
+                <button onClick="login()" class="btn buttonColor">Login</button>
             </div>
         </div>
     </div>

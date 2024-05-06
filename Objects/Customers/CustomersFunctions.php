@@ -82,4 +82,37 @@ function emailExists($email){
 }
 
 
+
+function updateToken($email, $token) {
+    global $conn; // Assuming $conn is your database connection
+
+    // Set the expiry date to 1 hour from now
+    $expiryDate = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+    // Prepare and execute the SQL statement
+    $sql = "UPDATE Customers SET Token = ?, Token_Expire = ? WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        // Handle SQL error
+        echo "Inside updateToken Function 
+        SQL error: " . $conn->error;
+        return false; // Return false to indicate failure
+    }
+
+    $stmt->bind_param("sss", $token, $expiryDate, $email);
+    // Execute the update
+    $stmt->execute();
+
+    // Check the number of affected rows
+    $affectedRows = $stmt->affected_rows;
+
+    // Close the statement
+    $stmt->close();
+
+    // Return true if at least one row was affected (update successful), false otherwise
+    return ($affectedRows > 0);
+
+}
+
+
 ?>

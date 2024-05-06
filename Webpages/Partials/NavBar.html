@@ -112,7 +112,40 @@
             // Add any error handling you need
         }
     });
-}
+    }
+
+
+    function forgotPassword(){
+    // Retrieve form data
+    var email = document.getElementById('ForgotEmail').value;
+    console.log(`email : ${email}`);
+
+    // Send the data to the server using AJAX
+    $.ajax({
+        type: 'POST',
+        url: '../Processes/forgotPassword.php',
+        data: {
+            forgotEmail : email
+        },
+        dataType: 'text', // Change the data type as per your requirement
+        success: function(response) {
+            // Handle the success response
+            console.log("Response from Server : " + response); // Log the response
+            // if(response == "Email exists in the database."){
+            //     console.log("inside if")
+            //     return true;
+            // }
+            // return false;
+            // Add any further actions you want to perform upon successful insertion
+        },
+        error: function(xhr, status, error) {
+            // Handle errors
+            console.error("Error:", error);
+            // Add any error handling you need
+        }
+    });
+    }
+
 </script>
 
 
@@ -195,7 +228,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                <form id="forgotPassword" action="../Processes/forgotPassword.php"  method="POST">
+                
                     <div class="m-4">
                         <h5>Enter Email asscoiated with your account</h5>
                     </div>
@@ -207,8 +240,8 @@
             <div class="modal-footer d-flex justify-content-center">
                 
                 <!-- <button type="submit" class="btn buttonColor">Login</button> -->
-                    <input type="submit" class="btn buttonColor">
-                </form>
+                    <button onclick="forgotPassword()" class="btn buttonColor"> Submit </button>
+                
             </div>
         </div>
     </div>

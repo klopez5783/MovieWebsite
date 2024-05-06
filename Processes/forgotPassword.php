@@ -25,7 +25,8 @@ if ( isset($_POST['forgotEmail']) ) {
 
     $token = bin2hex(random_bytes(16));
 
-    if ( emailExists($userEmail) ){
+    if (  emailExists($userEmail) ){
+
         $result = updateToken($userEmail,$token);
         if($result){
 
@@ -98,7 +99,7 @@ if ( isset($_POST['forgotEmail']) ) {
             }
 
         }
-    }{
+    }else{
         echo "There is no account associated with that email";
     }
 

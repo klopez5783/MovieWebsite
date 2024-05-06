@@ -172,7 +172,7 @@
                         <i class="fa-solid fa-lock fa-xl"></i>
                         <input type="password" id="LoginPassword" class="loginForm bigger-input" name="LoginPassword" placeholder="Password">
                         <div class="d-flex justify-content-end">
-                            <a href="" class="mt-2">Forgot Password?</a>
+                            <a data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" type="button" class="mt-2">Forgot Password?</a>
                         </div>
                     </div>
             </div>
@@ -182,6 +182,33 @@
                 <button data-bs-toggle="modal" data-bs-target="#signupModal" type="button" class="btn buttonColor"><i class="fa-solid fa-user-plus fa-lg"></i> Sign Up</button>
                 </form>
                 <button onClick="login()" class="btn buttonColor">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" id="ForgotPasswordModalContent">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold"><i class="fa-solid fa-unlock"></i> Forgot Password</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <form id="forgotPassword" action="../Processes/forgotPassword.php"  method="POST">
+                    <div class="m-4">
+                        <h5>Enter Email asscoiated with your account</h5>
+                    </div>
+                    <div class="m-4">
+                        <i class="fa-solid fa-envelope fa-xl"></i>
+                        <input type="text" id="ForgotEmail" class="w-75 loginForm bigger-input" name="ForgotEmail" placeholder="Email">
+                    </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                
+                <!-- <button type="submit" class="btn buttonColor">Login</button> -->
+                    <input type="submit" class="btn buttonColor">
+                </form>
             </div>
         </div>
     </div>

@@ -7,6 +7,7 @@
         const submitButton = document.getElementById("SubmitSignup");
         var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+        
 
         function validateEmail(email) {
             return emailPattern.test(email);
@@ -32,6 +33,25 @@
                 confirmPassword.setCustomValidity("Passwords do not match");
             } else {
                 confirmPassword.setCustomValidity("");
+            }
+        });
+
+        // Add event listener for form submission
+        const updatePasswordForm = document.getElementById("updatePasswordForm");
+        const updatePassword = document.getElementById("UpdatePassword")
+        const updatePasswordConfirm = document.getElementById("UpdatePasswordconfirm")
+        updatePasswordForm.addEventListener("submit", function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Compare the passwords
+            if (updatePassword !== updatePasswordConfirm) {
+                // If passwords don't match, display an error message
+                updatePasswordConfirm.setCustomValidity("Passwords do not match");
+            } else {
+                // If passwords match, clear the error message and submit the form
+                updatePasswordConfirm.setCustomValidity("");
+                this.submit();
             }
         });
     });
@@ -168,7 +188,18 @@
         dataType: 'text', // Change the data type as per your requirement
         success: function(response) {
             // Handle the success response
-            console.log("Response from Server : " + response); // Log the response
+            if ( response ){
+                var container = document.getElementById("updatePasswordContainer");
+                var button = document.getElementById("updatePasswordButton")
+                var ContainerHide = document.getElementById("tokenInput");
+                var ButtonHide = document.getElementById("matchTokenButton");
+                var form = document.getElementById("updatePasswordForm");
+                ButtonHide.style.display = "none";
+                ContainerHide.style.display = "none";
+                container.style.display = "block";
+                button.style.display = "block";
+                form.style.display = 'block';
+            }
             // Add any further actions you want to perform upon successful insertion
         },
         error: function(xhr, status, error) {
@@ -179,6 +210,24 @@
         });
 
     }
+
+
+    // function UpdatePassword(){
+    //     const password = document.getElementById("UpdatePassword").value;
+
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '../Processes/UpdatePassword.php',
+    //         data: { password : password},
+    //         dataType: 'text',
+    //         success: function(response){
+    //             console.log(`${response}`);
+    //         },
+    //         error: function ( xhr, status, error){
+    //             console.log("Ajax Error : " , error);
+    //         }
+    //     })
+    // }
 
 </script>
 
@@ -262,7 +311,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                
                     <div id="forgotEmailTitle" class="m-4">
                         <h5>Enter Email asscoiated with your account</h5>
                     </div>
@@ -274,13 +322,20 @@
                     <div id="tokenInputContainer" class="m-4">
                         
                     </div>
+                    <form id="updatePasswordForm" style="display: none;" action="../Processes/UpdatePassword.php">
+
+                    <div id="updatePasswordContainer" style="display: none;">
+                        <input type="password" id="UpdatePassword" class="w-75 loginForm bigger-input" name="UpdatePassword" placeholder="New Password">
+                        <input type="password" id="UpdatePasswordconfirm" class="m-4 w-75 loginForm bigger-input" name="UpdatePasswordConfirm" placeholder="Confirm Password">
+                    </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                
+                <button id="updatePasswordButton" class="btn buttonColor" style="display: none;">Update Password</button>
+            </form>
+
                 <!-- <button type="submit" class="btn buttonColor">Login</button> -->
                     <button id="forgotPasswordButton" onclick="forgotPassword()" class="btn buttonColor" style="display: block;"> Submit </button>
                     <button id="matchTokenButton" onclick="MatchToken()" class="btn buttonColor" style="display: none;"> Submit </button>
-                
             </div>
         </div>
     </div>

@@ -65,7 +65,8 @@ if ( isset($_POST['forgotEmail']) ) {
                     <body>
                     <p>Dear Valued Cinemagic Customer,</p>
                     <p>We received a request to reset your password. To ensure the security of your account, please use the following token to reset your password:</p>
-                    <p><strong>Token: ' . $token . '</strong></p>
+                    <p><strong>
+                    Token: ' . $token . '</strong></p>
                     <p>If you did not request this password reset, please disregard this message.</p>
                     <p>Thank you for choosing Cinemagic.</p>
                     <p>Best regards,<br>Cinemagic Team</p>

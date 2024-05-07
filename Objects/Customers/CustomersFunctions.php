@@ -115,4 +115,39 @@ function updateToken($email, $token) {
 }
 
 
+function validateToken($token) {
+    global $conn;
+
+    // Check if the connection was successful
+    if (!$conn) {
+        // Connection failed, handle the error
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    // Get the current date/time
+    $currentDateTime = date('Y-m-d H:i:s');
+
+    // Prepare and execute the SQL statement
+    $sql = "SELECT Token_Expire FROM Customers WHERE Token = ?";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        // Handle SQL error
+        echo "SQL error: " . $conn->error;
+        return false; // Return false to indicate failure
+    }
+
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
+    $stmt->bind_result($tokenExpire);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Check if the token exists and has not expired
+    if ($tokenExpire && $tokenExpire > $currentDateTime) {
+        return true; // Token is valid and not expired
+    } else {
+        return false; // Token does not exist or has expired
+    }
+}
+
 ?>

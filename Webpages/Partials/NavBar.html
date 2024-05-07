@@ -118,7 +118,6 @@
     function forgotPassword(){
     // Retrieve form data
     var email = document.getElementById('ForgotEmail').value;
-    console.log(`email : ${email}`);
 
     // Send the data to the server using AJAX
     $.ajax({
@@ -131,12 +130,26 @@
         success: function(response) {
             // Handle the success response
             console.log("Response from Server : " + response); // Log the response
-            // if(response == "Email exists in the database."){
-            //     console.log("inside if")
-            //     return true;
-            // }
-            // return false;
-            // Add any further actions you want to perform upon successful insertion
+            if(response.substr(response.length - 10) == "Email Sent"){
+                var container = document.getElementById("tokenInputContainer");
+                container.innerHTML += '<i class="fa-solid fa-user-secret fa-xl"></i>' + 
+                '<input type="text" id="tokenInput" class="w-75 loginForm bigger-input" name="tokenInput" placeholder="Insert Token Code Here" >';
+
+                var forgotPasswordContainer = document.getElementById("forgotEmailContainer");
+                forgotPasswordContainer.style.display = "none";
+
+                var title = document.getElementById("forgotEmailTitle");
+                title.style.display = "none";
+
+                var button = document.getElementById("matchTokenButton");
+                button.style.display = "block";
+
+                var forgotPasswordButton = document.getElementById("forgotPasswordButton");
+                forgotPasswordButton.style.display = "none";
+                //return true;
+            }
+            //return false;
+            //Add any further actions you want to perform upon successful insertion
         },
         error: function(xhr, status, error) {
             // Handle errors
@@ -144,6 +157,27 @@
             // Add any error handling you need
         }
     });
+    }
+
+    function MatchToken(){
+        const token = document.getElementById("tokenInput").value;
+        $.ajax({
+        type: 'POST',
+        url: '../Processes/matchToken.php',
+        data: {token : token},
+        dataType: 'text', // Change the data type as per your requirement
+        success: function(response) {
+            // Handle the success response
+            console.log("Response from Server : " + response); // Log the response
+            // Add any further actions you want to perform upon successful insertion
+        },
+        error: function(xhr, status, error) {
+            // Handle errors
+            console.error("Error:", error);
+            // Add any error handling you need
+        }
+        });
+
     }
 
 </script>
@@ -229,18 +263,23 @@
             </div>
             <div class="modal-body text-center">
                 
-                    <div class="m-4">
+                    <div id="forgotEmailTitle" class="m-4">
                         <h5>Enter Email asscoiated with your account</h5>
                     </div>
-                    <div class="m-4">
+                    <div id="forgotEmailContainer" class="m-4">
                         <i class="fa-solid fa-envelope fa-xl"></i>
                         <input type="text" id="ForgotEmail" class="w-75 loginForm bigger-input" name="ForgotEmail" placeholder="Email">
+                    </div>
+
+                    <div id="tokenInputContainer" class="m-4">
+                        
                     </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 
                 <!-- <button type="submit" class="btn buttonColor">Login</button> -->
-                    <button onclick="forgotPassword()" class="btn buttonColor"> Submit </button>
+                    <button id="forgotPasswordButton" onclick="forgotPassword()" class="btn buttonColor" style="display: block;"> Submit </button>
+                    <button id="matchTokenButton" onclick="MatchToken()" class="btn buttonColor" style="display: none;"> Submit </button>
                 
             </div>
         </div>

@@ -704,7 +704,7 @@ function refreshPage() {
                         echo '<th scope="row">' . $theater->theater_id . '</th>';
                         echo '<td>' . $theater->name . '</td>';
                         echo '<td>' . $theater->location . '</td>';
-                        echo '<td><a href="edit_theater.php?id=' . $theater->theater_id . '">Edit</a></td>';
+                        echo '<td><a class="btn btn-success" href="edit_theater.php?id=' . $theater->theater_id . '">Edit</a></td>';
                         echo '<td>';
                         echo '<input type="hidden" name="deleteID" value="' . $theater->theater_id . '">';
                         echo '<input type="hidden" name="table_name" value="theater">';
@@ -764,7 +764,7 @@ function refreshPage() {
                         echo '<td>' . $customer->Customer_Name . '</td>';
                         echo '<td>' . $customer->Email . '</td>';
                         echo '<td>' . $customer->phone_number . '</td>';
-                        echo '<td><a href="edit_customer.php?id=' . $customer->Customer_ID . '">Edit</a></td>';
+                        echo '<td><a class="btn btn-success" href="edit_customer.php?id=' . $customer->Customer_ID . '">Edit</a></td>';
                         echo '<td>';
                         echo '<button type="button" name="delete" value="Delete" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteRecordModal' . $customer->Customer_ID . '"  >Delete</delete>';
                         echo '</td>';

@@ -17,6 +17,7 @@ require 'PHPMailer/vendor/autoload.php';
 
  // Access the global $conn variable
  global $conn;
+ session_start();
  
 
 if ( isset($_POST['forgotEmail']) ) {
@@ -94,6 +95,7 @@ if ( isset($_POST['forgotEmail']) ) {
                     echo 'Mailer Error: ' . $mail->ErrorInfo;
                 } else {
                     echo 'Email Sent';
+                    $_SESSION['forgotPasswordEmail'] = $userEmail;
                 }
             } catch (Exception $e) {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

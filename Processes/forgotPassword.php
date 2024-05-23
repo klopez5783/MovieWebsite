@@ -26,6 +26,10 @@ if ( isset($_POST['forgotEmail']) ) {
 
     $token = bin2hex(random_bytes(16));
 
+    $base_url = "http://192.168.1.210/MovieWebsite/Webpages/ResetPassword.php";
+
+    $link = $base_url . '?token=' . urlencode($token);
+
     if (  emailExists($userEmail) ){
 
         $result = updateToken($userEmail,$token);
@@ -58,36 +62,35 @@ if ( isset($_POST['forgotEmail']) ) {
                 $mail->Subject = 'Cinemagic: Password Reset Request';
 
                 // Set the HTML body
-                $mail->Body    = '
-                    <html>
-                    <head>
-                    <title>Cinemagic: Password Reset Request</title>
-                    </head>
-                    <body>
-                    <p>Dear Valued Cinemagic Customer,</p>
-                    <p>We received a request to reset your password. To ensure the security of your account, please use the following token to reset your password:</p>
-                    <p><strong>
-                    Token: ' . $token . '</strong></p>
-                    <p>If you did not request this password reset, please disregard this message.</p>
-                    <p>Thank you for choosing Cinemagic.</p>
-                    <p>Best regards,<br>Cinemagic Team</p>
-                    </body>
-                    </html>
-                ';
-
-                // Set the plain text alternative body (for non-HTML mail clients)
-                $mail->AltBody = 'Dear Valued Cinemagic Customer,
-                    
-                We received a request to reset your password. To ensure the security of your account, please use the following token to reset your password:
-
-                Reset Code: ' . $token . '
-
-                If you did not request this password reset, please disregard this message.
-
-                Thank you for choosing Cinemagic.
-
-                Best regards,
-                Cinemagic Team';
+                $mail->Body = '
+                <html>
+                <head>
+                <title>Cinemagic: Password Reset Request</title>
+                </head>
+                <body>
+                <p>Dear Valued Cinemagic Customer,</p>
+                <p>We received a request to reset your password. To ensure the security of your account, please use the following link to reset your password:</p>
+                <p><a href="' . $link . '">Reset your password</a></p>
+                <p>If you did not request this password reset, please disregard this message.</p>
+                <p>Thank you for choosing Cinemagic.</p>
+                <p>Best regards,<br>Cinemagic Team</p>
+                </body>
+                </html>
+            ';
+        
+            // Set the plain text alternative body (for non-HTML mail clients)
+            $mail->AltBody = 'Dear Valued Cinemagic Customer,
+        
+            We received a request to reset your password. To ensure the security of your account, please use the following link to reset your password:
+            
+            ' . $link . '
+            
+            If you did not request this password reset, please disregard this message.
+            
+            Thank you for choosing Cinemagic.
+            
+            Best regards,
+            Cinemagic Team';
 
                 // Send the email
                 if(!$mail->send()) {

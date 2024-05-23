@@ -142,21 +142,24 @@
             // Handle the success response
             console.log("Response from Server : " + response); // Log the response
             if(response.substr(response.length - 10) == "Email Sent"){
-                var container = document.getElementById("tokenInputContainer");
-                container.innerHTML += '<i class="fa-solid fa-user-secret fa-xl"></i>' + 
-                '<input type="text" id="tokenInput" class="w-75 loginForm bigger-input" name="tokenInput" placeholder="Insert Token Code Here" >';
+                
+                window.alert("Email sent");
+                
+                // var container = document.getElementById("tokenInputContainer");
+                // container.innerHTML += '<i class="fa-solid fa-user-secret fa-xl"></i>' + 
+                // '<input type="text" id="tokenInput" class="w-75 loginForm bigger-input" name="tokenInput" placeholder="Insert Token Code Here" >';
 
-                var forgotPasswordContainer = document.getElementById("forgotEmailContainer");
-                forgotPasswordContainer.style.display = "none";
+                // var forgotPasswordContainer = document.getElementById("forgotEmailContainer");
+                // forgotPasswordContainer.style.display = "none";
 
-                var title = document.getElementById("forgotEmailTitle");
-                title.style.display = "none";
+                // var title = document.getElementById("forgotEmailTitle");
+                // title.style.display = "none";
 
-                var button = document.getElementById("matchTokenButton");
-                button.style.display = "block";
+                // var button = document.getElementById("matchTokenButton");
+                // button.style.display = "block";
 
-                var forgotPasswordButton = document.getElementById("forgotPasswordButton");
-                forgotPasswordButton.style.display = "none";
+                // var forgotPasswordButton = document.getElementById("forgotPasswordButton");
+                // forgotPasswordButton.style.display = "none";
                 //return true;
             }
             //return false;
@@ -170,37 +173,37 @@
     });
     }
 
-    function MatchToken(){
-        const token = document.getElementById("tokenInput").value;
-        $.ajax({
-        type: 'POST',
-        url: '../Processes/matchToken.php',
-        data: {token : token},
-        dataType: 'text', // Change the data type as per your requirement
-        success: function(response) {
-            // Handle the success response
-            if ( response ){
-                var container = document.getElementById("updatePasswordContainer");
-                var button = document.getElementById("updatePasswordButton")
-                var ContainerHide = document.getElementById("tokenInput");
-                var ButtonHide = document.getElementById("matchTokenButton");
-                var form = document.getElementById("updatePasswordForm");
-                ButtonHide.style.display = "none";
-                ContainerHide.style.display = "none";
-                container.style.display = "block";
-                button.style.display = "block";
-                form.style.display = 'block';
-            }
-            // Add any further actions you want to perform upon successful insertion
-        },
-        error: function(xhr, status, error) {
-            // Handle errors
-            console.error("Error:", error);
-            // Add any error handling you need
-        }
-        });
+    // function MatchToken(){
+    //     const token = document.getElementById("tokenInput").value;
+    //     $.ajax({
+    //     type: 'POST',
+    //     url: '../Processes/matchToken.php',
+    //     data: {token : token},
+    //     dataType: 'text', // Change the data type as per your requirement
+    //     success: function(response) {
+    //         // Handle the success response
+    //         if ( response ){
+    //             var container = document.getElementById("updatePasswordContainer");
+    //             var button = document.getElementById("updatePasswordButton")
+    //             var ContainerHide = document.getElementById("tokenInput");
+    //             var ButtonHide = document.getElementById("matchTokenButton");
+    //             var form = document.getElementById("updatePasswordForm");
+    //             ButtonHide.style.display = "none";
+    //             ContainerHide.style.display = "none";
+    //             container.style.display = "block";
+    //             button.style.display = "block";
+    //             form.style.display = 'block';
+    //         }
+    //         // Add any further actions you want to perform upon successful insertion
+    //     },
+    //     error: function(xhr, status, error) {
+    //         // Handle errors
+    //         console.error("Error:", error);
+    //         // Add any error handling you need
+    //     }
+    //     });
 
-    }
+    // }
 
 </script>
 

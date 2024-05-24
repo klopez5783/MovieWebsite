@@ -69,22 +69,22 @@ $token = $_GET['token'];
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header d-flex justify-content-center align-items-center">
-                        <i class="fa-solid fa-lock fa-xl"></i>
+                            <i class="fa-solid fa-lock fa-xl"></i>
                             <div class="ms-2">
-                            Enter New Password
+                                Enter New Password
                             </div>
                         </div>
                         <div class="card-body">
                             <form id="signupForm" action="../Processes/processSignup.php" method="POST">
-                                    <div class="m-4">
-                                        <input type="password" id="SignupPassword" class="signupForm bigger-input" name="SignupPassword" placeholder="Password" required>
-                                    </div>
-                                    <div class="m-4">
-                                        <input type="password" id="ConfirmSignupPassword" class="signupForm bigger-input" name="ConfirmSignupPassword" placeholder="Confirm Password" required>
-                                    </div>
+                                <div class="input-group mb-3">
+                                    <input type="password" id="SignupPassword" class="form-control" name="SignupPassword" placeholder="Password" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="password" id="ConfirmSignupPassword" class="form-control" name="ConfirmSignupPassword" placeholder="Confirm Password" required>
                                 </div>
                                 <div class="modal-footer d-flex justify-content-evenly">
                                     <button type="submit" class="btn buttonColor">Submit</button>
+                                </div>
                             </form>
                         </div>
                     </div>

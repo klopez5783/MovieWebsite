@@ -1,5 +1,10 @@
-<?php include 'HeaderFiles/HeaderTags.php';
-    include '../Processes/SignUpFunctions.php';?>
+<?php 
+include 'HeaderFiles/HeaderTags.php';
+include '../Processes/SignUpFunctions.php';
+if ( !$_SESSION['token'] ) {
+    header("Location: /MovieWebsite/webpages/Home.php");
+   }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

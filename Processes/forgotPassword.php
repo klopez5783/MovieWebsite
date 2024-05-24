@@ -26,7 +26,9 @@ if ( isset($_POST['forgotEmail']) ) {
 
     $token = bin2hex(random_bytes(16));
 
-    $base_url = "http://192.168.1.210/MovieWebsite/Webpages/ResetPassword.php";
+    //$base_url = "http://192.168.1.210/MovieWebsite/Process/matchToken.php";
+
+    $base_url = "http://localhost/MovieWebsite/Processes/matchToken.php";
 
     $link = $base_url . '?token=' . urlencode($token);
 

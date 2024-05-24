@@ -1,12 +1,5 @@
-<?php
-
-
-$token = $_GET['token'];
-
-
-?>
-
-
+<?php include 'HeaderFiles/HeaderTags.php';
+    include '../Processes/SignUpFunctions.php';?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,10 +12,7 @@ $token = $_GET['token'];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <?php include 'HeaderFiles/HeaderTags.php';
-    include '../Processes/SignUpFunctions.php';
     
-    ?>
     <!-- <link rel="stylesheet" type="text/css" href="HeaderFiles/PageStyles.css"> -->
     
 
@@ -64,7 +54,7 @@ $token = $_GET['token'];
 
         <?php include 'Partials/NavBar.html' ?> 
 
-        <div class="container mt-5">
+        <div class="container mt-5" id="Passwordform">
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="card">
@@ -75,12 +65,12 @@ $token = $_GET['token'];
                             </div>
                         </div>
                         <div class="card-body">
-                            <form id="signupForm" action="../Processes/processSignup.php" method="POST">
+                            <form id="updatePasswordForm" action="../Processes/UpdatePassword.php" method="POST">
                                 <div class="input-group mb-3">
-                                    <input type="password" id="SignupPassword" class="form-control" name="SignupPassword" placeholder="Password" required>
+                                    <input type="password" id="UpdatePassword" class="form-control" name="UpdatePassword" placeholder="Password" required>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="password" id="ConfirmSignupPassword" class="form-control" name="ConfirmSignupPassword" placeholder="Confirm Password" required>
+                                    <input type="password" id="UpdatePasswordconfirm" class="form-control" name="ConfirmUpdatePassword" placeholder="Confirm Password" required>
                                 </div>
                                 <div class="modal-footer d-flex justify-content-evenly">
                                     <button type="submit" class="btn buttonColor">Submit</button>

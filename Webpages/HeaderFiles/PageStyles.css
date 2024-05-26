@@ -45,3 +45,17 @@ body, html {
     outline: none;
 }
 
+#loginModalContent{
+    width: 350px;
+}
+
+/* Define bigger-input class */
+.bigger-input {
+    font-size: 16px; /* Adjust the font size as needed */
+}
+
+.loginForm , .signupForm{
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+}

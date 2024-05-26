@@ -38,7 +38,7 @@ if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
        exit();
     }else {
         // Incorrect password
-        echo $row[1];
+        echo "Incorrect Password.";
         
     }
     

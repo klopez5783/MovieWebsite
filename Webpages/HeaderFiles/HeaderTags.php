@@ -1,5 +1,4 @@
 <?php
-include '../Configuration/DBconnect.php';
 // Echo the link tag to include the CSS file
 
 echo '<!-- Latest compiled and minified CSS -->

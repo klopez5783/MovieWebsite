@@ -13,6 +13,12 @@
     <?php include 'HeaderFiles/HeaderTags.php';
     include '../Processes/SignUpFunctions.php';
     
+    $showAlert = 1;
+
+    if (isset($_SESSION['token']) && !$_SESSION['token'] ){
+        $showAlert = $_SESSION['token'];
+        unset($_SESSION['token']); // Unset the token session variable
+    }
     ?>
     <!-- <link rel="stylesheet" type="text/css" href="HeaderFiles/PageStyles.css"> -->
     
@@ -47,11 +53,14 @@
 
 </head>
 
-
-
-
-
     <body class="bgImage">
+
+    <?php if ($showAlert == 0): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                That link is expired please request a new one
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+    <?php endif; ?>
 
         <?php include 'Partials/NavBar.html' ?> 
 

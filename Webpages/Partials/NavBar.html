@@ -144,23 +144,6 @@
             if(response.substr(response.length - 10) == "Email Sent"){
                 
                 window.alert("Email sent");
-                
-                // var container = document.getElementById("tokenInputContainer");
-                // container.innerHTML += '<i class="fa-solid fa-user-secret fa-xl"></i>' + 
-                // '<input type="text" id="tokenInput" class="w-75 loginForm bigger-input" name="tokenInput" placeholder="Insert Token Code Here" >';
-
-                // var forgotPasswordContainer = document.getElementById("forgotEmailContainer");
-                // forgotPasswordContainer.style.display = "none";
-
-                // var title = document.getElementById("forgotEmailTitle");
-                // title.style.display = "none";
-
-                // var button = document.getElementById("matchTokenButton");
-                // button.style.display = "block";
-
-                // var forgotPasswordButton = document.getElementById("forgotPasswordButton");
-                // forgotPasswordButton.style.display = "none";
-                //return true;
             }
             //return false;
             //Add any further actions you want to perform upon successful insertion
@@ -294,24 +277,9 @@
                         <i class="fa-solid fa-envelope fa-xl"></i>
                         <input type="text" id="ForgotEmail" class="w-75 loginForm bigger-input" name="ForgotEmail" placeholder="Email">
                     </div>
-
-                    <div id="tokenInputContainer" class="m-4">
-                        
-                    </div>
-                    <form id="updatePasswordForm" action="../Processes/UpdatePassword.php" method="POST">
-
-                    <div id="updatePasswordContainer" style="display: none;">
-                        <input type="password" id="UpdatePassword" class="w-75 loginForm bigger-input" name="UpdatePassword" placeholder="New Password">
-                        <input type="password" id="UpdatePasswordconfirm" class="m-4 w-75 loginForm bigger-input" name="UpdatePasswordConfirm" placeholder="Confirm Password">
-                    </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button type="submit"  id="updatePasswordButton" class="btn buttonColor" style="display: none;">Update Password</button>
-            </form>
-
-                <!-- <button type="submit" class="btn buttonColor">Login</button> -->
-                    <button id="forgotPasswordButton" onclick="forgotPassword()" class="btn buttonColor" style="display: block;"> Submit </button>
-                    <button id="matchTokenButton" onclick="MatchToken()" class="btn buttonColor" style="display: none;"> Submit </button>
+                <button id="forgotPasswordButton" onclick="forgotPassword()" class="btn buttonColor" style="display: block;"> Submit </button>
             </div>
         </div>
     </div>

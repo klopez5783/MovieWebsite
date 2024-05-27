@@ -1,5 +1,4 @@
 <?php 
-include 'HeaderFiles/HeaderTags.php';
 include '../Processes/SignUpFunctions.php';
 ?>
 
@@ -16,38 +15,34 @@ include '../Processes/SignUpFunctions.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link rel="stylesheet" type="text/css" href="HeaderFiles/PageStyles.css"> -->
 
+    <?php
+     include 'HeaderFiles/HeaderTags.php';
+    ?>
+
+    
+
 
     <style>
-        
-        /* Define bigger-input class */
-        .bigger-input {
-            font-size: 16px; /* Adjust the font size as needed */
-        }
-
-        .loginForm , .signupForm{
-            border: none;
-            border-bottom: 1px solid black;
-            outline: none;
-        }
-
-        #loginModalContent{
-            width: 350px;
-        }
 
         .seat {
-            width: 50px;
-            height: 50px;
-            margin: 5px;
-            background-color: #f0f0f0;
+            height: 35px !important;
+            color: white;
+            border-radius: 15px 15px 0px 0px;
+            background-color: #505050;
             border: 1px solid #ccc;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
+        .seat:hover{
+            background-color: #FFF;
+            color: #343a40;
+        }
+
         /* Additional CSS for theater seating container */
 .theater-seating-container {
-    background-color: #f8f9fa; /* Set background color */
+    background-color: rgba(39, 39, 39, 0.863); /* Set background color */
     padding: 20px; /* Add padding for spacing */
     border-radius: 10px; /* Add border radius for rounded corners */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
@@ -75,6 +70,29 @@ include '../Processes/SignUpFunctions.php';
 .theater-seating-container .seat.active {
     background-color: #007bff; /* Set active button background color */
     color: #fff; /* Set active button text color */
+}
+
+#TopBarCurve{
+    border-top: 10px solid #ffffff;
+    background: linear-gradient(to top,rgba(0,0,0,0) 0%, rgba(23,23,23,0.24528301886792447) 60%, rgba(255,255,255,1) 120%);
+    /* background: linear-gradient(90deg, rgba(255,255,255,0) 20%, rgba(255,255,255,0.19575471698113212) 30%, rgba(255,255,255,0.35377358490566035) 40%, rgba(255,255,255,0.3466981132075472) 60%, rgba(255,255,255,0.2) 70%, rgba(255,255,255,0) 80%); */
+    /* background: linear-gradient(90deg, rgba(255,255,255,0) 20%, rgba(255,255,255,0.19575471698113212) 30%, rgba(255,255,255,0.35377358490566035) 40%, rgba(255,255,255,0.3466981132075472) 60%, rgba(255,255,255,0.2) 70%, rgba(255,255,255,0) 80%); */
+    height: 60px;
+    width: 90%;
+    margin: 20px auto;
+    border-radius: 50% 50% 0 0;
+    line-height: 70px;
+    font-size: 20px;
+    color: #fff;
+    position: relative;
+    text-shadow: 0 0 5px #FFF,
+        0 0 20px #FFF,
+        40px 40px 0px rgba(255,255,255,0);
+    font-size: 2.5em;
+}
+
+.LetterLabel{
+    color: white;
 }
 
 
@@ -131,14 +149,14 @@ function attachSelectedSeats() {
 
 
 
-
 <body class="bgImage">
 
         <?php include 'Partials/NavBar.html' ?> 
 
 <div class="container mt-5 theater-seating-container">
-    <h1 class="text-center mb-4">Select Seats</h1>
-    <div class="row">
+    <h1 id="TopBarCurve" class="text-center mb-4">Screen</h1>
+
+    <div class="row mt-5">
         <div class="col-md-6">
             <?php
                 $rows = 6;
@@ -147,12 +165,12 @@ function attachSelectedSeats() {
                 for ($i = 1; $i <= $rows; $i++) {
                     echo '<div class="row">';
                     echo '<div class="col-5 col-sm-2 col-md-1">';
-                    echo '<h3 class="d-flex align-items-end justify-content-end"><div>' . $rowLabel . '</div></h3>';
+                    echo '<h3 class="LetterLabel d-flex align-items-end justify-content-end"><div>' . $rowLabel . '</div></h3>';
                     echo '</div>';
                     echo '<div class="col-7 col-sm-10 col-md-11">';
                     echo '<div class="d-flex justify-content-evenly">';
                     for ($j = 1; $j <= $seatsPerRow; $j++) {
-                        echo '<button data-bs-toggle="button" autocomplete="off" data-row="' . $rowLabel . '" data-seat="' . $j . '" onclick="handleSeatClick(\'' . $rowLabel . '\', ' . $j . ')" class="seat btn btn-outline-secondary">' . $j . '</button>';
+                        echo '<div data-bs-toggle="button" autocomplete="off" data-row="' . $rowLabel . '" data-seat="' . $j . '" onclick="handleSeatClick(\'' . $rowLabel . '\', ' . $j . ')" class="seat btn btn-outline-secondary">' . $j . '</div>';
                     }
                     echo '</div>';
                     echo '</div>';
@@ -169,12 +187,12 @@ function attachSelectedSeats() {
                 for ($i = 1; $i <= $rows; $i++) {
                     echo '<div class="row">';
                     echo '<div class="col-3 col-sm-2 col-md-1">';
-                    echo '<h3 class="d-flex align-items-center">' . $rowLabel . '</h3>';
+                    echo '<h3 class="LetterLabel d-flex align-items-center">' . $rowLabel . '</h3>';
                     echo '</div>';
                     echo '<div class="col-9 col-sm-10 col-md-11">';
                     echo '<div class="d-flex justify-content-evenly">';
                     for ($j = 1; $j <= $seatsPerRow; $j++) {
-                        echo '<button data-bs-toggle="button" autocomplete="off" data-row="' . $rowLabel . '" data-seat="' . $j . '" onclick="handleSeatClick(\'' . $rowLabel . '\', ' . $j . ')" class="seat btn btn-outline-secondary">' . $j . '</button>';
+                        echo '<div data-bs-toggle="button" autocomplete="off" data-row="' . $rowLabel . '" data-seat="' . $j . '" onclick="handleSeatClick(\'' . $rowLabel . '\', ' . $j . ')" class="seat btn btn-outline-secondary">' . $j . '</div>';
                     }
                     echo '</div>';
                     echo '</div>';

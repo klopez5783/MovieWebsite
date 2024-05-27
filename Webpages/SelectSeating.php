@@ -25,14 +25,19 @@ include '../Processes/SignUpFunctions.php';
     <style>
 
         .seat {
-            width: 50px;
-            height: 50px;
-            margin: 5px;
-            background-color: #f0f0f0;
+            height: 35px !important;
+            color: white;
+            border-radius: 15px 15px 0px 0px;
+            background-color: #505050;
             border: 1px solid #ccc;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .seat:hover{
+            background-color: #FFF;
+            color: #343a40;
         }
 
         /* Additional CSS for theater seating container */
@@ -151,7 +156,7 @@ function attachSelectedSeats() {
 <div class="container mt-5 theater-seating-container">
     <h1 id="TopBarCurve" class="text-center mb-4">Screen</h1>
 
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-md-6">
             <?php
                 $rows = 6;
@@ -165,7 +170,7 @@ function attachSelectedSeats() {
                     echo '<div class="col-7 col-sm-10 col-md-11">';
                     echo '<div class="d-flex justify-content-evenly">';
                     for ($j = 1; $j <= $seatsPerRow; $j++) {
-                        echo '<button data-bs-toggle="button" autocomplete="off" data-row="' . $rowLabel . '" data-seat="' . $j . '" onclick="handleSeatClick(\'' . $rowLabel . '\', ' . $j . ')" class="seat btn btn-outline-secondary">' . $j . '</button>';
+                        echo '<div data-bs-toggle="button" autocomplete="off" data-row="' . $rowLabel . '" data-seat="' . $j . '" onclick="handleSeatClick(\'' . $rowLabel . '\', ' . $j . ')" class="seat btn btn-outline-secondary">' . $j . '</div>';
                     }
                     echo '</div>';
                     echo '</div>';
@@ -187,7 +192,7 @@ function attachSelectedSeats() {
                     echo '<div class="col-9 col-sm-10 col-md-11">';
                     echo '<div class="d-flex justify-content-evenly">';
                     for ($j = 1; $j <= $seatsPerRow; $j++) {
-                        echo '<button data-bs-toggle="button" autocomplete="off" data-row="' . $rowLabel . '" data-seat="' . $j . '" onclick="handleSeatClick(\'' . $rowLabel . '\', ' . $j . ')" class="seat btn btn-outline-secondary">' . $j . '</button>';
+                        echo '<div data-bs-toggle="button" autocomplete="off" data-row="' . $rowLabel . '" data-seat="' . $j . '" onclick="handleSeatClick(\'' . $rowLabel . '\', ' . $j . ')" class="seat btn btn-outline-secondary">' . $j . '</div>';
                     }
                     echo '</div>';
                     echo '</div>';

@@ -2,7 +2,7 @@
 include 'HeaderFiles/HeaderTags.php';
 include '../Processes/SignUpFunctions.php';
 
-require_once '../Processes/Paypal.php';
+$itemAmount = 5;
 
 $numberOfTickets = 0;
 
@@ -205,6 +205,10 @@ $total = $numberOfTickets * $itemAmount;
                 </div>
             </div>
         </div>
+
+        <form action="../Processes/ProcessStrip.php">
+            <input type="submit" value="testingPHP">
+        </form>
 
 </body>
 

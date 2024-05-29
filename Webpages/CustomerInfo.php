@@ -105,6 +105,7 @@ $total = $numberOfTickets * $itemAmount;
 
 </style>
 
+<script src="https://js.stripe.com/v3/"></script>
 
 </head>
 
@@ -206,9 +207,13 @@ $total = $numberOfTickets * $itemAmount;
             </div>
         </div>
 
-        <form action="../Processes/ProcessStrip.php">
+        <!-- <form action="../Processes/ProcessStrip.php">
             <input type="submit" value="testingPHP">
-        </form>
+        </form> -->
+
+        <div id="checkout">
+
+        </div>
 
 </body>
 

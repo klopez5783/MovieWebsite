@@ -172,4 +172,56 @@ function getShowTimeOBJ($movieID,$date,$theaterID){
 }
 
 
+function getShowTimeOBJWithID($showTimeID){
+    
+    // Access the global $conn variable
+    global $conn;
+
+    // Retrieve movies from database
+    $query = "SELECT * FROM show_times where showtime_ID = ?";
+
+    $stmt = $conn->prepare($query);
+
+
+    if ($stmt === false) {
+        // Handle the error
+        die("\nError preparing statement: " . $conn->error);
+    }
+    
+    // Bind parameters
+    $stmt->bind_param("s",$showTieID);
+
+    // Execute the query
+    $stmt->execute();
+
+    // Get the result set
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Initialize a variable to store the ShowObj object
+        $showtime = null;
+    
+        while ($row = $result->fetch_assoc()) {
+            // Create a new ShowObj object for each row
+            $showtime = new ShowObj(
+                $row["showtime_ID"],
+                $row["end_time"],
+                $row["start_time"],
+                $row["language"],
+                $row["Date"],
+                $row["theater_id"],
+                $row["Movie_ID"]
+            );
+        }
+    } else {
+        echo "\n\n\nShowObj \n\n function getMovieTimes with showtime ID \n\n : No records found";
+    }
+    
+    // Return the single ShowObj object
+    return $showtime;
+    
+    
+}
+
+
 ?>

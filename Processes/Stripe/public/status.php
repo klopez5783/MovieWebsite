@@ -1,6 +1,6 @@
 <?php
 
-require_once '../vendor/autoload.php';
+require_once '../../../Configuration/Stripe/stripe-php-14.8.0/init.php';
 require_once '../secrets.php';
 
 $stripe = new \Stripe\StripeClient($stripeSecretKey);

@@ -173,12 +173,12 @@ function getShowTimeOBJ($movieID,$date,$theaterID){
 
 
 function getShowTimeOBJWithID($showTimeID){
-    
     // Access the global $conn variable
     global $conn;
 
     // Retrieve movies from database
     $query = "SELECT * FROM show_times where showtime_ID = ?";
+
 
     $stmt = $conn->prepare($query);
 
@@ -189,7 +189,7 @@ function getShowTimeOBJWithID($showTimeID){
     }
     
     // Bind parameters
-    $stmt->bind_param("s",$showTieID);
+    $stmt->bind_param("s",$showTimeID);
 
     // Execute the query
     $stmt->execute();

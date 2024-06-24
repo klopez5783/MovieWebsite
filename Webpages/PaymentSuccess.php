@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<?php
+ include '../Objects/Theatre/TheatreObj.php';
+ include '../Objects/Theatre/TheatreFunctions.php';
+ include '../Objects/Movie/MovieObj.php';
+ include '../Objects/Movie/MovieFunctions.php';
+ include '../Objects/Show/ShowTimeFunctions.php';
+ include '../Objects/Show/ShowObj.php';
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -135,11 +142,17 @@
             }
         }
 
+        #posterImage {
+            width: 100%;
+            height: auto;
+            max-width: 500px; /* Adjust maximum width as needed */
+        }
+
 
         #paymentSuccessContainer{
             text-align:center;
             background-color: white;
-            width: 50%;
+            width: 40%;
         }
 
         /* Media Queries */
@@ -147,18 +160,21 @@
             #paymentSuccessContainer {
                 width: 60%;
             }
+            
         }
 
         @media (max-width: 992px) {
             #paymentSuccessContainer {
                 width: 70%;
             }
+            
         }
 
         @media (max-width: 768px) {
             #paymentSuccessContainer {
                 width: 85%;
             }
+            
         }
 
         @media (max-width: 576px) {
@@ -167,6 +183,7 @@
                 flex-direction: column;
                 text-align: center;
             }
+            
         }
 
     </style>
@@ -195,12 +212,86 @@
 
                 </div>
                 <div id="paymentSuccesMessage">
-                    <h4>Payment Succesful</h4>
-                    <h5>Check your email to view tickets</h5>
+                    <h3>Payment Succesful</h3>
+                    <h5><strong>Check your email to view tickets</strong></h5>
                 </div>
 
                 <hr>
+                
+                <h2 class="mb-3">
+                    Ticket Purchase Details
+                </h2>
+
+                <div id="bookingInfoContainer" class="">
+                    
+                    <div class="row">
+
+                        <div id="movieIMG" class="col-5">
+                            <img src="<?php
+                            $movie = getMovie($_SESSION['Movie_ID']);
+                            getMoviePoster($movie->movie_name) ?>" id="posterImage" alt="Movie Poster">
+                        </div>
+
+                        <div class="col-7">
+
+                            <div id="BookedMovieName">
+                                <h3>
+                                    <strong>
+                                        <?php
+                                        echo $movie->movie_name;
+                                        ?>
+                                    </strong>
+                                </h3>
+                            </div>
+
+
+                            <div class="">
+                                
+
+                                <div id="BookingDate">
+                                <i class="fa-regular fa-calendar-days"></i>
+                                    <?php
+                                    
+                                    $showID = $_SESSION['ShowTimeID'];
+                                    $show = getShowTimeOBJWithID($showID);
+
+                                    $startTime = new DateTime($show->start_time);
+                                    echo $startTime->format('l, Y-m-d h:i:s A'); // Output: Sunday, 2024-04-28 08:30:00 PM
+                                    
+                                    ?>
+                                </div>
+                                <div>
+                                <i class="fa-solid fa-location-dot"></i>
+                                    <?php
+
+                                    $theaterOBJ = getTheaterObj($show->Movie_ID);
+                                    echo $theaterOBJ->name;
+
+                                    ?>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div id="seatsSelected" class="ms-2" >
+                            <?php 
+                            echo 'Seats : ' . implode(', ', $_SESSION['selectedSeats']);
+                            ?>
+                </div>
+                        
+                        </div>
+
+                    </div>
+
+                    
+                        
+                </div>
+
+
+                
             </div>
+
+            <hr class="m-2">
         </div>
 
         <h5>
@@ -208,15 +299,9 @@
 
             print_r($_SESSION); // Or var_dump($_SESSION);
 
-            include '../Objects/Theatre/TheatreObj.php';
-            include '../Objects/Theatre/TheatreFunctions.php';
-            include '../Objects/Movie/MovieObj.php';
-            include '../Objects/Movie/MovieFunctions.php';
-            include '../Objects/Show/ShowTimeFunctions.php';
-            include '../Objects/Show/ShowObj.php';
+            
 
-            $showID = $_SESSION['ShowTimeID'];
-            $show = getShowTimeOBJWithID($showID);
+            //echo $show;
 
 
             ?>

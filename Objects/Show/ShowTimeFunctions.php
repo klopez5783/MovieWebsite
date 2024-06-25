@@ -128,6 +128,8 @@ function getShowTimeOBJ($movieID,$date,$theaterID){
     // Retrieve movies from database
     $query = "SELECT * FROM show_times where Movie_ID = ? and Date = ? and theater_id = ?";
 
+    echo $movieID.'\n\n\n'.$date.'\n\n\n'.$theaterID;
+
     $stmt = $conn->prepare($query);
 
 

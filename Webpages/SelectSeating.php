@@ -208,6 +208,10 @@ function attachSelectedSeats() {
             <input value="Continue" type="Submit" class="btn btn-primary" >
         </form>
 </div>
+
+<div style="color:white;">
+    <?php print_r($_SESSION); // Or var_dump($_SESSION); ?>
+</div>
   
 
 </body>

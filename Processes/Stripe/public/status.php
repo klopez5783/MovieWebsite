@@ -14,16 +14,11 @@ try {
 
   $session = $stripe->checkout->sessions->retrieve($jsonObj->session_id);
 
-  // Set session variables for the receipt
-  $_SESSION['Receipt'] = [
-    'status' => $session->status,
-    'customer_email' => $session->customer_details->email,
-    'amount_total' => $session->amount_total / 100, // Convert cents to dollars
-    'currency' => strtoupper($session->currency),
-    'session_id' => $jsonObj->session_id,
-  ];
+  $_SESSION['Total'] = $session->amount_total;
 
-  echo json_encode(['status' => $session->status, 'customer_email' => $session->customer_details->email]);
+
+  echo json_encode(['status' => $session->status, 'customer_email' => $session->customer_details->email,'Total' => $session->amount_total]);
+  //echo json_encode($session);
   http_response_code(200);
 } catch (Error $e) {
   http_response_code(500);

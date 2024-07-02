@@ -209,9 +209,6 @@ function attachSelectedSeats() {
         </form>
 </div>
 
-<div style="color:white;">
-    <?php print_r($_SESSION); // Or var_dump($_SESSION); ?>
-</div>
   
 
 </body>

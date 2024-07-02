@@ -29,6 +29,8 @@
     ?>
     <!-- <link rel="stylesheet" type="text/css" href="HeaderFiles/PageStyles.css"> -->
     
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="../Processes/Stripe/public/return.js" defer></script>
 
     <style>
         
@@ -274,10 +276,16 @@
                             <hr>
 
                             <div id="seatsSelected" class="ms-2" >
-                            <?php 
-                            echo 'Seats : ' . implode(', ', $_SESSION['selectedSeats']);
-                            ?>
-                </div>
+                                <?php 
+                                echo 'Seats : ' . implode(', ', $_SESSION['selectedSeats']);
+                                ?>
+                            </div>
+
+                            <div id="total">
+                                <?php
+                                echo $_SESSION['Total'];
+                                ?>
+                            </div>
                         
                         </div>
 
@@ -296,6 +304,9 @@
 
         <h5>
             <?php
+
+error_log('Session ID (CustomerInfo.php): ' . session_id());
+error_log('Session Data (CustomerInfo.php): ' . print_r($_SESSION, true));
 
             print_r($_SESSION); // Or var_dump($_SESSION);
 

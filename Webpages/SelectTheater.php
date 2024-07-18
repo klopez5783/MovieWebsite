@@ -173,9 +173,13 @@ $movieID = $_SESSION['Movie_ID'];
        include '../Objects/Movie/MovieFunctions.php';
        include '../Objects/Show/ShowTimeFunctions.php';
        include '../Objects/Show/ShowObj.php';
+       include '../Objects/MoviePrices/MoviePricesFunctions.php';
        $movie = getMovie($movieID);
        $dates = getMovieShowTimeDates($movieID);
 
+       $MoviePrice = getTicketPriceWithID($_SESSION['Movie_ID']);
+
+       $_SESSION['MoviePrice'] = $MoviePrice;
 
        $currentDate = $dates[0];
        echo $currentDate;

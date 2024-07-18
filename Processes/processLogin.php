@@ -20,7 +20,7 @@ if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
     $password = $_POST['LoginPassword']; 
 
     // Prepare and execute the query
-    $query = "SELECT * FROM Customers WHERE email=?";
+    $query = "SELECT * FROM users WHERE email=?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -34,6 +34,7 @@ if (isset($_POST['LoginEmail']) && isset($_POST['LoginPassword'])) {
         $_SESSION['UserLoggedIn'] = True;
         $_SESSION['UserId'] = $row[0];
         $_SESSION['UserName'] = $row[4];
+        $_SESSION['IsAdmin'] = $row[7];
         echo "User Logged in";
        exit();
     }else {

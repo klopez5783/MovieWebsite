@@ -10,14 +10,16 @@ header('Content-Type: application/json');
 
 $numberOfTickets = count($_SESSION['selectedSeats']);
 
+$ticketPrice = 100 * $_SESSION['MoviePrice'];
+
 $productName = $stripe->products->create(['name' => 'Ticket']);
 
 $price = $stripe->prices->create([
   'product' => $productName->id,
-  'unit_amount' => 500,
+  'unit_amount' => $ticketPrice,
   'currency' => 'usd',
 ]);
-//$total = 5 * $numberOfTickets;
+//$total = $ticketPrice * $numberOfTickets;
 
 $YOUR_DOMAIN = 'http://localhost:/MovieWebsite/Webpages';
 

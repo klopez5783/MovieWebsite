@@ -226,39 +226,40 @@
 
                 <div id="bookingInfoContainer" class="">
                     
-                    <div class="row">
+                    <!-- <div class="row">
 
                         <div id="movieIMG" class="col-5">
                             <img src="<?php
-                            $movie = getMovie($_SESSION['Movie_ID']);
-                            getMoviePoster($movie->movie_name) ?>" id="posterImage" alt="Movie Poster">
+                            //$movie = getMovie($_SESSION['Movie_ID']);
+                            //getMoviePoster($movie->movie_name) ?>" id="posterImage" alt="Movie Poster">
                         </div>
 
                         <div class="col-7">
 
-                            <div id="BookedMovieName">
-                                <h3>
-                                    <strong>
-                                        <?php
-                                        echo $movie->movie_name;
-                                        ?>
-                                    </strong>
-                                </h3>
-                            </div>
+                            
 
 
                             <div class="">
                                 
+                                <div id="BookedMovieName">
+                                    <h3>
+                                        <strong>
+                                            <?php
+                                            //echo $movie->movie_name;
+                                            ?>
+                                        </strong>
+                                    </h3>
+                                </div>
 
                                 <div id="BookingDate">
                                 <i class="fa-regular fa-calendar-days"></i>
                                     <?php
                                     
-                                    $showID = $_SESSION['ShowTimeID'];
-                                    $show = getShowTimeOBJWithID($showID);
+                                    //$showID = $_SESSION['ShowTimeID'];
+                                    //$show = getShowTimeOBJWithID($showID);
 
-                                    $startTime = new DateTime($show->start_time);
-                                    echo $startTime->format('l, Y-m-d h:i:s A'); // Output: Sunday, 2024-04-28 08:30:00 PM
+                                    //$startTime = new DateTime($show->start_time);
+                                    //echo $startTime->format('g:i A n/j/Y'); // Output: Sunday, 2024-04-28 08:30:00 PM
                                     
                                     ?>
                                 </div>
@@ -266,8 +267,8 @@
                                 <i class="fa-solid fa-location-dot"></i>
                                     <?php
 
-                                    $theaterOBJ = getTheaterObj($show->Movie_ID);
-                                    echo $theaterOBJ->name;
+                                    //$theaterOBJ = getTheaterObj($show->Movie_ID);
+                                    //echo $theaterOBJ->name;
 
                                     ?>
                                 </div>
@@ -275,23 +276,82 @@
 
                             <hr>
 
-                            <div id="seatsSelected" class="ms-2" >
-                                <?php 
-                                echo 'Seats : ' . implode(', ', $_SESSION['selectedSeats']);
-                                ?>
-                            </div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div id="seatsSelected" class="ms-2" >
+                                    <?php 
+                                    //echo 'Seats : ' . implode(', ', $_SESSION['selectedSeats']);
+                                    ?>
+                                </div>
 
-                            <div id="total">
-                                <?php
-                                echo $_SESSION['Total'];
-                                ?>
+                                <div id="total">
+                                    $<?php
+                                    //$total_amount_in_dollars = number_format($_SESSION['Total'] / 100, 2, '.', '');
+                                    //echo $total_amount_in_dollars;
+                                    ?>
+                                </div>
                             </div>
                         
                         </div>
 
-                    </div>
+                    </div> -->
 
-                    
+                    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <img alt="Movie Poster" src="<?php
+                $movie = getMovie($_SESSION['Movie_ID']);
+                getMoviePoster($movie->movie_name); ?>" id="posterImage" />
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="BookedMovieName">
+                            <h3>
+                                <strong>
+                                    <?php echo $movie->movie_name; ?>
+                                </strong>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="BookingDate">
+                            <i class="fa-regular fa-calendar-days"></i>
+                            <?php
+                            $showID = $_SESSION['ShowTimeID'];
+                            $show = getShowTimeOBJWithID($showID);
+
+                            $startTime = new DateTime($show->start_time);
+                            echo $startTime->format('g:i A n/j/Y'); // Output: 7:00 PM 4/30/2024
+                            ?>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <?php
+                            $theaterOBJ = getTheaterObj($show->Movie_ID);
+                            echo $theaterOBJ->name;
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 d-flex flex-column align-items-center justify-content-center" style="height: 100px;">
+                        <div id="seatsSelected" class="text-center">
+                            <?php echo 'Seats : ' . implode(', ', $_SESSION['selectedSeats']); ?>
+                        </div>
+                        <div id="total" class="text-center">
+                            Total : $<?php
+                            $total_amount_in_dollars = number_format($_SESSION['Total'] / 100, 2, '.', '');
+                            echo $total_amount_in_dollars;
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                         
                 </div>
 

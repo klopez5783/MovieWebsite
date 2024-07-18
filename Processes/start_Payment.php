@@ -20,6 +20,4 @@ if(isset($_POST['create_session'])) {
     exit;
 }
 
-
-header("Location: /MovieWebsite/webpages/Home.php");
 ?>

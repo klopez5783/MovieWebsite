@@ -1,7 +1,6 @@
 <?php
-define('BASE_PATH', dirname(__DIR__));
-include_once BASE_PATH . '/Configuration/DBconnect.php';
-include 'SignUpFunctions.php';
+include_once '../../Configuration/DBconnect.php';
+include '../SignUpFunctions.php';
 
  // Access the global $conn variable
  global $conn;
@@ -43,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Execute the statement
             $stmt->execute();
-            header("Location: /MovieWebsite/webpages/Home.php");
+            header("Location: ../../WebpagesAdmin/ManageUsers.php");
 
         } catch (mysqli_sql_exception $e) {
             echo "Error: " . $e->getMessage() . "\n";
@@ -54,9 +53,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 else{
     echo "form not submited";
 }
-
-
-
-
-
-?>

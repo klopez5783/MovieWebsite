@@ -176,7 +176,7 @@
                   
                 <?php 
                   if(isset($_SESSION['UserLoggedIn']) && $_SESSION['IsAdmin'] == "admin"  ){
-                    echo '<a class="nav-link" href="Tables.php">Admin tools</a>
+                    echo '<a class="nav-link" href="../WebpagesAdmin/AdminHome.php">Admin tools</a>
                     <form action="../Processes/processLogout.php"
                     style="display:flex;">Welcome Back '.$UserName. '
                     <button data-bs-target="#loginModal" type="submit" class="btn btn-danger"><i class="fa-solid fa-right-from-bracket fa-lg"></i> Logout</button>

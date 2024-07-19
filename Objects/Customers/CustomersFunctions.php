@@ -19,7 +19,8 @@ function getCustomerObjArray(){
                 $row["Customer_Name"],
                 $row["email"],
                 $row["phone_number"],
-                $row["password"]
+                $row["password"],
+                $row["role"]
             );
             // Add Customer object to users array
             $users[] = $customer;

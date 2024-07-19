@@ -173,11 +173,16 @@ $movieID = $_SESSION['Movie_ID'];
        include '../Objects/Movie/MovieFunctions.php';
        include '../Objects/Show/ShowTimeFunctions.php';
        include '../Objects/Show/ShowObj.php';
+       include '../Objects/MoviePrices/MoviePricesFunctions.php';
        $movie = getMovie($movieID);
        $dates = getMovieShowTimeDates($movieID);
 
+       $MoviePrice = getTicketPriceWithID($_SESSION['Movie_ID']);
+
+       $_SESSION['MoviePrice'] = $MoviePrice;
 
        $currentDate = $dates[0];
+       echo $currentDate;
        
        if (isset($_SESSION['selected_date'])) {
         // Sanitize the input date
@@ -227,7 +232,7 @@ $movieID = $_SESSION['Movie_ID'];
                                         <?php foreach( $start as $timeStart ) {  ?>
                                             <form action="../Processes/SetDateSession.php" method="POST">
                                                 <input type="hidden" name="MTD">
-                                                <input type="hidden" name="ShowTimeID" value="<?php $showTimeOBJ = getShowTimeOBJ($movieID,$date,$theaterOBJ->theater_id); echo $showTimeOBJ->showtime_ID ?>">
+                                                <input type="hidden" name="ShowTimeID" value="<?php $showTimeOBJ = getShowTimeOBJ($movieID,$currentDate,$theaterOBJ->theater_id); echo $showTimeOBJ->showtime_ID ?>">
                                                 <input type="submit" class="m-2 btn btn-outline-secondary" value="<?php echo date('g:i A', strtotime($timeStart)); ?>">
                                             </form>
                                         <?php } ?>

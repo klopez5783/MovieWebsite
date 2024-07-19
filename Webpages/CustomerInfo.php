@@ -2,7 +2,7 @@
 include 'HeaderFiles/HeaderTags.php';
 include '../Processes/SignUpFunctions.php';
 
-require_once '../Processes/Paypal.php';
+$itemAmount = 5;
 
 $numberOfTickets = 0;
 
@@ -103,8 +103,16 @@ $total = $numberOfTickets * $itemAmount;
             }
     }
 
+
+    #StripCheckout{
+        width: 60%;
+    }
+
 </style>
 
+
+<script src="https://js.stripe.com/v3/"></script>
+<script src="../Processes/Stripe/public/checkout.js" defer></script>
 
 </head>
 
@@ -123,7 +131,7 @@ $total = $numberOfTickets * $itemAmount;
     <div id="selectTheaterContainer" class="mt-2">
             <div class="d-flex justify-content-evenly">
                 <!-- Customer Info Column -->
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
                             <h4>Payment Information</h4>
@@ -196,6 +204,10 @@ $total = $numberOfTickets * $itemAmount;
                             </form>
                         </div>
                     </div>
+                </div> -->
+
+                <div id="StripCheckout">
+
                 </div>
                 <!-- Image Column -->
                 <div class="col-5">
@@ -206,6 +218,9 @@ $total = $numberOfTickets * $itemAmount;
             </div>
         </div>
 
+        <!-- <form action="../Processes/ProcessStrip.php">
+            <input type="submit" value="testingPHP">
+        </form> -->
 </body>
 
     <?php include 'Partials/Footer.html' ?>

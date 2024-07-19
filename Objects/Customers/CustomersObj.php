@@ -6,12 +6,14 @@ class Customers {
     public $phone_number;
     public $password;
     // Constructor to initialize the movie object
+    public $role;
     public function __construct(
         $Customer_ID,
         $Customer_Name, 
         $Email, 
         $phone_number, 
-        $password
+        $password,
+        $role
         )
         {
         $this->Customer_ID = $Customer_ID;
@@ -19,6 +21,7 @@ class Customers {
         $this->Email = $Email;
         $this->phone_number = $phone_number;
         $this->password = $password;
+        $this->role=$role;
     }
 }
 ?>

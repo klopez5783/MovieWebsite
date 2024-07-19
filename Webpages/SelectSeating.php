@@ -208,6 +208,7 @@ function attachSelectedSeats() {
             <input value="Continue" type="Submit" class="btn btn-primary" >
         </form>
 </div>
+
   
 
 </body>

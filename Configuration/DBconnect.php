@@ -1,6 +1,6 @@
 <?php
 // Database connection parameters
-$servername = "192.168.1.210"; // Change this if your database is hosted elsewhere
+$servername = "192.168.1.119"; // Change this if your database is hosted elsewhere
 $username = "klopez1"; // Change this to your MySQL username
 $password = "lk000388"; // Change this to your MySQL password
 $dbname = "moviewebsite"; // Change this to your MySQL database name

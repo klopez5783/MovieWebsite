@@ -5,10 +5,10 @@ function getCustomerObjArray(){
     global $conn;
 
     // Initialize the array to store Customer objects
-    $Customers = array();
+    $users = array();
 
-    // Retrieve customers from database
-    $sql = "SELECT * FROM Customers";
+    // Retrieve users from database
+    $sql = "SELECT * FROM users";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -19,15 +19,16 @@ function getCustomerObjArray(){
                 $row["Customer_Name"],
                 $row["email"],
                 $row["phone_number"],
-                $row["password"]
+                $row["password"],
+                $row["role"]
             );
-            // Add Customer object to Customers array
-            $Customers[] = $customer;
+            // Add Customer object to users array
+            $users[] = $customer;
         }
     }
 
     // Return the array of Customer objects
-    return $Customers;
+    return $users;
 }
 
 
@@ -35,7 +36,7 @@ function addCustomer($customerName,$email,$phoneNumber,$password){
     global $conn;
 
     // Prepare and bind parameters
-    $query = "INSERT INTO Customers (customer_name, email, phone_number, password) VALUES (?, ?, ?, ?)";
+    $query = "INSERT INTO users (customer_name, email, phone_number, password) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ssss", $customerName, $email, $phoneNumber, $password);
 
@@ -54,7 +55,7 @@ function emailExists($email){
     global $conn;
 
     // prepare SQL
-    $stmt = $conn->prepare("Select Count(*) as count from customers where email = ?");
+    $stmt = $conn->prepare("Select Count(*) as count from users where email = ?");
 
     if (!$stmt) {
         // Handle SQL error
@@ -90,7 +91,7 @@ function updateToken($email, $token) {
     $expiryDate = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
     // Prepare and execute the SQL statement
-    $sql = "UPDATE Customers SET Token = ?, Token_Expire = ? WHERE email = ?";
+    $sql = "UPDATE users SET Token = ?, Token_Expire = ? WHERE email = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         // Handle SQL error
@@ -128,7 +129,7 @@ function validateToken($token) {
     $currentDateTime = date('Y-m-d H:i:s');
 
     // Prepare and execute the SQL statement
-    $sql = "SELECT Token_Expire FROM Customers WHERE Token = ?";
+    $sql = "SELECT Token_Expire FROM users WHERE Token = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         // Handle SQL error

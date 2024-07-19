@@ -156,38 +156,6 @@
     });
     }
 
-    // function MatchToken(){
-    //     const token = document.getElementById("tokenInput").value;
-    //     $.ajax({
-    //     type: 'POST',
-    //     url: '../Processes/matchToken.php',
-    //     data: {token : token},
-    //     dataType: 'text', // Change the data type as per your requirement
-    //     success: function(response) {
-    //         // Handle the success response
-    //         if ( response ){
-    //             var container = document.getElementById("updatePasswordContainer");
-    //             var button = document.getElementById("updatePasswordButton")
-    //             var ContainerHide = document.getElementById("tokenInput");
-    //             var ButtonHide = document.getElementById("matchTokenButton");
-    //             var form = document.getElementById("updatePasswordForm");
-    //             ButtonHide.style.display = "none";
-    //             ContainerHide.style.display = "none";
-    //             container.style.display = "block";
-    //             button.style.display = "block";
-    //             form.style.display = 'block';
-    //         }
-    //         // Add any further actions you want to perform upon successful insertion
-    //     },
-    //     error: function(xhr, status, error) {
-    //         // Handle errors
-    //         console.error("Error:", error);
-    //         // Add any error handling you need
-    //     }
-    //     });
-
-    // }
-
 </script>
 
 
@@ -207,8 +175,8 @@
                 <div class="navbar-nav ms-auto" id="loginDiv">
                   
                 <?php 
-                  if(isset($_SESSION['UserLoggedIn']) && isset($_SESSION['UserId']) ){
-                    echo '<a class="nav-link" href="Tables.php">Tables</a>
+                  if(isset($_SESSION['UserLoggedIn']) && $_SESSION['IsAdmin'] == "admin"  ){
+                    echo '<a class="nav-link" href="../WebpagesAdmin/AdminHome.php">Admin tools</a>
                     <form action="../Processes/processLogout.php"
                     style="display:flex;">Welcome Back '.$UserName. '
                     <button data-bs-target="#loginModal" type="submit" class="btn btn-danger"><i class="fa-solid fa-right-from-bracket fa-lg"></i> Logout</button>

@@ -77,9 +77,6 @@ function getMovie($id){
     // Access the global $conn variable
     global $conn;
 
-    // Initialize the array to store Movie objects
-    $movies = array();
-
     // Retrieve movies from database
     $query = "SELECT * FROM movies where Movie_ID = ?";
     $stmt = $conn->prepare($query);
@@ -107,7 +104,6 @@ function getMovie($id){
             $row["release_date"],
             $row["genre"],
             $row["ratings"]);
-            // Add Movie object to movies array
             return $movie;
         }
     }

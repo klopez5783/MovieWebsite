@@ -1,5 +1,39 @@
 <?php
 
+function getUser($id){
+    global $conn;
+
+    $query = "SELECT * from users where Customer_ID = ?";
+
+    $stmt = $conn->prepare($query);
+    if (!$stmt) {
+        die('Error preparing statement: ' . $conn->error);
+    }
+    $stmt->bind_param("s", $id);
+
+     // Execute the statement
+     $stmt->execute();
+    
+     // Get the result set
+     $result = $stmt->get_result();
+     if (!$result) {
+        die('Error getting result set: ' . $stmt->error);
+    }
+    
+    if ($result->num_rows > 0) {
+        if($row = $result->fetch_assoc()) {
+            // Create Movie object for each row
+            $user = new Customers($row["Customer_ID"],
+            $row['Customer_Name'],
+            $row['email'],
+            $row['phone_number'],
+            null,
+            $row['role']);
+            return $user;
+        }
+    }
+}
+
 function getCustomerObjArray(){
     // Access the global $conn variable
     global $conn;

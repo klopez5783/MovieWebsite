@@ -1,6 +1,6 @@
 <?php
 include_once '../../Configuration/DBconnect.php';
-include '../SignUpFunctions.php';
+//include '../SignUpFunctions.php';
 
  // Access the global $conn variable
  global $conn;
@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['SignupEmail'];
         $phoneNumber = $_POST['SignupPhoneNumber'];
         $passwordConfirm = $_POST['ConfirmSignupPassword'];
+        $role = 'admin';
 
         //Validate User Input
 
@@ -31,14 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //Hash and salt password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         try {
-            $stmt = $conn->prepare("INSERT INTO users (password, email, phone_number, Customer_Name) VALUES (?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO users (password, email, phone_number, Customer_Name,role) VALUES (?, ?, ?, ?,?)");
 
             if (!$stmt) {
                 throw new Exception("Error preparing statement: " . $conn->error);
             }
 
             // Bind parameters
-            $stmt->bind_param("ssss", $hashedPassword, $email, $phoneNumber, $customerName);
+            $stmt->bind_param("sssss", $hashedPassword, $email, $phoneNumber, $customerName,$role);
 
             // Execute the statement
             $stmt->execute();

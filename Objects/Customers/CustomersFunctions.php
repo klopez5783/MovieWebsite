@@ -185,4 +185,39 @@ function validateToken($token) {
     }
 }
 
+function UpdateAdmin($name,$email,$number,$role,$id){
+        // Access the global $conn variable
+        global $conn;
+
+    
+        // Prepare the SQL statement to update the record
+        $query = "UPDATE users
+          SET Customer_Name = ?,
+              email = ?,
+              phone_number = ?,
+              role = ?
+          WHERE Customer_ID = ?";
+
+        
+        // Prepare the statement
+        $stmt = $conn->prepare($query);
+        if (!$stmt) {
+            die('Error preparing statement: ' . $conn->error);
+        }
+        
+        // Bind parameters
+        $stmt->bind_param("ssssi", $name,$email,$number,$role,$id);
+        
+        // Execute the statement
+        if (!$stmt->execute()) {
+            echo('Error updating record: ' . $stmt->error);
+            return false; // Return false if execution fails
+        }
+    
+        // Close the statement
+        $stmt->close();
+        
+        return true; // Return true if execution is successful
+}
+
 ?>

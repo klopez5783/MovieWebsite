@@ -18,7 +18,26 @@
     <?php include 'Partials/SideBar.php' ?> 
         
         <div class="col">
-            <h3>Left Sidebar with Submenus</h3>
+            <?php
+
+if ( isset($_SESSION['AdminUpdated'])){
+    if ($_SESSION['AdminUpdated']){
+        echo '
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Record Updated Succesfully
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        ';
+    }
+    echo '
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Record Updated Unsuccesful. Error : ' . $_SESSION['AdminUpdated'] . '
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    ';
+}
+
+?>
             <h1>Users</h1>
 
             <div class="">
@@ -65,7 +84,7 @@
                             echo '<td>' . $customer->role . '</td>';
                             echo '<td class="text-center">';
                             echo '
-                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editAdminModal" onclick="handleEditAdmin('. $customer->Customer_ID .')" >Edit</button> 
+                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateAdminModal" onclick="handleEditAdmin('. $customer->Customer_ID .')" >Edit</button> 
                             <button type="button" name="delete" value="Delete" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteRecordModal' . $customer->Customer_ID . '">Delete</button>';
                             echo '</td>';
                             echo '</tr>';
@@ -179,7 +198,7 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="editAdminModal">
+                    <div class="modal fade" id="updateAdminModal">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header text-center">
@@ -191,29 +210,30 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body text-center">
-                                    <form id="EditAdminForm" action="../Processes/AdminProcesses/EditAdmin.php" method="POST">
+                                    <form id="EditAdminForm" action="../Processes/AdminProcesses/UpdateAdmin.php" method="POST">
                                         <div class="m-4">
+                                        <input type="hidden" id="AdminId" name="AdminID" value="1">
                                         <i class="fa-solid fa-user-tie fa-xl"></i>
-                                            <input type="text" id="AdminName" class="AddAdminForm" name="SignupCustomerName" placeholder="Admin Name" required>
+                                            <input type="text" id="UpdateAdminName" class="AddAdminForm" name="UpdateAdminName" placeholder="Admin Name" required>
                                         </div>
                                         <div class="m-4">
                                             <i class="fa-solid fa-envelope fa-xl"></i>
-                                            <input type="email" id="AdminEmail" class="AddAdminForm" name="SignupEmail" placeholder="Email" required>
+                                            <input type="email" id="UpdateAdminEmail" class="AddAdminForm" name="UpdateEmail" placeholder="Email" required>
                                         </div>
                                         <div class="m-4">
                                             <i class="fa-solid fa-phone fa-xl"></i>
-                                            <input type="tel" id="AdminPhoneNumber" class="AddAdminForm" name="SignupPhoneNumber" placeholder="Phone Number" required>
+                                            <input type="tel" id="UpdateAdminPhoneNumber" class="AddAdminForm" name="UpdatePhoneNumber" placeholder="Phone Number" required>
                                         </div>
                                         <div class="m-4">
-                                            <select class="form-select w-50 mx-auto" aria-label="Select Role">
-                                                <option selected>Select Role</option>
-                                                <option value="user">user</option>
+                                            <select class="form-select w-50 mx-auto" aria-label="Select Role" name="role" id="RoleSelect" required>
+                                            <option value="" disabled selected>Select Role</option>
+                                            <option value="user">user</option>
                                                 <option value="admin">admin</option>
                                             </select>
                                         </div>
                                 </div>
                                 <div class="modal-footer d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-success">Submit Sign Up</button>
+                                        <button type="submit" class="btn btn-success">Update User</button>
                                     </form>
                                 </div>
                             </div>
@@ -286,17 +306,17 @@
    async function handleEditAdmin(id){
         try{
             var admin = await getAdmin(id);
-            var adminNameInput = document.getElementById("AdminName");
-            var adminEmailInput = document.getElementById("AdminEmail");
-            var AdminPhoneNumberInput = document.getElementById("AdminPhoneNumber");
+            var adminNameInput = document.getElementById("UpdateAdminName");
+            var adminEmailInput = document.getElementById("UpdateAdminEmail");
+            var AdminPhoneNumberInput = document.getElementById("UpdateAdminPhoneNumber");
+            var RoleSelect = document.getElementById("RoleSelect");
+            var AdminID =document.getElementById("AdminId");
 
+            AdminID.value = admin.Customer_ID;
             adminNameInput.value = admin.Customer_Name;
-            adminEmailInput.value = admin.phone_number;
-            AdminPhoneNumberInput.value = admin.Email; 
-
-            // $('#AdminEmail').val(admin.Email);
-            // $('#AdminPhoneNumber').val(admin.phone_number);
-            // $('#AdminName').val(admin.Customer_Name);
+            adminEmailInput.value = admin.Email;
+            AdminPhoneNumberInput.value = admin.phone_number;
+            RoleSelect.value = admin.role;
         }
         catch (error){
             console.error(error);

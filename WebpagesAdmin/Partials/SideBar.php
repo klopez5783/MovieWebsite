@@ -26,7 +26,7 @@
                     <i class="fa-regular fa-user"></i> <span class="ms-1 d-none d-sm-inline">Users</span></a>
             </li>
             <li>
-                <a href="#" class="nav-link px-0 align-middle">
+                <a href="../WebpagesAdmin/ManageFilms.php" class="nav-link px-0 align-middle">
                     <i class="fa-solid fa-film"></i> <span class="ms-1 d-none d-sm-inline">Films</span> </a>
             </li>
         </ul>

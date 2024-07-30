@@ -22,6 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
        $_SESSION['AdminUpdated'] = UpdateAdmin($name,$email,$number,$role,$id); 
 
+       //header("Location : ../../WebpagesAdmin/ManageUsers.php");
+       header('Location: ../../WebpagesAdmin/ManageUsers.php');
+       
+
         
     }
     
